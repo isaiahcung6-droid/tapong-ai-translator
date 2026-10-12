@@ -2,6 +2,99 @@
 
 import { useState } from 'react';
 
+export default function TapongTranslator() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const query = searchTerm.toLowerCase().trim();
+
+  // စာမရိုက်ထားရင် စကားလုံးအားလုံးကို ပြပေးမည်၊ စာရိုက်ထားရင် ရှာတွေ့တာကို ပြမည်
+  const filteredResults = query
+    ? dictionary.filter(
+        (item) =>
+          item.tapong.toLowerCase().includes(query) ||
+          item.english.toLowerCase().includes(query) ||
+          item.myanmar.toLowerCase().includes(query)
+      )
+    : dictionary;
+
+  return (
+    <main style={{ minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'Arial, sans-serif', paddingBottom: '40px' }}>
+      {/* Header with Creator Info (ပုံပါအတိုင်း အပြာရောင်တုံးပေါ်တွင် တိုက်ရိုက်ဖော်ပြထားခြင်း) */}
+      <header
+        style={{
+          width: '100%',
+          backgroundColor: '#3b82f6',
+          color: 'white',
+          textAlign: 'center',
+          padding: '25px 15px 20px 15px',
+          marginBottom: '20px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
+          Tapong AI Translator
+        </h1>
+        <p style={{ margin: '8px 0 0 0', fontSize: '14px', opacity: 0.9, fontWeight: 'normal' }}>
+          Creator: Isaiah Cung (Lati / Bualthang)
+        </p>
+      </header>
+
+      {/* Search Bar Container */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginBottom: '25px',
+          width: '100%',
+          padding: '0 15px',
+          boxSizing: 'border-box'
+        }}
+      >
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="စကားလုံးထည့်ပါ (ဥပမာ - hawh, ei, ti, water)"
+          style={{
+            width: '100%',
+            maxWidth: '450px',
+            padding: '12px 15px',
+            fontSize: '16px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            outline: 'none',
+            boxSizing: 'border-box',
+            marginBottom: '12px',
+            backgroundColor: 'white'
+          }}
+        />
+        <button
+          onClick={() => {}}
+          style={{
+            backgroundColor: '#f3f3f6',
+            border: '1px solid #d1d5db',
+            padding: '10px 35px',
+            borderRadius: '25px',
+            fontSize: '16px',
+            color: '#4b5563',
+            cursor: 'pointer',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+          }}
+        >
+          ဘာသာပြန်မည် let in
+        </button>
+      </div>
+
+      {/* Results Table (အက်ပ်စဖွင့်ချင်း ပေါ်နေမည်) */}
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '650px',
+          margin: '0 auto',
+          padding: '0 10px',
+          boxSizing: 'border-
+
 const dictionary = [
   { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
   { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ" },
@@ -206,99 +299,7 @@ const dictionary = [
   { id: 201, tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်" },
   { id: 202, tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" }
 ];
-
-export default function TapongTranslator() {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const query = searchTerm.toLowerCase().trim();
-
-  // စာမရိုက်ထားရင် စကားလုံးအားလုံးကို ပြပေးမည်၊ စာရိုက်ထားရင် ရှာတွေ့တာကို ပြမည်
-  const filteredResults = query
-    ? dictionary.filter(
-        (item) =>
-          item.tapong.toLowerCase().includes(query) ||
-          item.english.toLowerCase().includes(query) ||
-          item.myanmar.toLowerCase().includes(query)
-      )
-    : dictionary;
-
-  return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#f9fafb', fontFamily: 'Arial, sans-serif', paddingBottom: '40px' }}>
-      {/* Header with Creator Info (ပုံပါအတိုင်း အပြာရောင်တုံးပေါ်တွင် တိုက်ရိုက်ဖော်ပြထားခြင်း) */}
-      <header
-        style={{
-          width: '100%',
-          backgroundColor: '#3b82f6',
-          color: 'white',
-          textAlign: 'center',
-          padding: '25px 15px 20px 15px',
-          marginBottom: '20px',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}
-      >
-        <h1 style={{ margin: 0, fontSize: '24px', fontWeight: 'bold' }}>
-          Tapong AI Translator
-        </h1>
-        <p style={{ margin: '8px 0 0 0', fontSize: '14px', opacity: 0.9, fontWeight: 'normal' }}>
-          Creator: Isaiah Cung (Lati / Bualthang)
-        </p>
-      </header>
-
-      {/* Search Bar Container */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginBottom: '25px',
-          width: '100%',
-          padding: '0 15px',
-          boxSizing: 'border-box'
-        }}
-      >
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="စကားလုံးထည့်ပါ (ဥပမာ - hawh, ei, ti, water)"
-          style={{
-            width: '100%',
-            maxWidth: '450px',
-            padding: '12px 15px',
-            fontSize: '16px',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            outline: 'none',
-            boxSizing: 'border-box',
-            marginBottom: '12px',
-            backgroundColor: 'white'
-          }}
-        />
-        <button
-          onClick={() => {}}
-          style={{
-            backgroundColor: '#f3f3f6',
-            border: '1px solid #d1d5db',
-            padding: '10px 35px',
-            borderRadius: '25px',
-            fontSize: '16px',
-            color: '#4b5563',
-            cursor: 'pointer',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
-          }}
-        >
-          ဘာသာပြန်မည် let in
-        </button>
-      </div>
-
-      {/* Results Table (အက်ပ်စဖွင့်ချင်း ပေါ်နေမည်) */}
-      <div
-        style={{
-          width: '100%',
-          maxWidth: '650px',
-          margin: '0 auto',
-          padding: '0 10px',
-          boxSizing: 'border-box'
+box'
         }}
       >
         <table

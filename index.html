@@ -265,8 +265,7 @@
             });
         }
 
-        function searchWords()
-{
+        function searchWords(){
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = dictionary.filter(item => 
                 item.tapong.toLowerCase().includes(query) || 
@@ -280,7 +279,7 @@
             const filtered = dictionary.filter(item => 
                 item.tapong.toLowerCase().includes(query) || 
                 item.english.toLowerCase().includes(query) || 
-                item.myanmar.toLowerCase().includes(query)
+                item.myanmar.toLowerCase().includes(query) ||
             );
             displayTable(filtered);
         }

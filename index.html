@@ -9,7 +9,7 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9fafb; color: #333; }
         .creator { text-align: center; color: #666; font-size: 14px; margin-bottom: 15px; }
-        .table-container { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 10px; box-sizing: border-box; }
+        .table-container { width: 100%; max-width: 600px; margin: 0 auto; padding: 0 10px; box-sizing: border-box; display: none; }
         table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
         th, td { padding: 12px 15px; border-bottom: 1px solid #e5e7eb; text-align: left; }
         th { background-color: #007bff; color: white; font-weight: bold; }
@@ -28,7 +28,7 @@
         <button onclick="filterDictionary()" style="background-color: #f0f0f5; border: 1px solid #d1d5db; padding: 10px 30px; border-radius: 20px; font-size: 16px; color: #4b5563; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">ဘာသာပြန်မည် let in</button>
     </div>
 
-    <div class="table-container">
+    <div class="table-container" id="tableContainer">
         <table id="wordTable">
             <thead>
                 <tr>
@@ -137,7 +137,7 @@
             { tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်" },
             { tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်" },
             { tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ" },
-            { tapong: "Na an ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်" },
+            { tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်" },
             { tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ" },
             { tapong: "Naupang", english: "Children", myanmar: "ကလေး" },
             { tapong: "Nazi", english: "Clock, Time", myanmar: "နာရီ" },
@@ -193,7 +193,7 @@
             { tapong: "Saw ngian", english: "Pray", myanmar: "ဆုတောင်းသည်" },
             { tapong: "Sekan", english: "Second", myanmar: "စက္ကန့်" },
             { tapong: "Si, awle", english: "Yes", myanmar: "ဟုတ်ကဲ့" },
-            { tapong: "Si rori", english: "Definitely", myanmar: "သေချာပေါက်" },
+            { tapong: "Si rori", english: "Definitely, Absolutely", myanmar: "သေချာပေါက်" },
             { tapong: "Si tawh, aih", english: "No", myanmar: "မဟုတ်ဘူး, မဟုတ်ပါ" },
             { tapong: "Sii", english: "Medicine", myanmar: "ဆေးဝါး" },
             { tapong: "Sian", english: "Small", myanmar: "သေးငယ်သော" },
@@ -237,19 +237,36 @@
             { tapong: "Zi", english: "Wife", myanmar: "လိင်မိန်းမ" },
             { tapong: "Zu", english: "Alcohol", myanmar: "အရက်" },
             { tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်" },
-            { tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" }
+            { tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" },
+            { tapong: "El dun", english: "Arguing", myanmar: "ငြင်းခုန်းခြင်း" },
+            { tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား" },
+            { tapong: "Rem", english: "Repair", myanmar: "ပြုပြင်သည်" },
+            { tapong: "Rem dun", english: "Peaceful", myanmar: "ငြိမ်းချမ်းသော" },
+            { tapong: "Om, um", english: "Live, Stay, Have, There is", myanmar: "နေထိုင်သည်, ရှိသည်" },
+            { tapong: "Nei", english: "Have, Own, Possess", myanmar: "ပိုင်ဆိုင်သည်, ရှိသည်" }
         ];
+
+        window.onload = function() {
+            const container = document.getElementById('tableContainer');
+            if (container) {
+                container.style.display = 'none';
+            }
+        };
 
         function loadTable(data) {
             const tbody = document.getElementById('tableBody');
-            if (!tbody) return;
+            const container = document.getElementById('tableContainer');
+            if (!tbody || !container) return;
+            
             tbody.innerHTML = '';
             
             if (!data || data.length === 0) {
+                container.style.display = 'block';
                 tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #888; padding: 15px;">ရှာမတွေ့ပါ</td></tr>';
                 return;
             }
 
+            container.style.display = 'block';
             data.forEach((item, index) => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `<td>${index + 1}</td><td><b>${item.tapong}</b></td><td>${item.english}</td><td>${item.myanmar}</td>`;
@@ -259,11 +276,14 @@
 
         function filterDictionary() {
             const input = document.getElementById('searchInput');
-            if (!input) return;
+            const container = document.getElementById('tableContainer');
+            if (!input || !container) return;
+            
             const query = input.value.toLowerCase().trim();
             
             if (query === "") {
-                loadTable(dictionary);
+                container.style.display = 'none';
+                document.getElementById('tableBody').innerHTML = '';
                 return;
             }
 
@@ -275,9 +295,6 @@
             
             loadTable(filtered);
         }
-
-        // Initial Load
-        loadTable(dictionary);
     </script>
 </body>
 </html>

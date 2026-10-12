@@ -6,9 +6,11 @@
     <title>Tapong AI Translator</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f9; }
-        h2 { text-align: center; color: #333; }
-        .search-box { width: 100%; max-width: 400px; padding: 10px; margin: 0 auto 20px auto; display: block; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; }
-        table { width: 100%; max-width: 800px; margin: 0 auto; border-collapse: collapse; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-bottom: 5px; }
+        .creator { text-align: center; color: #555; font-size: 15px; margin-bottom: 20px; font-weight: bold; }
+        .search-box { width: 100%; max-width: 400px; padding: 12px; margin: 0 auto 20px auto; display: block; font-size: 16px; border: 1px solid #007bff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .table-container { width: 100%; max-width: 800px; margin: 0 auto; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
         th { background-color: #007bff; color: white; }
         tr:nth-child(even) { background-color: #f9f9f9; }
@@ -16,22 +18,26 @@
 </head>
 <body>
 
-    <h2>Tapong AI Translator</h2>
+    <h2>TAPONG AI TRANSLATOR</h2>
+    <div class="creator">Creator: Isaiah Cung</div>
+    
     <input type="text" id="searchInput" class="search-box" placeholder="Search words..." onkeyup="searchWords()">
 
-    <table id="wordTable">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Tapong</th>
-                <th>English</th>
-                <th>Myanmar</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- Data will load here -->
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="wordTable">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Tapong</th>
+                    <th>English</th>
+                    <th>Myanmar</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data loaded via JS -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
         const dictionary = [

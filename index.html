@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
@@ -9,17 +9,6 @@
     <meta name="author" content="Isaiah Cung">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tapong-ai-translator.vercel.app/">
-  <!-- ဒီနေရာ (လိုင်းနံပါတ် ၅ နဲ့ ၆ ကြား) မှာ ထည့်ပါ -->
-    <title>Tapong AI Translator - Tapong English Myanmar Dictionary</title>
-    <meta name="description" content="Tapong AI Translator created by Isaiah Cung. Free online dictionary for Tapong, English, and Myanmar translation with 200+ vocabulary words.">
-    <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Dictionary, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English">
-    <meta name="author" content="Isaiah Cung">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://tapong-ai-translator-new.vercel.app/">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- ကျန်ရှိသော ကုဒ်များ ဆက်လက်တည်ရှိမည် -->
-    <title>TAPONG AI TRANSLATOR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -45,95 +34,82 @@
         }
         ::-webkit-scrollbar-thumb {
             background: #1f2937;
-            border-radius: 4px;
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #374151;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen flex flex-col justify-between p-3 md:p-6">
 
     <!-- Header Section -->
-    <header class="w-full pt-8 pb-6 px-4 text-center">
-        <h1 class="text-3xl md:text-4xl font-extrabold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-            TAPONG AI TRANSLATOR
-        </h1>
-        <p class="text-xs md:text-sm text-gray-400 mt-2 font-medium">
-            Creator: <span class="text-indigo-300">Isaiah Cung (Lati / Bualthang)</span>
-        </p>
-        
-        <div class="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-800/40 text-xs text-indigo-300 font-medium">
-            <span>ဝေါဟာရ စုစုပေါင်း:</span>
-            <span id="total-count" class="font-bold text-indigo-200">203</span>
-            <span>ခု</span>
+    <header class="max-w-5xl mx-auto w-full mb-6">
+        <div class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-blue-500/20">
+                    <i class="fa-solid fa-language"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+                        TAPONG AI TRANSLATOR
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v2.1</span>
+                    </h1>
+                    <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 text-xs text-slate-300">
+                <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-medium shadow-sm">Total Entries</span>
+                <span class="px-2 py-1 font-bold text-blue-400 font-mono" id="entryCount">215</span>
+            </div>
         </div>
     </header>
 
-    <!-- Main Container -->
-    <main class="max-w-4xl w-full mx-auto px-4 mb-12 flex-1">
-        
-        <!-- Search & Filter Card -->
-        <div class="custom-glass rounded-2xl p-4 md:p-6 mb-6 shadow-2xl">
-            <!-- Search Bar -->
+    <!-- Search Section -->
+    <main class="max-w-5xl mx-auto w-full flex-grow">
+        <div class="custom-glass rounded-2xl p-4 md:p-6 mb-6 shadow-xl">
             <div class="relative">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg"></i>
-                <input 
-                    type="text" 
-                    id="search-input" 
-                    placeholder="Tapong, English သို့မဟုတ် မြန်မာစာဖြင့် ရှာရန်..." 
-                    class="w-full pl-12 pr-10 py-3.5 bg-gray-900/80 border border-gray-700/60 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm md:text-base"
-                >
-                <button id="clear-search" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white p-1">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" id="searchInput" placeholder="Search Tapong, English, or Myanmar..." 
+                       class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3.5 pl-11 pr-10 text-sm md:text-base text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner">
+                <button id="clearBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
-            </div>
-
-            <!-- Quick Filter Tags -->
-            <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-gray-400">
-                <span class="mr-1">အမြန်ရှာရန်:</span>
-                <button onclick="setFilter('Sunday')" class="px-3 py-1 bg-gray-800/80 hover:bg-indigo-900/40 hover:text-indigo-300 border border-gray-700/50 rounded-lg transition-colors">Sunday</button>
-                <button onclick="setFilter('ကျေးဇူးတင်ပါသည်')" class="px-3 py-1 bg-gray-800/80 hover:bg-indigo-900/40 hover:text-indigo-300 border border-gray-700/50 rounded-lg transition-colors">ကျေးဇူးတင်ပါသည်</button>
-                <button onclick="setFilter('Ar')" class="px-3 py-1 bg-gray-800/80 hover:bg-indigo-900/40 hover:text-indigo-300 border border-gray-700/50 rounded-lg transition-colors">Ar</button>
-                <button onclick="setFilter('Water')" class="px-3 py-1 bg-gray-800/80 hover:bg-indigo-900/40 hover:text-indigo-300 border border-gray-700/50 rounded-lg transition-colors">Water</button>
             </div>
         </div>
 
         <!-- Dictionary Table -->
-        <div class="custom-glass rounded-2xl overflow-hidden shadow-2xl">
+        <div class="custom-glass rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-gray-800 bg-gray-900/60 text-xs font-bold text-indigo-300 uppercase tracking-wider">
-                            <th class="py-4 px-4 w-12 text-center text-gray-500">#</th>
-                            <th class="py-4 px-4 font-semibold">TAPONG</th>
-                            <th class="py-4 px-4 font-semibold">ENGLISH</th>
-                            <th class="py-4 px-4 font-semibold">MYANMAR</th>
+                        <tr class="bg-slate-900/90 border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <th class="py-3.5 px-4 w-12 text-center">#</th>
+                            <th class="py-3.5 px-4 text-blue-400">Tapong</th>
+                            <th class="py-3.5 px-4 text-slate-300">English</th>
+                            <th class="py-3.5 px-4 text-emerald-400">Myanmar</th>
                         </tr>
                     </thead>
-                    <tbody id="dictionary-body" class="divide-y divide-gray-800/50 text-sm md:text-base">
-                        <!-- Dynamic content will be injected here -->
+                    <tbody id="dictionaryBody" class="divide-y divide-slate-800/60 text-sm text-slate-200 font-normal">
+                        <!-- Data rows injected by JS -->
                     </tbody>
                 </table>
             </div>
-
-            <!-- Empty / No Results Message -->
-            <div id="no-results" class="hidden py-12 text-center">
-                <i class="fa-solid fa-folder-open text-4xl text-gray-600 mb-3"></i>
-                <p class="text-gray-400 font-medium">ရှာဖွေမှု ရလဒ်မရှိပါခင်ဗျာ</p>
-                <p class="text-xs text-gray-600 mt-1">အခြား စာလုံးဖြင့် ထပ်မံ ရှာဖွေကြည့်ပါ</p>
+            
+            <div id="noResults" class="hidden p-8 text-center text-slate-400">
+                <i class="fa-regular fa-face-frown text-3xl mb-2 text-slate-500"></i>
+                <p>No translation entries found.</p>
             </div>
         </div>
-
     </main>
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 transition-all duration-300 bg-indigo-600 text-white px-4 py-2.5 rounded-xl shadow-lg text-sm flex items-center gap-2 pointer-events-none">
-        <i class="fa-solid fa-circle-check"></i>
-        <span id="toast-msg">Copied!</span>
-    </div>
+    <!-- Footer -->
+    <footer class="max-w-5xl mx-auto w-full mt-8 mb-2 text-center text-xs text-slate-500">
+        <p>© TAPONG AI TRANSLATOR — Developed for Tapong Language Preservation</p>
+    </footer>
 
-    <!-- Data Script & Functionalities -->
+    <!-- JavaScript Data and Logic -->
     <script>
         const dictionaryData = [
             { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
@@ -338,14 +314,26 @@
             { id: 200, tapong: "Zu", english: "Alcohol", myanmar: "အရက်" },
             { id: 201, tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်" },
             { id: 202, tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" },
-            { id: 203, tapong: "Na biam seh in", english: "You'll get used to it", myanmar: "နေသားကျလာမှာပါ" }
+            { id: 203, tapong: "Na biam seh in", english: "You'll get used to it", myanmar: "နေသားကျလာမှာပါ" },
+            { id: 204, tapong: "Zal", english: "Lie down, recline", myanmar: "လှဲလျောင်းခြင်း" },
+            { id: 205, tapong: "Cam khat no zal i nap, i awt (or) cam khat no cual i awt, i nap", english: "I want to lie down for a bit", myanmar: "ငါခဏလောက် လှဲချင်တယ်" },
+            { id: 206, tapong: "Nap, awt, deih", english: "Want to, want, like", myanmar: "လိုချင်သည်, လိုအပ်သည်, တောင့်တသည်" },
+            { id: 207, tapong: "Nap tawh, nap tuang, awt tawh, awt tuang, deih tawh, deih tuang", english: "Don't want to, don't like", myanmar: "မလိုချင်, မလိုအပ်,မတောင့်တ" },
+            { id: 208, tapong: "Phu", english: "Deserve, worthy", myanmar: "ထိုက်တန်သည်" },
+            { id: 209, tapong: "Na phu si, ka phu si", english: "You deserve it, I deserve it", myanmar: "မင်းနဲ့ထိုက်တန်သည်, ငါနဲ့ထိုက်တန်သည်" },
+            { id: 210, tapong: "Ka", english: "I", myanmar: "ငါ, ကျုပ်, ကျွန်ုပ်" },
+            { id: 211, tapong: "Kaa", english: "Mouth", myanmar: "ပါးစပ်" },
+            { id: 212, tapong: "Kei, kei mah", english: "Me, I am", myanmar: "ငါ, ကျွန်တော်" },
+            { id: 213, tapong: "Nang, nang mah", english: "You, you are, you're", myanmar: "မင်း" },
+            { id: 214, tapong: "A mah, a mah teh", english: "He, She, they, they're", myanmar: "သူ, သူတို့" },
+            { id: 215, tapong: "Mei thel", english: "Gun", myanmar: "သေနတ်" }
         ];
 
-        const tbody = document.getElementById('dictionary-body');
-        const searchInput = document.getElementById('search-input');
-        const clearBtn = document.getElementById('clear-search');
-        const noResults = document.getElementById('no-results');
-        const totalCountEl = document.getElementById('total-count');
+        const tbody = document.getElementById('dictionaryBody');
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearBtn');
+        const noResults = document.getElementById('noResults');
+        const entryCount = document.getElementById('entryCount');
 
         function renderTable(data) {
             tbody.innerHTML = '';
@@ -353,20 +341,19 @@
                 noResults.classList.remove('hidden');
             } else {
                 noResults.classList.add('hidden');
-                data.forEach((item) => {
-                    const tr = document.createElement('tr');
-                    tr.className = 'table-row-hover transition-colors border-b border-gray-800/40 cursor-pointer';
-                    tr.onclick = () => copyRow(item);
-
-                    tr.innerHTML = `
-                        <td class="py-3.5 px-4 text-center text-xs font-mono text-gray-500">${item.id}</td>
-                        <td class="py-3.5 px-4 font-semibold text-indigo-200">${escapeHtml(item.tapong)}</td>
-                        <td class="py-3.5 px-4 text-gray-300">${escapeHtml(item.english)}</td>
-                        <td class="py-3.5 px-4 text-slate-200 font-myanmar">${escapeHtml(item.myanmar)}</td>
+                data.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.className = 'table-row-hover transition-colors duration-150';
+                    row.innerHTML = `
+                        <td class="py-3 px-4 text-center text-slate-500 font-mono text-xs">${index + 1}</td>
+                        <td class="py-3 px-4 font-semibold text-blue-300">${escapeHtml(item.tapong)}</td>
+                        <td class="py-3 px-4 text-slate-200">${escapeHtml(item.english)}</td>
+                        <td class="py-3 px-4 text-emerald-300 font-medium">${escapeHtml(item.myanmar)}</td>
                     `;
-                    tbody.appendChild(tr);
+                    tbody.appendChild(row);
                 });
             }
+            entryCount.textContent = data.length;
         }
 
         function escapeHtml(text) {
@@ -378,50 +365,26 @@
                 .replace(/'/g, "&#039;");
         }
 
-        function filterData(searchTerm) {
-            const term = searchTerm.toLowerCase().trim();
-            if (!term) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
                 clearBtn.classList.add('hidden');
-                renderTable(dictionaryData);
-                return;
             }
 
-            clearBtn.classList.remove('hidden');
             const filtered = dictionaryData.filter(item => 
-                item.tapong.toLowerCase().includes(term) ||
-                item.english.toLowerCase().includes(term) ||
-                item.myanmar.toLowerCase().includes(term)
+                item.tapong.toLowerCase().includes(query) ||
+                item.english.toLowerCase().includes(query) ||
+                item.myanmar.toLowerCase().includes(query)
             );
             renderTable(filtered);
-        }
-
-        function setFilter(term) {
-            searchInput.value = term;
-            filterData(term);
-        }
-
-        function copyRow(item) {
-            const textToCopy = `${item.tapong} = ${item.english} / ${item.myanmar}`;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showToast(`Copied: ${item.tapong}`);
-            });
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-msg');
-            toastMsg.innerText = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 2000);
-        }
-
-        searchInput.addEventListener('input', (e) => filterData(e.target.value));
+        });
 
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
-            filterData('');
+            clearBtn.classList.add('hidden');
+            renderTable(dictionaryData);
             searchInput.focus();
         });
 

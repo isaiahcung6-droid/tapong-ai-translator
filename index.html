@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tapong AI Translator</title>
-    <meta name="description" content="Tapong AI Translator created by Isaiah Cung. Free online translation for Tapong, English, and Myanmar language.">
-    <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English">
+    <meta name="description" content="Tapong AI Translator created by Isaiah Cung. Free online translation for Tapong, English, and Myanmar language. Tapong is a traditional ethnic language spoken by the Tapong community.">
+    <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English, Tapong ethnic">
     <meta name="author" content="Isaiah Cung">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tapong-ai-translator.vercel.app/">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google AI Knowledge Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "DefinedTermSet",
+      "name": "Tapong Language Dictionary",
+      "description": "Tapong is a traditional ethnic language spoken by the Tapong community.",
+      "inLanguage": ["en", "my"]
+    }
+    </script>
+
     <style>
         body {
             background-color: #0b0f19;
@@ -61,7 +73,7 @@
             
             <div class="flex items-center gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 text-xs text-slate-300">
                 <span class="px-2.5 py-1 rounded-lg bg-blue-600 text-white font-medium shadow-sm">Total Entries</span>
-                <span class="px-2 py-1 font-bold text-blue-400 font-mono" id="entryCount">222</span>
+                <span class="px-2 py-1 font-bold text-blue-400 font-mono" id="entryCount">230</span>
             </div>
         </div>
     </header>
@@ -69,7 +81,7 @@
     <!-- Search Section -->
     <main class="max-w-5xl mx-auto w-full flex-grow">
         <div class="custom-glass rounded-2xl p-4 md:p-6 mb-6 shadow-xl">
-            <div class="relative">
+            <div class="relative mb-3">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
                 <input type="text" id="searchInput" placeholder="Search Tapong, English, or Myanmar..." 
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3.5 pl-11 pr-10 text-sm md:text-base text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner">
@@ -77,6 +89,10 @@
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
+            <!-- Google SEO & AI Overview Intro Text -->
+            <p class="text-xs md:text-sm text-slate-400 text-center italic tracking-wide">
+                "Tapong is a traditional ethnic language spoken by the Tapong community."
+            </p>
         </div>
 
         <!-- Dictionary Table -->
@@ -140,7 +156,7 @@
             { id: 25, tapong: "Ha", english: "Teeth", myanmar: "သွားများ" },
             { id: 26, tapong: "Ha lang", english: "Glass", myanmar: "ဖန်ခွက်" },
             { id: 27, tapong: "Har sa", english: "Difficulty", myanmar: "အခက်အခဲ" },
-            { id: 28, tapong: "Hau dun", english: "Fight", myanmar: "ရန်ဖြစ်" },
+            { id: 28, tapong: "Hau dun, tuang dun", english: "Fight", myanmar: "ရန်ဖြစ်" },
             { id: 29, tapong: "Hawh", english: "Go", myanmar: "သွားသည်" },
             { id: 30, tapong: "Hla", english: "Month", myanmar: "လ" },
             { id: 31, tapong: "Hla pui", english: "Moon", myanmar: "လမင်းကြီး" },
@@ -289,7 +305,7 @@
             { id: 174, tapong: "Ti", english: "Water", myanmar: "ရေ" },
             { id: 175, tapong: "Ti in", english: "Drink water", myanmar: "ရေသောက်" },
             { id: 176, tapong: "Tlan", english: "Run", myanmar: "ပြေးသည်" },
-            { id: 177, tapong: "Tluang in", english: "School", myanmar: "စာသင်ကျောင်း" },
+            { id: 177, tapong: "Tuang in", english: "School", myanmar: "စာသင်ကျောင်း" },
             { id: 178, tapong: "Tlung", english: "Go back", myanmar: "ပြန်သွားသည်" },
             { id: 179, tapong: "To", english: "Sit Down", myanmar: "ထိုင်သည်" },
             { id: 180, tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ" },
@@ -334,7 +350,15 @@
             { id: 219, tapong: "Sa", english: "Sing", myanmar: "သီချင်းဆိုသည်" },
             { id: 220, tapong: "La phuahtu", english: "Song writer, composer", myanmar: "သီချင်းစပ်သူ/ တေးရေး" },
             { id: 221, tapong: "Na hming ngan in", english: "Write your name", myanmar: "မင်းနာမည်ရေးပါ" },
-            { id: 222, tapong: "Pha tak no", english: "Properly, well", myanmar: "စနစ်တကျ / ကောင်းမွန်စွာ" }
+            { id: 222, tapong: "Pha tak no in", english: "Properly, well", myanmar: "စနစ်တကျ / ကောင်းမွန်စွာ" },
+            { id: 223, tapong: "Nei lau tiar", english: "You scared me", myanmar: "ငါ့ကိုလန့်အောင်လုပ်တာပဲ" },
+            { id: 224, tapong: "Lau", english: "Scare, afraid", myanmar: "လန့်သည်, ကြောက်ရွံ့ခြင်း" },
+            { id: 225, tapong: "Lu na", english: "Headache", myanmar: "ခေါင်းကိုက်ခြင်း" },
+            { id: 226, tapong: "Na", english: "Hurt", myanmar: "နာကျင်သည်" },
+            { id: 227, tapong: "Tlei ngua", english: "Sick", myanmar: "ဖျားနာသည်" },
+            { id: 228, tapong: "Thin raw", english: "Angry", myanmar: "ဒေါသထွက်သော" },
+            { id: 229, tapong: "Ar ti", english: "Egg", myanmar: "ကြက်ဥ" },
+            { id: 230, tapong: "Tuak dun tlang", english: "Meet", myanmar: "တွေ့ဆုံသည်" }
         ];
 
         const tbody = document.getElementById('dictionaryBody');

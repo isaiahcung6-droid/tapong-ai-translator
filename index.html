@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 
-                <!-- 100% WORKING GOOGLE TTS AUDIO LISTEN BUTTON -->
+                <!-- 100% RELIABLE GOOGLE TTS AUDIO ENGINE FOR MOBILE BROWSERS -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
@@ -514,7 +514,7 @@
             { id: 244, tapong: "Kuai na om?", english: "Where do you live?", myanmar: "သင် ဘယ်မှာ နေထိုင်ပါသလဲ။" },
             { id: 245, tapong: "USA ah ka om", english: "I live in the USA", myanmar: "အမေရိကန်မှာ နေထိုင်ပါတယ်။" },
             { id: 246, tapong: "Na kum zei zah kim ha khaw? Zei kum ha na suak?", english: "How old are you? Which year were you born?", myanmar: "သင့်အသက် ဘယ်လောက်ရှိပြီလဲ။ ဘယ်နှစ်ခုနှစ်မှာ မွေးဖွားတာလဲ။" },
-            { id: 247, tapong: "Ka kum ah 27 kim ha si. 1999 kum ka suah", english: "I am 27 years old, I was born in 1999", myanmar: "ငါ့အသက် ၂၇ နှစ် ရှိပါပြီ, ၁၉၉၉ ခုနှစ်မှာ မွေးဖွားတာပါ။" },
+            { id: 247, tapong: "Ka kum ah 27 kim ha si. 1999 kum ka suah", english: "I am 27 years old, I was born in 1999", myanmar: "ငါ့အသက် ၂၇ နှစ် ရှိပါပြီ, ၁၉᱙၉ ခုနှစ်မှာ မွေးဖွားတာပါ။" },
             { id: 248, tapong: "Zei na per viang?", english: "What work do you do?", myanmar: "သင် ဘာအလုပ် လုပ်ပါသလဲ။" },
             { id: 249, tapong: "Company ah ka per", english: "I work at a company", myanmar: "ကုမ္ပဏီမှာ အလုပ်လုပ်ပါတယ်။" },
             { id: 250, tapong: "In sang nei ha cim?", english: "Do you have a family?", myanmar: "သင် အိမ်ထောင် ရှိပါသလား။" },
@@ -708,7 +708,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // FIXED AI RESPONSE FUNCTION (NO MORE WRONG MATCHES)
+        // SMARTER AI RESPONSE WITH DETAILED WORD BREAKDOWN & USAGE EXAMPLES
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -736,6 +736,33 @@
                     `1. **"Hello, na hming zei si khaw?"**\n   *(Hello, what is your name? / မင်္ဂလာပါ၊ သင့်နာမည် ဘယ်လိုခေါ်ပါသလဲ။)*\n\n` +
                     `2. **"USA ah ka om."**\n   *(I live in the USA. / အမေရိကန်မှာ နေထိုင်ပါတယ်။)*\n\n` +
                     `3. **"Cam khat no i hngak in."**\n   *(Wait for me a moment. / ခဏလောက် ငါ့ကိုစောင့်ပါ။)*`;
+                appendAiMessage(response);
+                return;
+            }
+
+            // Exact Tapong word lookup with usage examples breakdown
+            let exactMatch = dictionaryData.find(item => item.tapong.toLowerCase() === lower);
+            if (exactMatch) {
+                let response = `**Tapong Word Breakdown:**\n\n`;
+                response += `• **Tapong:** ${exactMatch.tapong}\n`;
+                response += `• **English:** ${exactMatch.english}\n`;
+                response += `• **Myanmar:** ${exactMatch.myanmar}\n\n`;
+                
+                // Add contextual example usage if applicable
+                if (lower === 'hawh') {
+                    response += `📝 **Example Usage:**\n`;
+                    response += `• *Khua ah na hawh?* (Where are you going? / ဘယ်သွားမလို့လဲ။)\n`;
+                    response += `• *Hawh hnah* (Let's go / သွားကြစို့။)`;
+                } else if (lower === 'ei') {
+                    response += `📝 **Example Usage:**\n`;
+                    response += `• *Hlai ei in* (Eat food / ထမင်းစားပါ။)`;
+                } else if (lower === 'in') {
+                    response += `📝 **Example Usage:**\n`;
+                    response += `• *Ti in* (Drink water / ရေသောက်ပါ။)`;
+                } else {
+                    response += `💡 *Dictionary Entry ID: #${exactMatch.id}*`;
+                }
+
                 appendAiMessage(response);
                 return;
             }

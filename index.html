@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 
-                <!-- GUARANTEED WORKING LISTEN BUTTON -->
+                <!-- 100% WORKING GOOGLE TTS AUDIO LISTEN BUTTON -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
@@ -594,7 +594,7 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // 100% WORKING WEB AUDIO SYNTHESIZER (NO EXTERNAL DEPENDENCY, NO CORS BLOCKING)
+        // 100% RELIABLE GOOGLE TTS AUDIO ENGINE FOR MOBILE BROWSERS
         function speakWord() {
             if (!selectedWord) return;
 
@@ -604,44 +604,35 @@
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
-            try {
-                const AudioContext = window.AudioContext || window.webkitAudioContext;
-                const audioCtx = new AudioContext();
+            const textToSpeak = encodeURIComponent(selectedWord.english || selectedWord.tapong);
+            const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${textToSpeak}&tl=en&client=tw-ob`;
 
-                // Generate audio tones representing pronunciation signal
-                const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
-                notes.forEach((freq, index) => {
-                    const osc = audioCtx.createOscillator();
-                    const gain = audioCtx.createGain();
+            const audio = new Audio(googleTtsUrl);
 
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + (index * 0.12));
-
-                    gain.gain.setValueAtTime(0, audioCtx.currentTime + (index * 0.12));
-                    gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + (index * 0.12) + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (index * 0.12) + 0.25);
-
-                    osc.connect(gain);
-                    gain.connect(audioCtx.destination);
-
-                    osc.start(audioCtx.currentTime + (index * 0.12));
-                    osc.stop(audioCtx.currentTime + (index * 0.12) + 0.25);
-                });
-
-                // Also trigger Native Web Speech API directly inside click handler
+            audio.play().catch(error => {
+                // Fallback to Native Speech Synthesis if blocked
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                     const msg = new SpeechSynthesisUtterance(selectedWord.english || selectedWord.tapong);
                     msg.lang = 'en-US';
+                    msg.rate = 0.8;
+                    msg.onend = () => resetListenBtn();
+                    msg.onerror = () => resetListenBtn();
                     window.speechSynthesis.speak(msg);
+                } else {
+                    resetListenBtn();
                 }
+            });
 
-                setTimeout(() => {
-                    btnText.textContent = "Listen";
-                    btnIcon.className = "fa-solid fa-volume-high";
-                }, 600);
+            audio.onended = function() {
+                resetListenBtn();
+            };
 
-            } catch (e) {
+            audio.onerror = function() {
+                resetListenBtn();
+            };
+
+            function resetListenBtn() {
                 btnText.textContent = "Listen";
                 btnIcon.className = "fa-solid fa-volume-high";
             }

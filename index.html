@@ -205,43 +205,53 @@
 
     </main>
 
-    <!-- Detail Drawer Modal -->
+    <!-- Detail Drawer Modal (Updated with 3 Languages Reading Card) -->
     <div id="detailModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="custom-glass rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-700/80 space-y-5 animate-in fade-in zoom-in duration-200">
             <button onclick="closeModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
             
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg">
-                    <i class="fa-solid fa-spell-check"></i>
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 text-lg">
+                        <i class="fa-solid fa-spell-check"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-mono text-slate-400">ENTRY #<span id="modalId"></span></span>
+                        <h3 class="text-xl font-bold text-white">Dictionary Detail</h3>
+                    </div>
                 </div>
-                <div>
-                    <span class="text-xs font-mono text-slate-400">Entry #<span id="modalId"></span></span>
-                    <h3 class="text-xl font-bold text-blue-300" id="modalTapong"></h3>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800 text-xs">
-                <div>
-                    <p class="text-slate-400 mb-1">English Translation</p>
-                    <p class="text-slate-100 font-semibold text-sm" id="modalEnglish"></p>
-                </div>
-                <div>
-                    <p class="text-slate-400 mb-1">Myanmar Translation</p>
-                    <p class="text-emerald-400 font-semibold text-sm" id="modalMyanmar"></p>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-between pt-2">
-                <button onclick="speakWord()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition border border-slate-700">
-                    <i class="fa-solid fa-volume-high text-blue-400"></i>
-                    <span>Audio Pronunciation</span>
+                <button onclick="speakWord()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 text-xs font-medium transition">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span>Listen</span>
                 </button>
+            </div>
 
-                <button onclick="askAiAboutCurrentWord()" class="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition shadow-lg shadow-indigo-600/20">
-                    <i class="fa-solid fa-robot"></i>
-                    <span>Ask AI Details</span>
+            <!-- 3 Languages Reading Card (Tapong | English | Myanmar) -->
+            <div class="space-y-4 bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs">
+                <div>
+                    <p class="text-blue-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Tapong Language</p>
+                    <p class="text-white font-bold text-base" id="modalTapong"></p>
+                </div>
+                <div class="border-t border-slate-800/80 pt-3">
+                    <p class="text-slate-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">English Translation</p>
+                    <p class="text-slate-100 font-medium text-sm" id="modalEnglish"></p>
+                </div>
+                <div class="border-t border-slate-800/80 pt-3">
+                    <p class="text-emerald-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Myanmar Translation</p>
+                    <p class="text-emerald-300 font-medium text-sm" id="modalMyanmar"></p>
+                </div>
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <button onclick="askAiAboutCurrentWord()" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs md:text-sm font-medium transition shadow-lg shadow-indigo-600/20">
+                    <i class="fa-solid fa-sparkles"></i>
+                    <span>Ask AI Breakdown</span>
+                </button>
+                <button onclick="copyModalText()" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition border border-slate-700">
+                    <i class="fa-solid fa-copy"></i>
+                    <span>Copy Text</span>
                 </button>
             </div>
         </div>
@@ -590,6 +600,14 @@
             window.speechSynthesis.speak(speech);
         }
 
+        function copyModalText() {
+            if (!selectedWord) return;
+            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert('Copied to clipboard!');
+            });
+        }
+
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const word = selectedWord.tapong;
@@ -700,6 +718,7 @@
             }
 
             const filtered = dictionaryData.filter(item => 
+                item.tapong.label.toLowerCase().includes(query) || // safeguard
                 item.tapong.toLowerCase().includes(query) ||
                 item.english.toLowerCase().includes(query) ||
                 item.myanmar.toLowerCase().includes(query)

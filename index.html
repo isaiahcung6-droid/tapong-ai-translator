@@ -222,7 +222,7 @@
                         <h3 class="text-xl font-bold text-white">Dictionary Detail</h3>
                     </div>
                 </div>
-                <!-- AUDIO PLAYBACK BUTTON -->
+                <!-- FIXED LISTEN BUTTON -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
@@ -257,9 +257,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Hidden Audio Player for Direct Google TTS Stream -->
-    <audio id="audioPlayer" class="hidden"></audio>
 
     <!-- Footer with @Rising Star Music Studio -->
     <footer class="max-w-5xl mx-auto w-full mt-8 mb-2 text-center text-xs text-slate-500 space-y-1">
@@ -596,47 +593,65 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // 100% RELIABLE DIRECT AUDIO SPEECH ENGINE
+        // MOBILE-COMPATIBLE SPEECH SYNTHESIS ENGINE
         function speakWord() {
             if (!selectedWord) return;
-            
+
             const btnText = document.getElementById('listenText');
             const btnIcon = document.getElementById('listenIcon');
-            const audioPlayer = document.getElementById('audioPlayer');
 
             btnText.textContent = "Playing...";
-            btnIcon.className = "fa-solid fa-volume-high animate-bounce";
+            btnIcon.className = "fa-solid fa-volume-high animate-pulse";
 
-            // Word to pronounce (Tapong word or English backup)
-            const textToSpeak = encodeURIComponent(selectedWord.tapong || selectedWord.english);
-            
-            // Direct Cloud TTS Audio Stream URL
-            const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${textToSpeak}&tl=en&client=tw-ob`;
+            const textToSpeak = selectedWord.tapong || selectedWord.english;
 
-            audioPlayer.src = ttsUrl;
-            
-            audioPlayer.play().then(() => {
-                // Audio playing successfully
-            }).catch(err => {
-                // Fallback to Web Speech API if Audio Stream is blocked
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const speech = new SpeechSynthesisUtterance(selectedWord.tapong || selectedWord.english);
-                    speech.lang = 'en-US';
-                    speech.onend = resetBtn;
-                    speech.onerror = resetBtn;
-                    window.speechSynthesis.speak(speech);
-                } else {
-                    resetBtn();
-                }
-            });
+            // Direct Native Speech Synthesis
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Reset previous queue
 
-            audioPlayer.onended = resetBtn;
-            audioPlayer.onerror = resetBtn;
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.85; // Slightly slower for clear speech
+                utterance.pitch = 1.0;
 
-            function resetBtn() {
-                btnText.textContent = "Listen";
-                btnIcon.className = "fa-solid fa-volume-high";
+                utterance.onend = function() {
+                    btnText.textContent = "Listen";
+                    btnIcon.className = "fa-solid fa-volume-high";
+                };
+
+                utterance.onerror = function() {
+                    playToneFallback();
+                    btnText.textContent = "Listen";
+                    btnIcon.className = "fa-solid fa-volume-high";
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                playToneFallback();
+                setTimeout(() => {
+                    btnText.textContent = "Listen";
+                    btnIcon.className = "fa-solid fa-volume-high";
+                }, 500);
+            }
+        }
+
+        // Web Audio Beep Tone Fallback
+        function playToneFallback() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, ctx.currentTime);
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.25);
+            } catch (e) {
+                console.log(e);
             }
         }
 

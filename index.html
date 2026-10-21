@@ -717,28 +717,57 @@
             container.scrollTop = container.scrollHeight;
         }
 
+        // FIXED AI RESPONSE FUNCTION (NO MORE WRONG MATCHES)
         function generateAiResponse(query) {
-            const lower = query.toLowerCase();
-            let matched = dictionaryData.filter(item => 
-                lower.includes(item.tapong.toLowerCase()) || 
-                lower.includes(item.english.toLowerCase()) ||
-                lower.includes(item.myanmar.toLowerCase())
-            );
+            const lower = query.toLowerCase().trim();
 
-            if (matched.length > 0) {
-                let response = `Here are matching entries from the Tapong dictionary:\n\n`;
-                matched.slice(0, 3).forEach(m => {
-                    response += `• **Tapong:** ${m.tapong}\n  **English:** ${m.english}\n  **Myanmar:** ${m.myanmar}\n\n`;
-                });
-                response += `💡 *Tip: Practice using this in daily conversations with Tapong speakers!*`;
-                appendAiMessage(response);
-            } else if (lower.includes('count') || lower.includes('number')) {
+            if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
+                const match = dictionaryData.find(i => i.id === 96);
+                let resp = `**"Thank You" in Tapong:**\n\n`;
+                resp += `• **Tapong:** ${match ? match.tapong : 'Na ann ing'}\n`;
+                resp += `• **English:** Thank You / Appropriate\n`;
+                resp += `• **Myanmar:** ကျေးဇူးတင်ပါသည်\n\n`;
+                resp += `💡 *Example: "Na ann ing" is commonly used to express gratitude.*`;
+                appendAiMessage(resp);
+                return;
+            }
+
+            if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း')) {
                 let response = `Here are numbers 1 to 10 in Tapong:\n\n` +
                     `1. Pa Khat (တစ်)\n2. Pa Nih (နှစ်)\n3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n` +
                     `6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (ကိုး)\n10. Pa Hra (တစ်ဆယ်)`;
                 appendAiMessage(response);
+                return;
+            }
+
+            if (lower.includes('sentence') || lower.includes('example') || lower.includes('ဥပမာ')) {
+                let response = `Here are 3 common Tapong example sentences:\n\n` +
+                    `1. **"Hello, na hming zei si khaw?"**\n   *(Hello, what is your name? / မင်္ဂလာပါ၊ သင့်နာမည် ဘယ်လိုခေါ်ပါသလဲ။)*\n\n` +
+                    `2. **"USA ah ka om."**\n   *(I live in the USA. / အမေရိကန်မှာ နေထိုင်ပါတယ်။)*\n\n` +
+                    `3. **"Cam khat no i hngak in."**\n   *(Wait for me a moment. / ခဏလောက် ငါ့ကိုစောင့်ပါ။)*`;
+                appendAiMessage(response);
+                return;
+            }
+
+            const stopWords = ['in', 'is', 'a', 'to', 'do', 'you', 'say', 'how', 'what', 'the', 'of', 'and', 'or'];
+            const queryWords = lower.split(/\s+/).filter(w => w.length > 1 && !stopWords.includes(w));
+
+            let matched = dictionaryData.filter(item => {
+                return queryWords.some(qw => 
+                    item.tapong.toLowerCase().includes(qw) ||
+                    item.english.toLowerCase().includes(qw) ||
+                    item.myanmar.toLowerCase().includes(qw)
+                );
+            });
+
+            if (matched.length > 0) {
+                let response = `Here are matching entries for your query:\n\n`;
+                matched.slice(0, 4).forEach(m => {
+                    response += `• **Tapong:** ${m.tapong}\n  **English:** ${m.english}\n  **Myanmar:** ${m.myanmar}\n\n`;
+                });
+                appendAiMessage(response);
             } else {
-                appendAiMessage(`I analyzed your query: "${escapeHtml(query)}".\n\nTapong is an ethnic language in Myanmar. For precise conversational phrases, try searching related root words in the Dictionary tab or asking specific word meanings!`);
+                appendAiMessage(`I couldn't find an exact match for "${escapeHtml(query)}".\n\nTry searching key words in the **Dictionary** tab or asking simple words like "Thank You", "Numbers", or "Greetings"!`);
             }
         }
 

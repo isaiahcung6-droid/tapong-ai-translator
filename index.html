@@ -77,7 +77,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v3.2 Exact Match</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v3.3 Pure Grammar</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -164,7 +164,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (Exact Match Logic)</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (Strictly Verified)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -194,7 +194,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All responses follow 100% pure Tapong grammar with strict phrase matching.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All logic strictly adheres to pure Tapong grammar (e.g. 'hna' is only used for work 'hna per').</p>
                     </div>
                 </div>
             </div>
@@ -283,7 +283,7 @@
             { id: 7, tapong: "Biak, Vong", english: "Hold", myanmar: "ကိုင်သည်", exTapong: "Kut ka vong.", exEng: "I hold hands.", exMyo: "လက် ကိုင်ထားတယ်။" },
             { id: 8, tapong: "Bongbi", english: "Trousers", myanmar: "ဘောင်းဘီ", exTapong: "Bongbi thar ka lei.", exEng: "I bought new trousers.", exMyo: "ဘောင်းဘီသစ် ဝယ်တယ်။" },
             { id: 9, tapong: "Buai", english: "Captain", myanmar: "ဗိုလ်", exTapong: "Buai pa a ra.", exEng: "The captain is coming.", exMyo: "ဗိုလ်ကြီး လာနေတယ်။" },
-            { id: 10, tapong: "Buam", english: "Help", myanmar: "ကူညီသည်, ဖေးမသည်", exTapong: "Ka buam hna.", exEng: "I help them.", exMyo: "ငါ သူတို့ကို ကူညီတယ်။" },
+            { id: 10, tapong: "Buam", english: "Help", myanmar: "ကူညီသည်, ဖေးမသည်", exTapong: "A mah ka buam.", exEng: "I help him.", exMyo: "ငါ သူ့ကို ကူညီတယ်။" },
             { id: 11, tapong: "But", english: "Shoe", myanmar: "ဖိနပ်", exTapong: "But ka bun.", exEng: "I wear shoes.", exMyo: "ဖိနပ်စီးတယ်။" },
             { id: 12, tapong: "Ca ha", english: "Enough", myanmar: "တော်ပြီ", exTapong: "Ca ha, a tawk.", exEng: "Enough, it is sufficient.", exMyo: "တော်ပြီ၊ လောက်ပြီ။" },
             { id: 13, tapong: "Ca ni ni, Ni ruk ni", english: "Saturday", myanmar: "စနေနေ့", exTapong: "Ca ni ni ah hna per lo.", exEng: "No work on Saturday.", exMyo: "စနေနေ့မှာ အလုပ်မလုပ်ပါ။" },
@@ -312,7 +312,7 @@
             { id: 36, tapong: "Hmeh", english: "Curry, Dish", myanmar: "ဟင်း", exTapong: "Ar sa hmeh ka duh.", exEng: "I like chicken curry.", exMyo: "ကြက်သားဟင်း ကြိုက်တယ်။" },
             { id: 37, tapong: "Hming", english: "Name", myanmar: "နာမည်", exTapong: "Na hming zei si khaw?", exEng: "What is your name?", exMyo: "သင့်နာမည် ဘယ်လိုခေါ်လဲ။" },
             { id: 38, tapong: "Hmu", english: "See", myanmar: "မြင်တွေ့သည်", exTapong: "Nang ka hmu.", exEng: "I see you.", exMyo: "မင်းကို မြင်တယ်။" },
-            { id: 39, tapong: "Hmu sel", english: "Play", myanmar: "ကစားသည်", exTapong: "Naupang hna an hmu sel.", exEng: "The children are playing.", exMyo: "ကလေးတွေ ကစားနေကြတယ်။" },
+            { id: 39, tapong: "Hmu sel", english: "Play", myanmar: "ကစားသည်", exTapong: "Naupang an hmu sel.", exEng: "The children are playing.", exMyo: "ကလေးတွေ ကစားနေကြတယ်။" },
             { id: 40, tapong: "Hmu sel hak", english: "Toy", myanmar: "ကစားစရာအရုပ်", exTapong: "Hmu sel hak ka nei.", exEng: "I have a toy.", exMyo: "ကစားစရာအရုပ် ရှိတယ်။" },
             { id: 41, tapong: "Hmun", english: "Place", myanmar: "တည်နေရာ", exTapong: "Hmun ah ka om.", exEng: "I am at the place.", exMyo: "ဒီနေရာမှာ နေတယ်။" },
             { id: 42, tapong: "Hna per, par", english: "Work", myanmar: "လုပ်သည်, အလုပ်", exTapong: "Hna ka per.", exEng: "I am working.", exMyo: "အလုပ် လုပ်နေတယ်။" },
@@ -733,7 +733,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC - LONGEST EXACT MATCH FIRST (FIXES "Hmu sel" vs "Hmu" ISSUE)
+        // SMART AI LOGIC - LONGEST EXACT MATCH FIRST & STRICT PURE TAPONG GRAMMAR
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -761,7 +761,7 @@
                 return;
             }
 
-            // 1. COLLECT ALL MATCHES AND SORT BY LONGEST PHRASE LENGTH (PRIORITIZES "Hmu sel" OVER "Hmu")
+            // COLLECT ALL MATCHES AND SORT BY LONGEST PHRASE LENGTH (PRIORITIZES "Hmu sel" OVER "Hmu")
             let candidateMatches = [];
             dictionaryData.forEach(item => {
                 const terms = item.tapong.toLowerCase().split(/,\s*/);

@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 
-                <!-- Guaranteed Audio Engine (Tapong -> English -> Myanmar) -->
+                <!-- Web Speech Audio Engine -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
@@ -594,7 +594,7 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Tapong -> English -> Myanmar ၃ ဘာသာစလုံး မြန်မာပါ ၁၀၀% သေချာပေါက် အသံထွက်စေမည့် Audio Engine
+        // Web Speech API Sequencer - Guaranteed Speech Playback Across 3 Languages
         function speakWord() {
             if (!selectedWord) return;
 
@@ -604,43 +604,52 @@
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
-            const itemsToSpeak = [
-                { text: selectedWord.tapong, lang: 'en' },
-                { text: selectedWord.english, lang: 'en' },
-                { text: selectedWord.myanmar, lang: 'my' }
-            ];
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // ရပ်ဆိုင်းမည်
 
-            let index = 0;
+                // ၃ ဘာသာစလုံးအတွက် စာသားသတ်မှတ်ချက်
+                const itemsToSpeak = [
+                    { text: selectedWord.tapong, lang: 'en-US' },
+                    { text: selectedWord.english, lang: 'en-US' },
+                    { text: selectedWord.myanmar, lang: 'my-MM' }
+                ];
 
-            function playNext() {
-                if (index < itemsToSpeak.length) {
-                    const current = itemsToSpeak[index];
-                    const encodedText = encodeURIComponent(current.text);
-                    const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${current.lang}&client=tw-ob`;
-                    
-                    const audio = new Audio(audioUrl);
+                let currentIndex = 0;
 
-                    audio.onended = function() {
-                        index++;
-                        playNext();
-                    };
+                function speakNext() {
+                    if (currentIndex < itemsToSpeak.length) {
+                        const currentItem = itemsToSpeak[currentIndex];
+                        const msg = new SpeechSynthesisUtterance(currentItem.text);
+                        msg.lang = currentItem.lang;
+                        msg.rate = 0.85;
 
-                    audio.onerror = function() {
-                        index++;
-                        playNext();
-                    };
+                        // အခါတိုင်း တုံ့ဆိုင်းမသွားစေရန် Fallback စနစ်
+                        msg.onend = function() {
+                            currentIndex++;
+                            speakNext();
+                        };
 
-                    audio.play().catch(() => {
-                        index++;
-                        playNext();
-                    });
-                } else {
-                    btnText.textContent = "Listen";
-                    btnIcon.className = "fa-solid fa-volume-high";
+                        msg.onerror = function() {
+                            currentIndex++;
+                            speakNext();
+                        };
+
+                        window.speechSynthesis.speak(msg);
+                    } else {
+                        resetListenBtn();
+                    }
                 }
+
+                speakNext();
+            } else {
+                alert('Your browser does not support speech synthesis.');
+                resetListenBtn();
             }
 
-            playNext();
+            function resetListenBtn() {
+                btnText.textContent = "Listen";
+                btnIcon.className = "fa-solid fa-volume-high";
+            }
         }
 
         function copyModalText() {

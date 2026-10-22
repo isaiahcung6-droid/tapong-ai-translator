@@ -368,7 +368,7 @@
             { id: 98, tapong: "Nau u", english: "Brother, Sister", myanmar: "ညီအစ်ကို, ညီအစ်မ", example: "Nau u pa khat ka nei." },
             { id: 99, tapong: "Naupang", english: "Children", myanmar: "ကလေး", example: "Naupang hna an i hmu sel." },
             { id: 100, tapong: "Nazi", english: "Clock, Time", myanmar: "နာရီ", example: "Nazi 10 a si zo." },
-            { id: 101, tapong: "Ngai", english: "Listen, Miss", myanmar: "နားထောင်သည်, လွမ်းသည်", example: "Bialai ngai in." },
+            { id: 101, tapong: "Ngai", english: "Listen, Miss", myanmar: "နားထောင်သည်, လွမ်းသည်", example: "Ngai in." },
             { id: 102, tapong: "Ngan", english: "Write", myanmar: "ရေးသည်", example: "Ca ngan in." },
             { id: 103, tapong: "Ni", english: "Day", myanmar: "နေ့ရက်", example: "Ni tha a si." },
             { id: 104, tapong: "Ni", english: "Sun", myanmar: "နေ", example: "Ni a sa." },
@@ -720,7 +720,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // STRICT DICTIONARY-BOUND AI RESPONSE (STRICTLY TAPONG DATA ONLY)
+        // SMART AI LOGIC (STRICT TAPONG DIALECT ENGINE ONLY)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -746,12 +746,23 @@
                 return;
             }
 
-            // Direct Search across all 257 dictionary items ensuring exact Tapong data usage
-            let matchedItem = dictionaryData.find(item => 
-                item.tapong.toLowerCase() === lower || 
-                item.english.toLowerCase() === lower ||
-                lower.includes(item.tapong.toLowerCase())
-            );
+            // SMART MATCHING 1: EXACT WORD BOUNDARY MATCHING (Avoids 'Hawh' matching 'Ha')
+            let matchedItem = dictionaryData.find(item => {
+                const terms = item.tapong.toLowerCase().split(/,\s*/);
+                return terms.some(term => {
+                    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+                    return regex.test(lower);
+                });
+            });
+
+            // SMART MATCHING 2: EXACT STRING MATCH (TAPONG / ENGLISH / MYANMAR)
+            if (!matchedItem) {
+                matchedItem = dictionaryData.find(item => 
+                    item.tapong.toLowerCase() === lower || 
+                    item.english.toLowerCase() === lower ||
+                    item.myanmar.toLowerCase() === lower
+                );
+            }
 
             if (matchedItem) {
                 let response = `🛡️ **Tapong Verified Entry (#${matchedItem.id}):**\n\n`;
@@ -760,26 +771,28 @@
                 response += `• **Myanmar:** ${matchedItem.myanmar}\n\n`;
                 response += `📝 **Example Sentence:**\n`;
                 response += `• *${matchedItem.example}*\n\n`;
-                response += `✅ *(Note: Linguistic integrity verified as authentic Tapong).*`;
+                response += `✅ *(Note: Strictly Tapong language - No Hakha/Falam/Mizo dialect mix).*`;
                 appendAiMessage(response);
                 return;
             }
 
-            // General multi-word matching from dictionary dataset
-            const queryWords = lower.split(/\s+/).filter(w => w.length > 1);
-            let matches = dictionaryData.filter(item => 
-                queryWords.some(qw => item.tapong.toLowerCase().includes(qw) || item.english.toLowerCase().includes(qw) || item.myanmar.toLowerCase().includes(qw))
-            );
+            // SMART MATCHING 3: SMART TOKENIZER MATCHING FOR PHRASES
+            const queryWords = lower.split(/\s+/).filter(w => w.length > 2 && !['give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
+            
+            let matches = dictionaryData.filter(item => {
+                const itemWords = item.tapong.toLowerCase().split(/[\s,]+/);
+                return queryWords.some(qw => itemWords.includes(qw) || item.english.toLowerCase().includes(qw) || item.myanmar.toLowerCase().includes(qw));
+            });
 
             if (matches.length > 0) {
-                let response = `🔍 **Found ${matches.length} Tapong Dictionary Match(es):**\n\n`;
+                let response = `🔍 **Found ${matches.length} Authentic Tapong Match(es):**\n\n`;
                 matches.slice(0, 3).forEach(m => {
-                    response += `• **${m.tapong}** (${m.english} / ${m.myanmar})\n`;
+                    response += `• **Tapong:** ${m.tapong} (${m.english} / ${m.myanmar})\n`;
                     response += `  *Example:* ${m.example}\n\n`;
                 });
                 appendAiMessage(response);
             } else {
-                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}".\n\nTo preserve linguistic integrity and prevent cross-contamination from Hakha, Falam, or Mizo dialects, only verified entries from your 257 dictionary database are processed.`);
+                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}".\n\nTo preserve strict Tapong linguistic integrity and prevent cross-contamination from Hakha, Falam, or Mizo dialects, unverified example sentences are strictly excluded.`);
             }
         }
 

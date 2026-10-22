@@ -594,7 +594,7 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Updated Web Speech API Audio Engine (Fixed & Stable)
+        // Tapong, English, Myanmar ၃ ဘာသာအစဥ်လိုက် အသံထွက်ဖတ်ပေးမည့် ကုဒ်အသစ်
         function speakWord() {
             if (!selectedWord) return;
 
@@ -605,23 +605,41 @@
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                
-                const textToSpeak = selectedWord.english || selectedWord.tapong;
-                const msg = new SpeechSynthesisUtterance(textToSpeak);
-                
-                msg.lang = 'en-US';
-                msg.rate = 0.85;
-                
-                msg.onend = function() {
-                    resetListenBtn();
-                };
-                
-                msg.onerror = function() {
-                    resetListenBtn();
-                };
+                window.speechSynthesis.cancel(); // ယခင်ဖွင့်နေတာရှိရင် ရပ်မည်
 
-                window.speechSynthesis.speak(msg);
+                // ၃ ဘာသာ အစဥ်လိုက် သတ်မှတ်ခြင်း (Tapong -> English -> Myanmar)
+                const itemsToSpeak = [
+                    { text: selectedWord.tapong, lang: 'en-US' },
+                    { text: selectedWord.english, lang: 'en-US' },
+                    { text: selectedWord.myanmar, lang: 'my-MM' }
+                ];
+
+                let currentIndex = 0;
+
+                function speakNext() {
+                    if (currentIndex < itemsToSpeak.length) {
+                        const currentItem = itemsToSpeak[currentIndex];
+                        const msg = new SpeechSynthesisUtterance(currentItem.text);
+                        msg.lang = currentItem.lang;
+                        msg.rate = 0.85; // အသံအမြန်နှုန်း
+
+                        msg.onend = function() {
+                            currentIndex++;
+                            speakNext(); // တစ်ခုပြီးရင် နောက်တစ်ခု ဆက်ဖတ်မည်
+                        };
+
+                        msg.onerror = function() {
+                            currentIndex++;
+                            speakNext(); // Error ဖြစ်ရင်လည်း ကျော်ပြီး ဆက်ဖတ်မည်
+                        };
+
+                        window.speechSynthesis.speak(msg);
+                    } else {
+                        resetListenBtn(); // ၃ ခုလုံးပြီးမှ ခလုတ်ကို မူလအတိုင်း ပြန်ပြောင်းမည်
+                    }
+                }
+
+                speakNext();
             } else {
                 alert('Your browser does not support speech synthesis.');
                 resetListenBtn();

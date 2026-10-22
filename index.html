@@ -158,7 +158,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Strictly Tapong Authentic Language Tutor (No Falam/Mizo mix)</p>
+                        <p class="text-xs text-slate-400">Strictly Tapong Authentic Language Tutor (No Hakha/Falam/Mizo mix)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -268,7 +268,7 @@
     <!-- JavaScript Logic -->
     <script>
         const dictionaryData = [
-            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", example: "Bialai ṭha na chim." },
+            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", example: "Uan ai in." },
             { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ", example: "Ang ki thar ka nei." },
             { id: 3, tapong: "Ar", english: "Chicken", myanmar: "ကြက်", example: "Ar a sa a tha tuk." },
             { id: 4, tapong: "Ar sa", english: "Chicken curry", myanmar: "ကြက်သား", example: "Ar sa hlai he ei in." },
@@ -363,7 +363,7 @@
             { id: 93, tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်", example: "Mit ha lang ka bun." },
             { id: 94, tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်", example: "Maw taw muang in." },
             { id: 95, tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ", example: "Muang tu a fel." },
-            { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်", example: "Bialai ṭha na chim." },
+            { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်", example: "Na ann ing." },
             { id: 97, tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ", example: "Ka nau u hna an fel." },
             { id: 98, tapong: "Nau u", english: "Brother, Sister", myanmar: "ညီအစ်ကို, ညီအစ်မ", example: "Nau u pa khat ka nei." },
             { id: 99, tapong: "Naupang", english: "Children", myanmar: "ကလေး", example: "Naupang hna an i hmu sel." },
@@ -720,7 +720,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // STRICT DICTIONARY-BOUND AI RESPONSE (FIXED: STRICT TAPONG DATA ONLY)
+        // STRICT DICTIONARY-BOUND AI RESPONSE (STRICTLY TAPONG DATA ONLY)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -779,7 +779,7 @@
                 });
                 appendAiMessage(response);
             } else {
-                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}".\n\nTo preserve linguistic integrity and prevent cross-contamination from Falam, Hakha, or Mizo dialects, only verified entries from your 257 dictionary database are processed.`);
+                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}".\n\nTo preserve linguistic integrity and prevent cross-contamination from Hakha, Falam, or Mizo dialects, only verified entries from your 257 dictionary database are processed.`);
             }
         }
 

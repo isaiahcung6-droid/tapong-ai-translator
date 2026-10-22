@@ -10,7 +10,7 @@
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tapong-ai-translator.vercel.app/">
     
-    <!-- Favicon / Tab Icon -->
+    <!-- Favicon / Tab Icon (Google Search & Browser Tab မှာပေါ်စေရန်) -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/6R7k68J/image-3.png">
     
     <!-- Tailwind CSS & FontAwesome -->
@@ -741,7 +741,6 @@
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // "What is Tapong?" မေးခွန်းအတွက် အထူးအဖြေ
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('tapong')) {
                 let resp = `**What is Tapong?**\n\n`;
                 resp += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar.`;
@@ -773,7 +772,6 @@
                 return;
             }
 
-            // COLLECT ALL MATCHES AND SORT BY LONGEST PHRASE LENGTH
             let candidateMatches = [];
             dictionaryData.forEach(item => {
                 const terms = item.tapong.toLowerCase().split(/,\s*/);
@@ -785,7 +783,6 @@
                 });
             });
 
-            // SORT CANDIDATES BY MATCHED TERM LENGTH (DESCENDING)
             candidateMatches.sort((a, b) => b.length - a.length);
 
             let matchedItem = candidateMatches.length > 0 ? candidateMatches[0].item : null;
@@ -811,7 +808,6 @@
                 return;
             }
 
-            // FILTERED MATCHING FOR GENERAL QUERIES
             const queryWords = lower.split(/\s+/).filter(w => w.length > 2 && !['give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
             
             let matches = dictionaryData.filter(item => {
@@ -822,7 +818,7 @@
             if (matches.length > 0) {
                 let response = `🔍 **Found ${matches.length} Authentic Tapong Match(es):**\n\n`;
                 matches.slice(0, 3).forEach(m => {
-                    response += `• **Tapong:** ${m.m_tapong || m.tapong} (${m.english} / ${m.myanmar})\n`;
+                    response += `• **Tapong:** ${m.tapong} (${m.english} / ${m.myanmar})\n`;
                     response += `  📝 *Tapong:* ${m.exTapong}\n`;
                     response += `  📝 *English:* ${m.exEng}\n`;
                     response += `  📝 *Myanmar:* ${m.exMyo}\n\n`;
@@ -870,7 +866,6 @@
             searchInput.focus();
         });
 
-        // Initial Render
         renderTable(dictionaryData);
     </script>
 </body>

@@ -363,7 +363,7 @@
             { id: 93, tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်", example: "Mit ha lang ka bun." },
             { id: 94, tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်", example: "Maw taw muang in." },
             { id: 95, tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ", example: "Muang tu a fel." },
-            { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်", example: "Na ann ing, ka lawm." },
+            { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်", example: "Bialai ṭha na chim." },
             { id: 97, tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ", example: "Ka nau u hna an fel." },
             { id: 98, tapong: "Nau u", english: "Brother, Sister", myanmar: "ညီအစ်ကို, ညီအစ်မ", example: "Nau u pa khat ka nei." },
             { id: 99, tapong: "Naupang", english: "Children", myanmar: "ကလေး", example: "Naupang hna an i hmu sel." },
@@ -490,7 +490,7 @@
             { id: 220, tapong: "La phuahtu", english: "Songwriter, composer", myanmar: "သီချင်းစပ်သူ, တေးရေး", example: "La phuahtu pa a Fim." },
             { id: 221, tapong: "Na hming ngan in", english: "Write your name", myanmar: "မင်းနာမည်ရေးပါ", example: "Ca uk ah na hming ngan in." },
             { id: 222, tapong: "Pha tak no in", english: "Properly, well", myanmar: "စနစ်တကျ, ကောင်းမွန်စွာ", example: "Pha tak no in vuah in." },
-            { id: 223, tapong: "Nei lau tiار", english: "You scared me", myanmar: "ငါ့ကိုလန့်အောင်လုပ်တာပဲ", example: "Nei lau tiar." },
+            { id: 223, tapong: "Nei lau tiar", english: "You scared me", myanmar: "ငါ့ကိုလန့်အောင်လုပ်တာပဲ", example: "Nei lau tiar." },
             { id: 224, tapong: "Lau", english: "Scare, afraid", myanmar: "လန့်သည်, ကြောက်ရွံ့ခြင်း", example: "Ka lau." },
             { id: 225, tapong: "Lu na", english: "Headache", myanmar: "ခေါင်းကိုက်ခြင်း", example: "Lu na ka nei." },
             { id: 226, tapong: "Na", english: "Hurt", myanmar: "နာကျင်သည်", example: "Ka ke a na." },
@@ -594,7 +594,7 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Web Speech API Sequencer - Guaranteed Speech Playback Across 3 Languages
+        // Web Speech API Sequencer
         function speakWord() {
             if (!selectedWord) return;
 
@@ -605,9 +605,8 @@
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // ရပ်ဆိုင်းမည်
+                window.speechSynthesis.cancel();
 
-                // ၃ ဘာသာစလုံးအတွက် စာသားသတ်မှတ်ချက်
                 const itemsToSpeak = [
                     { text: selectedWord.tapong, lang: 'en-US' },
                     { text: selectedWord.english, lang: 'en-US' },
@@ -623,7 +622,6 @@
                         msg.lang = currentItem.lang;
                         msg.rate = 0.85;
 
-                        // အခါတိုင်း တုံ့ဆိုင်းမသွားစေရန် Fallback စနစ်
                         msg.onend = function() {
                             currentIndex++;
                             speakNext();
@@ -722,7 +720,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // STRICT DICTIONARY-BOUND AI RESPONSE (NO DIALECT LEAKAGE)
+        // STRICT DICTIONARY-BOUND AI RESPONSE (FIXED: STRICT TAPONG DATA ONLY)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 

@@ -528,6 +528,7 @@
         ];
 
         let selectedWord = null;
+        let audioCtx = null; // iOS Speaker Routing Fix
 
         const tbody = document.getElementById('dictionaryBody');
         const searchInput = document.getElementById('searchInput');
@@ -594,9 +595,33 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Tapong, English, Myanmar ၃ ဘာသာအစဥ်လိုက် အသံထွက်ဖတ်ပေးမည့် ကုဒ်အသစ်
+        // iOS Audio Context Warm-up to Force Built-in Speaker Route
+        function initAudioRoute() {
+            try {
+                if (!audioCtx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                // Play a brief silent buffer to unlock media/speaker hardware routing on iOS Safari
+                const buffer = audioCtx.createBuffer(1, 1, 22050);
+                const source = audioCtx.createBufferSource();
+                source.buffer = buffer;
+                source.connect(audioCtx.destination);
+                source.start(0);
+            } catch (e) {
+                console.log("Audio routing init note:", e);
+            }
+        }
+
+        // Tapong, English, Myanmar ၃ ဘာသာအစဥ်လိုက် အသံထွက်ဖတ်ပေးမည့် ကုဒ် (Speaker Route Fix)
         function speakWord() {
             if (!selectedWord) return;
+
+            // Force iOS audio session to route to built-in speaker instead of headset/earpiece
+            initAudioRoute();
 
             const btnText = document.getElementById('listenText');
             const btnIcon = document.getElementById('listenIcon');

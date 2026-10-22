@@ -77,7 +77,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v3.1 Verified</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v3.2 Exact Match</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -164,7 +164,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar Rules (No Hakha/Falam/Mizo)</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (Exact Match Logic)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -180,8 +180,8 @@
                 <button onclick="sendQuickPrompt('Explain Tapong numbers 1 to 10')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🔢 Count 1 to 10
                 </button>
-                <button onclick="sendQuickPrompt('Give me example sentences for Hawh')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    📝 Example for "Hawh"
+                <button onclick="sendQuickPrompt('Give me example sentences for Hmu sel')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    📝 Example for "Hmu sel"
                 </button>
             </div>
 
@@ -194,7 +194,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All logic strictly adheres to pure Tapong grammar (e.g., using No. 261 "mah in / mah un" for negative imperatives, with zero influence from other Chin dialects).</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All responses follow 100% pure Tapong grammar with strict phrase matching.</p>
                     </div>
                 </div>
             </div>
@@ -537,6 +537,7 @@
             { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah in.", exEng: "Don't do that.", exMyo: "မလုပ်ပါနဲ့။" },
             { id: 262, tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်", exTapong: "Dongkham kham in.", exEng: "Close the door.", exMyo: "တံခါး ပိတ်ပါ။" },
             { id: 263, tapong: "un / in Grammar Rule", english: "un = Plural, in = Singular", myanmar: "un သည် အများကိန်း၊ in သည် အနည်းကိန်းဖြစ်သည်", exTapong: "Ra un / Ra in", exEng: "Come (Plural) / Come (Singular)", exMyo: "လာကြပါ (အများ) / လာပါ (အနည်း)" },
+            { id: 264, tapong: "Tapong Dictionary", english: "Complete Tapong List", myanmar: "တပိုဝေါဟာရ အစဉ်လိုက် စာရင်း", exTapong: "Tapong uan ngan in.", exEng: "Write Tapong words.", exMyo: "တပို ဝေါဟာရများကို ရေးသားပါ။" }
         ];
 
         let selectedWord = null;
@@ -732,7 +733,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC STRICTLY FOLLOWING TAPONG DICTIONARY RULES
+        // SMART AI LOGIC - LONGEST EXACT MATCH FIRST (FIXES "Hmu sel" vs "Hmu" ISSUE)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -760,14 +761,22 @@
                 return;
             }
 
-            // EXACT WORD BOUNDARY MATCHING
-            let matchedItem = dictionaryData.find(item => {
+            // 1. COLLECT ALL MATCHES AND SORT BY LONGEST PHRASE LENGTH (PRIORITIZES "Hmu sel" OVER "Hmu")
+            let candidateMatches = [];
+            dictionaryData.forEach(item => {
                 const terms = item.tapong.toLowerCase().split(/,\s*/);
-                return terms.some(term => {
+                terms.forEach(term => {
                     const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-                    return regex.test(lower);
+                    if (regex.test(lower)) {
+                        candidateMatches.push({ item, matchedTerm: term, length: term.length });
+                    }
                 });
             });
+
+            // SORT CANDIDATES BY MATCHED TERM LENGTH (DESCENDING)
+            candidateMatches.sort((a, b) => b.length - a.length);
+
+            let matchedItem = candidateMatches.length > 0 ? candidateMatches[0].item : null;
 
             if (!matchedItem) {
                 matchedItem = dictionaryData.find(item => 
@@ -790,7 +799,7 @@
                 return;
             }
 
-            // FILTERED MATCHING
+            // FILTERED MATCHING FOR GENERAL QUERIES
             const queryWords = lower.split(/\s+/).filter(w => w.length > 2 && !['give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
             
             let matches = dictionaryData.filter(item => {

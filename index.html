@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 
-                <!-- Google TTS Audio Engine -->
+                <!-- Web Speech Audio Engine -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
@@ -332,7 +332,7 @@
             { id: 62, tapong: "Ko, sam", english: "Call", myanmar: "ခေါ်သည်", example: "Ka hming in ko in." },
             { id: 63, tapong: "Kualpaw", english: "Cow", myanmar: "နွား", example: "Kualpaw hna an cawm." },
             { id: 64, tapong: "Kul", english: "Twenty", myanmar: "နှစ်ဆယ်", example: "Poisa kul ka nei." },
-            { id: 65, tapong: "Kum", english: "Year", myanmar: "ခုနှစ်", example: "Kum thar a ph संवेदनशील." },
+            { id: 65, tapong: "Kum", english: "Year", myanmar: "ခုနှစ်", example: "Kum thar a ph sensitive." },
             { id: 66, tapong: "Kut", english: "Hand", myanmar: "လက်", example: "Kut sil in." },
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", example: "La sa in." },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", example: "Ca uk ah lai ngan in." },
@@ -594,7 +594,7 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Google TTS Audio Engine
+        // Updated Web Speech API Audio Engine (Fixed & Stable)
         function speakWord() {
             if (!selectedWord) return;
 
@@ -604,27 +604,28 @@
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
-            const textToSpeak = encodeURIComponent(selectedWord.english || selectedWord.tapong);
-            const googleTtsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${textToSpeak}&tl=en&client=tw-ob`;
-
-            const audio = new Audio(googleTtsUrl);
-
-            audio.play().catch(error => {
-                if ('speechSynthesis' in window) {
-                    window.speechSynthesis.cancel();
-                    const msg = new SpeechSynthesisUtterance(selectedWord.english || selectedWord.tapong);
-                    msg.lang = 'en-US';
-                    msg.rate = 0.8;
-                    msg.onend = () => resetListenBtn();
-                    msg.onerror = () => resetListenBtn();
-                    window.speechSynthesis.speak(msg);
-                } else {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                const textToSpeak = selectedWord.english || selectedWord.tapong;
+                const msg = new SpeechSynthesisUtterance(textToSpeak);
+                
+                msg.lang = 'en-US';
+                msg.rate = 0.85;
+                
+                msg.onend = function() {
                     resetListenBtn();
-                }
-            });
+                };
+                
+                msg.onerror = function() {
+                    resetListenBtn();
+                };
 
-            audio.onended = function() { resetListenBtn(); };
-            audio.onerror = function() { resetListenBtn(); };
+                window.speechSynthesis.speak(msg);
+            } else {
+                alert('Your browser does not support speech synthesis.');
+                resetListenBtn();
+            }
 
             function resetListenBtn() {
                 btnText.textContent = "Listen";

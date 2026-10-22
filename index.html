@@ -528,7 +528,7 @@
             { id: 254, tapong: "Fa nei ha cim?", english: "Do you have children?", myanmar: "သင့်မှာ သားသမီး ရှိပါသလား။", exTapong: "Fa nei ha cim?", exEng: "Do you have children?", exMyo: "သင့်မှာ သားသမီး ရှိပါသလား။" },
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa fanu pazei na nei?", exEng: "How many sons and daughters do you have?", exMyo: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
-            { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa pa khat le Fanu pathum ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
+            { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
             { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you go, going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
             { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki tiar ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
@@ -741,6 +741,14 @@
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
+            // "What is Tapong?" မေးခွန်းအတွက် အထူးအဖြေ
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('tapong')) {
+                let resp = `**What is Tapong?**\n\n`;
+                resp += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar.`;
+                appendAiMessage(resp);
+                return;
+            }
+
             if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
                 const match = dictionaryData.find(i => i.id === 96);
                 let resp = `**Authentic Tapong Translation:**\n\n`;
@@ -814,7 +822,7 @@
             if (matches.length > 0) {
                 let response = `🔍 **Found ${matches.length} Authentic Tapong Match(es):**\n\n`;
                 matches.slice(0, 3).forEach(m => {
-                    response += `• **Tapong:** ${m.tapong} (${m.english} / ${m.myanmar})\n`;
+                    response += `• **Tapong:** ${m.m_tapong || m.tapong} (${m.english} / ${m.myanmar})\n`;
                     response += `  📝 *Tapong:* ${m.exTapong}\n`;
                     response += `  📝 *English:* ${m.exEng}\n`;
                     response += `  📝 *Myanmar:* ${m.exMyo}\n\n`;

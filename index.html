@@ -65,7 +65,7 @@
     <header class="max-w-5xl mx-auto w-full mb-4">
         <div class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <!-- Header Logo (Hornbill / Tapong Bird Logo Design) -->
+                <!-- Header Logo -->
                 <div class="w-14 h-14 md:w-16 md:h-16 rounded-xl overflow-hidden bg-slate-800 flex items-center justify-center shadow-lg shadow-blue-500/25 border border-slate-700/50 shrink-0">
                     <svg viewBox="0 0 100 100" class="w-full h-full text-blue-400 p-2" fill="currentColor">
                         <circle cx="50" cy="50" r="45" fill="#1e293b"/>
@@ -88,7 +88,7 @@
                 <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
                     <span>Dictionary</span>
-                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">257</span>
+                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">264</span>
                 </button>
                 <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-robot text-indigo-400"></i>
@@ -530,7 +530,14 @@
             { id: 254, tapong: "Fa nei ha cim?", english: "Do you have children?", myanmar: "သင့်မှာ သားသမီး ရှိပါသလား။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိတယ်။" },
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Mipa le nupang an si.", exEng: "They are boys and girls.", exMyo: "သားနဲ့သမီးတွေ ဖြစ်တယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa pa khat le fanu pathum.", exEng: "One son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။" },
-            { id: 257, tapong: "Mipa pa khat le nupang pathum", english: "One boy and three girls", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Mipa pa khat le fanu pathum ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" }
+            { id: 257, tapong: "Mipa pa khat le nupang pathum", english: "One boy and three girls", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Mipa pa khat le fanu pathum ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
+            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?", exTapong: "Khua ah ka hawh.", exEng: "I am going to the village.", exMyo: "ရွာကို သွားနေတယ်။" },
+            { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
+            { id: 260, tapong: "Tair, thair", english: "Clean, Pure / Fresh", myanmar: "သန့်ရှင်းသော, လတ်ဆတ်သော", exTapong: "Ti tair in in.", exEng: "Drink clean water.", exMyo: "သန့်ရှင်းသော ရေသောက်ပါ။" },
+            { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah un.", exEng: "Don't do that.", exMyo: "မလုပ်ကြပါနဲ့။" },
+            { id: 262, tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်", exTapong: "Dongkham kham in.", exEng: "Close the door.", exMyo: "တံခါး ပိတ်ပါ။" },
+            { id: 263, tapong: "un / in Grammar Rule", english: "un = Plural, in = Singular", myanmar: "un သည် အများကိန်း၊ in သည် အနည်းကိန်းဖြစ်သည်", exTapong: "Ra un (Plural) / Ra in (Singular)", exEng: "Come (Plural) / Come (Singular)", exMyo: "လာကြပါ (အများ) / လာပါ (အနည်း)" },
+            { id: 264, tapong: "Tapong Dictionary", english: "Complete Tapong List", myanmar: "တပိုဝေါဟာရ အစဉ်လိုက် စာရင်း", exTapong: "Tapong uan ngan in.", exEng: "Write Tapong words.", exMyo: "တပို ဝေါဟာရများကို ရေးသားပါ။" }
         ];
 
         let selectedWord = null;

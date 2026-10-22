@@ -223,8 +223,8 @@
                     </div>
                 </div>
                 
-                <!-- Google TTS Audio Engine (Forcing Speaker Output) -->
-                <button type="button" id="listenBtn" onclick="playGoogleTTS()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
+                <!-- Web Speech Audio Engine -->
+                <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
                 </button>
@@ -594,8 +594,8 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
-        // Google TTS Audio MP3 Streaming (Forces iOS Built-in Speaker Output Route)
-        function playGoogleTTS() {
+        // Tapong, English, Myanmar ၃ ဘာသာအစဥ်လိုက် အသံထွက်ဖတ်ပေးမည့် ကုဒ်အသစ်
+        function speakWord() {
             if (!selectedWord) return;
 
             const btnText = document.getElementById('listenText');
@@ -604,45 +604,51 @@
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
-            // ၃ ဘာသာ အစဥ်လိုက် Google TTS URL ဖြင့် ဖတ်ရန်
-            const textsToPlay = [
-                { text: selectedWord.tapong, lang: 'en' },
-                { text: selectedWord.english, lang: 'en' },
-                { text: selectedWord.myanmar, lang: 'my' }
-            ];
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // ယခင်ဖွင့်နေတာရှိရင် ရပ်မည်
 
-            let index = 0;
+                // ၃ ဘာသာ အစဥ်လိုက် သတ်မှတ်ခြင်း (Tapong -> English -> Myanmar)
+                const itemsToSpeak = [
+                    { text: selectedWord.tapong, lang: 'en-US' },
+                    { text: selectedWord.english, lang: 'en-US' },
+                    { text: selectedWord.myanmar, lang: 'my-MM' }
+                ];
 
-            function playNextAudio() {
-                if (index < textsToPlay.length) {
-                    const item = textsToPlay[index];
-                    const encodedText = encodeURIComponent(item.text);
-                    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${item.lang}&client=tw-ob`;
-                    
-                    const audio = new Audio(ttsUrl);
-                    
-                    audio.onended = function() {
-                        index++;
-                        playNextAudio();
-                    };
+                let currentIndex = 0;
 
-                    audio.onerror = function() {
-                        index++;
-                        playNextAudio();
-                    };
+                function speakNext() {
+                    if (currentIndex < itemsToSpeak.length) {
+                        const currentItem = itemsToSpeak[currentIndex];
+                        const msg = new SpeechSynthesisUtterance(currentItem.text);
+                        msg.lang = currentItem.lang;
+                        msg.rate = 0.85; // အသံအမြန်နှုန်း
 
-                    audio.play().catch(e => {
-                        console.log("Audio play error:", e);
-                        index++;
-                        playNextAudio();
-                    });
-                } else {
-                    btnText.textContent = "Listen";
-                    btnIcon.className = "fa-solid fa-volume-high";
+                        msg.onend = function() {
+                            currentIndex++;
+                            speakNext(); // တစ်ခုပြီးရင် နောက်တစ်ခု ဆက်ဖတ်မည်
+                        };
+
+                        msg.onerror = function() {
+                            currentIndex++;
+                            speakNext(); // Error ဖြစ်ရင်လည်း ကျော်ပြီး ဆက်ဖတ်မည်
+                        };
+
+                        window.speechSynthesis.speak(msg);
+                    } else {
+                        resetListenBtn(); // ၃ ခုလုံးပြီးမှ ခလုတ်ကို မူလအတိုင်း ပြန်ပြောင်းမည်
+                    }
                 }
+
+                speakNext();
+            } else {
+                alert('Your browser does not support speech synthesis.');
+                resetListenBtn();
             }
 
-            playNextAudio();
+            function resetListenBtn() {
+                btnText.textContent = "Listen";
+                btnIcon.className = "fa-solid fa-volume-high";
+            }
         }
 
         function copyModalText() {
@@ -820,3 +826,4 @@
     </script>
 </body>
 </html>
+

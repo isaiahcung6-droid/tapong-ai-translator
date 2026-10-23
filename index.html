@@ -203,14 +203,14 @@
 
             <!-- Suggestion Chips -->
             <div class="flex flex-wrap gap-2 mb-4">
+                <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    👨‍💻 Who created this app?
+                </button>
                 <button onclick="sendQuickPrompt('How do you say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     💡 How to say "Thank You"?
                 </button>
                 <button onclick="sendQuickPrompt('Explain Tapong numbers 1 to 10')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🔢 Count 1 to 10
-                </button>
-                <button onclick="sendQuickPrompt('Give me example sentences for Phiat')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    📝 Example for "Phiat"
                 </button>
             </div>
 
@@ -606,7 +606,7 @@
             entryCount.textContent = data.length;
         }
 
-        // Search Bar Event Listener (Added)
+        // Search Bar Event Listener
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
             
@@ -787,10 +787,26 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC - LONGEST EXACT MATCH FIRST & STRICT PURE TAPONG GRAMMAR
+        // SMART AI LOGIC - CREATOR, WHAT IS TAPONG & EXACT MATCH FIRST
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
+            // 1. Creator & Developer Information Check
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('who creat') || 
+                lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || 
+                lower.includes('ဘယ်သူပြုလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
+                
+                let resp = `👨‍💻 **Tapong AI Translator App Information:**\n\n`;
+                resp += `• **Creator:** Isaiah Cung (Lati / Bualthang)\n`;
+                resp += `• **Developed By:** Rising Star Music Studio\n`;
+                resp += `• **Purpose:** Dedicated to Tapong Language Preservation.\n\n`;
+                resp += `This application and its AI Q&A Assistant were designed and created to help preserve, translate, and learn the Tapong ethnic language!`;
+                
+                appendAiMessage(resp);
+                return;
+            }
+
+            // 2. What is Tapong Check
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('tapong')) {
                 let resp = `**What is Tapong?**\n\n`;
                 resp += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Bualkhua, as well as in plains areas.`;
@@ -817,7 +833,7 @@
                     `1. Pa Khat (တစ်) - *Pa khat lawng*\n` +
                     `2. Pa Nih (နှစ်) - *Pa nih an ra*\n` +
                     `3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n` +
-                    `6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (ကိုး)\n10. Pa Hra (တစ်ဆယ်)`;
+                    `6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (koး)\n10. Pa Hra (တစ်ဆယ်)`;
                 appendAiMessage(response);
                 return;
             }

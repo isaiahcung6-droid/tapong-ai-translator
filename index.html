@@ -39,7 +39,19 @@
       "name": "Tapong Language Dictionary & AI Assistant",
       "description": "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.",
       "image": "https://tapong-ai-translator.vercel.app/IMG_6152.jpeg",
-      "inLanguage": ["en", "my"]
+      "inLanguage": ["en", "my"],
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Na tlei maw?",
+          "description": "How are you? / Are you well? (Response: Ka tlei si khaw / Tlei sing khaw)"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Zu in ah pha tawh",
+          "description": "Drinking alcohol is not good in Tapong language."
+        }
+      ]
     }
     </script>
 
@@ -90,7 +102,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.2 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.3 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -190,8 +202,8 @@
                 <button onclick="sendQuickPrompt('Zu in ah pha maw?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🍺 "Zu in ah pha maw?"
                 </button>
-                <button onclick="sendQuickPrompt('Kuai tah na hawh?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    🚶 "Kuai tah na hawh?"
+                <button onclick="sendQuickPrompt('Na tlei maw?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    💬 "Na tlei maw?"
                 </button>
                 <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Creator Info
@@ -819,13 +831,41 @@
                 return;
             }
 
-            // 3. Alcohol Question Check (e.g. "Zu in ah pha maw", "Zu in pha maw")
+            // 3. Alcohol Question Check (Corrected Tapong Usage)
             if (lower.includes('zu in') && (lower.includes('pha') || lower.includes('maw') || lower.includes('tha'))) {
-                appendAiMessage("Zu in a pha lo. Zu in mah in.");
+                appendAiMessage("Zu in ah pha tawh. (or) Zu in a pha ngua. (or) Zu in ah pha ngua si.");
                 return;
             }
 
-            // 4. Exact Word Dictionary Entry Lookup (Contains Verified Examples)
+            // 4. Going & Returning Places Pattern Rules
+            if (lower.includes('lo ah') && lower.includes('hawh')) {
+                appendAiMessage("Lo ah ka hawh.");
+                return;
+            }
+            if (lower.includes('bazar ah') && lower.includes('hawh')) {
+                appendAiMessage("Bazar ah ka hawh.");
+                return;
+            }
+            if (lower.includes('si zung ah') && lower.includes('hawh')) {
+                appendAiMessage("Si zung ah ka hawh.");
+                return;
+            }
+            if (lower.includes('khua ah') && lower.includes('tlung')) {
+                appendAiMessage("Khua ah ka tlung.");
+                return;
+            }
+            if (lower.includes('in ah') && lower.includes('tlung')) {
+                appendAiMessage("In ah ka tlung.");
+                return;
+            }
+
+            // 5. Health Question Check (Tlei - Corrected Pattern Rules)
+            if (lower.includes('tlei maw') || lower.includes('na tlei maw')) {
+                appendAiMessage("Ka tlei si khaw. (or) Tlei sing khaw.");
+                return;
+            }
+
+            // 6. Exact Word Dictionary Entry Lookup (Contains Verified Examples)
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -845,7 +885,7 @@
                 return;
             }
 
-            // 5. Default 100% Pure Tapong Response for Conversation
+            // 7. Default 100% Pure Tapong Response for Conversation
             appendAiMessage("Tapong uan in ai in. Ka pawis ngua.");
         }
 

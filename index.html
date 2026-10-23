@@ -106,7 +106,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.0 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.1 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -193,7 +193,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (Interactive Chat Support)</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (Smart Exact Match Engine)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -203,8 +203,8 @@
 
             <!-- Suggestion Chips -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="sendQuickPrompt('Tapong uan in ai in')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    💬 "Tapong uan in ai in"
+                <button onclick="sendQuickPrompt('Zu in pha maw')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    🍺 "Zu in pha maw"
                 </button>
                 <button onclick="sendQuickPrompt('Kuai tah na hawh?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🚶 "Kuai tah na hawh?"
@@ -223,7 +223,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. You can chat with me in Tapong, English, or Myanmar!</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
             </div>
@@ -786,7 +786,7 @@
 
             setTimeout(() => {
                 generateAiResponse(query);
-            }, 500);
+            }, 400);
         }
 
         function appendUserMessage(text) {
@@ -819,55 +819,63 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC WITH GUARANTEED EXAMPLES & INTERACTIVE CONVERSATION
+        // ACCURATE WORD BOUNDARY MATCHING ALGORITHM
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
             let responseText = "";
 
-            // 1. App Creator Check
+            // 1. App Creator Info
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
                 responseText += `👨‍💻 **Tapong AI Translator App Information:**\n\n`;
                 responseText += `• **Creator:** Isaiah Cung (Lati / Bualthang)\n`;
                 responseText += `• **Developed By:** Rising Star Music Studio\n`;
                 responseText += `• **Purpose:** Dedicated to Tapong Language Preservation.\n\n`;
-            }
-
-            // 2. What is Tapong Check
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ')) {
-                responseText += `**What is Tapong?**\n\n`;
-                responseText += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.\n\n`;
-            }
-
-            if (responseText !== "") {
                 appendAiMessage(responseText.trim());
                 return;
             }
 
-            // 3. Search Matching Algorithm Across Tapong, English, and Myanmar
-            let candidateMatches = [];
+            // 2. What is Tapong Info
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ')) {
+                responseText += `**What is Tapong?**\n\n`;
+                responseText += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.\n\n`;
+                appendAiMessage(responseText.trim());
+                return;
+            }
+
+            // Tokenize query words strictly
+            const queryWords = lower.replace(/[.,?!]/g, '').split(/\s+/).filter(w => w.length > 0);
+
+            let matchedEntries = [];
+
             dictionaryData.forEach(item => {
-                const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
-                tapongTerms.forEach(term => {
-                    if (lower.includes(term) || term.includes(lower)) {
-                        candidateMatches.push({ item, score: term.length });
+                const tapongTokens = item.tapong.toLowerCase().replace(/[.,?!]/g, '').split(/[\s,]+/);
+                
+                // Exact full sentence match
+                if (item.tapong.toLowerCase() === lower || item.exTapong.toLowerCase() === lower) {
+                    matchedEntries.push({ item, priority: 100 });
+                    return;
+                }
+
+                // Check exact word matches in sentence
+                let matchCount = 0;
+                queryWords.forEach(qw => {
+                    if (tapongTokens.includes(qw)) {
+                        matchCount++;
                     }
                 });
 
-                if (lower.includes(item.english.toLowerCase()) || item.english.toLowerCase().includes(lower)) {
-                    candidateMatches.push({ item, score: item.english.length });
-                }
-
-                if (lower.includes(item.myanmar.toLowerCase()) || item.myanmar.toLowerCase().includes(lower)) {
-                    candidateMatches.push({ item, score: item.myanmar.length });
+                if (matchCount > 0) {
+                    matchedEntries.push({ item, priority: matchCount });
                 }
             });
 
-            candidateMatches.sort((a, b) => b.score - a.score);
+            // Sort by match count/priority
+            matchedEntries.sort((a, b) => b.priority - a.priority);
 
-            if (candidateMatches.length > 0) {
+            if (matchedEntries.length > 0) {
                 const topMatches = [];
                 const seenIds = new Set();
-                for (let m of candidateMatches) {
+                for (let m of matchedEntries) {
                     if (!seenIds.has(m.item.id)) {
                         topMatches.push(m.item);
                         seenIds.add(m.item.id);
@@ -875,24 +883,24 @@
                     if (topMatches.length >= 2) break;
                 }
 
-                let response = `💬 **Tapong Conversation & Sentence Breakdown:**\n\n`;
-                topMatches.forEach(matchedItem => {
-                    response += `🔹 **Entry (#${matchedItem.id}):**\n`;
-                    response += `• **Tapong:** ${matchedItem.tapong}\n`;
-                    response += `• **English:** ${matchedItem.english}\n`;
-                    response += `• **Myanmar:** ${matchedItem.myanmar}\n\n`;
+                let response = `💬 **Tapong Word & Sentence Analysis:**\n\n`;
+                topMatches.forEach(item => {
+                    response += `🔹 **Entry (#${item.id}):**\n`;
+                    response += `• **Tapong:** ${item.tapong}\n`;
+                    response += `• **English:** ${item.english}\n`;
+                    response += `• **Myanmar:** ${item.myanmar}\n\n`;
                     response += `📝 **Example Sentences (3 Languages):**\n`;
-                    response += `• *Tapong:* ${matchedItem.exTapong}\n`;
-                    response += `• *English:* ${matchedItem.exEng}\n`;
-                    response += `• *Myanmar:* ${matchedItem.exMyo}\n\n`;
+                    response += `• *Tapong:* ${item.exTapong}\n`;
+                    response += `• *English:* ${item.exEng}\n`;
+                    response += `• *Myanmar:* ${item.exMyo}\n\n`;
                 });
 
                 appendAiMessage(response.trim());
                 return;
             }
 
-            // Fallback for general queries or unmatched inputs
-            appendAiMessage(`I received your message: "${escapeHtml(query)}".\n\nI am dedicated to 100% Pure Tapong grammar. You can type words or sentences in Tapong, English, or Myanmar, and I will analyze them with verified example sentences for you!`);
+            // Unmatched phrase fallback
+            appendAiMessage(`I received your message: "${escapeHtml(query)}".\n\nI couldn't find an exact match in our 280 Tapong entries. Try typing key words like "Zu", "Hawh", or "Ei"!`);
         }
 
         clearBtn.addEventListener('click', () => {

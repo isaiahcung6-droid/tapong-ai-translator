@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.4 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.7 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -532,7 +532,7 @@
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa fanu pazei na nei?", exEng: "How many sons and daughters do you have?", exMyo: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
             { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
-            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည, သွားနေလည?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
+            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
             { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
             { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah in.", exEng: "Don't do that.", exMyo: "မလုပ်ပါနဲ့။" },
@@ -763,7 +763,12 @@
             `;
         }
 
-        // ADAPTIVE & PURE TAPONG MATCHING LOGIC (NO EXTERNAL LOANWORDS)
+        // AUTO CAPITALIZATION & ADVANCED FUZZY MATCHING LOGIC FOR SPEED/TYPOS
+        function capitalizeFirstLetter(val) {
+            if (!val) return '';
+            return val.charAt(0).toUpperCase() + val.slice(1);
+        }
+
         function generateAiResponse(query) {
             const isBreakdown = query.startsWith('[BREAKDOWN]');
             const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
@@ -774,16 +779,40 @@
                 return;
             }
 
-            // Step A: Exact Tapong Phrase Match First
-            let bestMatch = dictionaryData.find(item => item.tapong.toLowerCase() === cleanQuery);
+            let bestMatch = null;
 
+            // Step A: Exact or Substring Tapong Match
+            bestMatch = dictionaryData.find(item => item.tapong.toLowerCase() === cleanQuery);
+
+            // Step B: Intelligent Fuzzy & Intent Matching (Handles typos, rushing, multi-word variations)
             if (!bestMatch) {
-                // Step B: Adaptive Single Token / Root Word Matching (Ensuring Pure Tapong context)
-                const stopWords = [
-                    'in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the',
-                    'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်', 'တရ်', 'တယ်', 'ဆိုရင်', 'ဘယ်လို', 'ကိုတပေါ်င်လို', 'တပေါ်င်လို'
-                ];
+                // Check for key syllable/concept mappings (e.g., ည၊ လင်း၊ လ၊ နေ၊ စာ စသည်ဖြင့် အလျင်စလိုရိုက်ထားတာတွေပါ မကျန်အောင် ဖမ်းပေးခြင်း)
+                for (let item of dictionaryData) {
+                    const tapText = item.tapong.toLowerCase();
+                    const engText = item.english.toLowerCase();
+                    const myoText = item.myanmar.toLowerCase();
 
+                    // Check if query shares significant substring or semantic intent
+                    if (cleanQuery.split('').some(char => char.length > 0 && myoText.includes(char) && char !== ' ')) {
+                        // Count matching characters/words to find the best candidate
+                        let matchScore = 0;
+                        const queryWords = cleanQuery.split(/[\s,?.!]+/);
+                        queryWords.forEach(qw => {
+                            if (qw.length > 1 && (myoText.includes(qw) || engText.includes(qw) || tapText.includes(qw))) {
+                                matchScore++;
+                            }
+                        });
+                        if (matchScore > 0) {
+                            bestMatch = item;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Step C: Fallback Token Inspection if still not found
+            if (!bestMatch) {
+                const stopWords = ['in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်', 'တရ်', 'တယ်', 'ဆိုရင်', 'ဘယ်လို', 'မှာ', 'သည်'];
                 let sanitizedQuery = cleanQuery;
                 stopWords.forEach(sw => {
                     sanitizedQuery = sanitizedQuery.replaceAll(sw, ' ');
@@ -792,21 +821,11 @@
                 const tokens = sanitizedQuery.split(/[\s,?.!]+/).filter(t => t.length > 0);
 
                 for (let item of dictionaryData) {
-                    const engList = item.english.toLowerCase().split(/,\s*/);
-                    const myoList = item.myanmar.toLowerCase().split(/,\s*/);
-                    const tapList = item.tapong.toLowerCase().split(/,\s*/);
-
-                    const cleanMyoList = myoList.map(m => m.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim());
-
                     const matchFound = tokens.some(t => {
-                        const cleanToken = t.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
-                        if (cleanToken.length < 2) return false;
-                        return engList.some(e => e.includes(cleanToken)) ||
-                               myoList.some(m => m.includes(cleanToken)) ||
-                               cleanMyoList.some(cm => cm.includes(cleanToken)) ||
-                               tapList.some(tp => tp.toLowerCase().includes(cleanToken));
+                        return item.english.toLowerCase().includes(t) ||
+                               item.myanmar.toLowerCase().includes(t) ||
+                               item.tapong.toLowerCase().includes(t);
                     });
-
                     if (matchFound) {
                         bestMatch = item;
                         break;
@@ -814,21 +833,22 @@
                 }
             }
 
-            // DUAL-LOGIC ROUTING: BREAKDOWN vs CHATBOX (Strictly using pure Tapong grammar with 'pha ngai')
+            // DUAL-LOGIC ROUTING: BREAKDOWN vs CHATBOX (Capitalized & Formatted)
             if (bestMatch) {
                 if (isBreakdown) {
-                    let breakdownText = `📌 Breakdown: ${bestMatch.tapong}\n• English: ${bestMatch.english}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${bestMatch.exTapong || bestMatch.tapong}\n• English: ${bestMatch.exEng || bestMatch.english}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
+                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    let pureTapongText = `${bestMatch.tapong} pha ngai.`;
+                    let formattedTap = capitalizeFirstLetter(bestMatch.tapong);
+                    let pureTapongText = `${formattedTap} pha ngai.`;
                     if (bestMatch.exTapong) {
-                        pureTapongText += ` (${bestMatch.exTapong})`;
+                        pureTapongText += ` (${capitalizeFirstLetter(bestMatch.exTapong)})`;
                     }
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // FALLBACK ONLY FOR COMPLETELY UNKNOWN / FOREIGN WORDS
-                appendAiMessage(`tapong uan dictionary tah ngan lai ngua si.`);
+                // ABSOLUTE FALLBACK ONLY FOR COMPLETELY UNRECOGNIZED WORDS
+                appendAiMessage(`Tapong uan dictionary tah ngan lai ngua si.`);
             }
         }
 

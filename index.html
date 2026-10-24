@@ -807,15 +807,15 @@
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. App Creator Info
+            // 1. App Creator Info (English Response)
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
-                appendAiMessage("Hi uan translator hi Isaiah Cung (Lati / Bualthang) le Rising Star Music Studio nih an vuah si.");
+                appendAiMessage("Tapong AI Translator was created by Isaiah Cung (Lati / Bualthang) and Rising Star Music Studio.");
                 return;
             }
 
-            // 2. What is Tapong
+            // 2. What is Tapong (English Response)
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ')) {
-                appendAiMessage("Tapong hi Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam khua pawl le hmun tual ah a om mi Tapong miphun uan si.");
+                appendAiMessage("Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.");
                 return;
             }
 

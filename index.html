@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.0 (AI Assistant)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.9 (AI Assistant)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span> @ Rising Star Music Studio</p>
                 </div>
@@ -171,7 +171,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar AI Generation Engine</p>
+                        <p class="text-xs text-slate-400">Pure Tapong Uan AI Assistant Engine</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -774,7 +774,7 @@
             }
 
             if (targetWordObj) {
-                let pureTapongSentence = `"${targetWordObj.exTapong}"`;
+                let pureTapongSentence = `🤖 Tapong AI Assistant:\n\n"${targetWordObj.exTapong}"`;
                 appendAiMessage(pureTapongSentence);
                 return;
             }
@@ -786,7 +786,7 @@
             );
 
             if (bestMatch) {
-                appendAiMessage(`"${bestMatch.exTapong}"`);
+                appendAiMessage(`🤖 Tapong AI Assistant:\n\n"${bestMatch.exTapong}"`);
             } else {
                 appendAiMessage(`Tapong uan in bia hal in. Tapong AI Assistant nih purh tawk in a leh lai.`);
             }

@@ -79,27 +79,10 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between p-3 md:p-6">
 
-    <!-- Google Bot SEO Fallback Content -->
-    <noscript>
-        <div style="display:none;">
-            <h1>Tapong AI Translator & Dictionary</h1>
-            <p>Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.</p>
-            <ul>
-                <li>Tapong: Ai - English: Speak - Myanmar: စကားပြောသည်</li>
-                <li>Tapong: Ang ki - English: Shirt - Myanmar: ရှပ်အင်္ကျီ</li>
-                <li>Tapong: Ar - English: Chicken - Myanmar: ကြက်</li>
-                <li>Tapong: Ar sa - English: Chicken curry - Myanmar: ကြက်သား</li>
-                <li>Tapong: Na ann ing - English: Thank You - Myanmar: ကျေးဇူးတင်ပါသည်</li>
-                <li>Tapong: Uan - English: Language - Myanmar: ဘာသာစကား</li>
-            </ul>
-        </div>
-    </noscript>
-
     <!-- Header Section -->
     <header class="max-w-5xl mx-auto w-full mb-4">
         <div class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <!-- Header Logo -->
                 <div class="w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-blue-500/25 border border-slate-700/50 shrink-0">
                     <img src="IMG_6152.jpeg" alt="Tapong AI Translator Logo" class="w-full h-full object-cover">
                 </div>
@@ -112,7 +95,6 @@
                 </div>
             </div>
             
-            <!-- Mode Switcher Tabs -->
             <div class="flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 text-xs w-full md:w-auto">
                 <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
@@ -132,7 +114,6 @@
         
         <!-- SECTION 1: DICTIONARY VIEW -->
         <div id="dictionarySection" class="space-y-4">
-            <!-- Search Box -->
             <div class="custom-glass rounded-2xl p-4 md:p-5 shadow-xl">
                 <div class="relative mb-2">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -147,7 +128,6 @@
                 </p>
             </div>
 
-            <!-- Dictionary Table -->
             <div class="custom-glass rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -161,7 +141,6 @@
                             </tr>
                         </thead>
                         <tbody id="dictionaryBody" class="divide-y divide-slate-800/60 text-sm text-slate-200 font-normal">
-                            <!-- Data rows injected by JS -->
                         </tbody>
                     </table>
                 </div>
@@ -179,7 +158,6 @@
 
         <!-- SECTION 2: AI Q&A ASSISTANT VIEW -->
         <div id="aiSection" class="hidden custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col h-[600px]">
-            <!-- AI Header -->
             <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
@@ -201,7 +179,6 @@
                 </button>
             </div>
 
-            <!-- Suggestion Chips -->
             <div class="flex flex-wrap gap-2 mb-4">
                 <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Who created this app?
@@ -214,23 +191,20 @@
                 </button>
             </div>
 
-            <!-- Chat Messages Container -->
             <div id="chatMessages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4 text-sm">
-                <!-- AI Welcome Message -->
                 <div class="flex gap-3">
                     <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All 280 entries are fully aligned, verified, and strict.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me anything in Tapong, English, or Myanmar!</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Chat Input Box -->
             <div class="relative">
-                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything..." onkeydown="if(event.key==='Enter') sendMessage()"
+                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything in Tapong, English, or Myanmar..." onkeydown="if(event.key==='Enter') sendMessage()"
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                 <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -258,14 +232,12 @@
                     </div>
                 </div>
                 
-                <!-- Web Speech Audio Engine -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
                 </button>
             </div>
 
-            <!-- 3 Languages Reading Card -->
             <div class="space-y-4 bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs">
                 <div>
                     <p class="text-blue-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Tapong Language</p>
@@ -294,7 +266,7 @@
         </div>
     </div>
 
-    <!-- Footer with @Rising Star Music Studio -->
+    <!-- Footer -->
     <footer class="max-w-5xl mx-auto w-full mt-8 mb-2 text-center text-xs text-slate-500 space-y-1">
         <p>© TAPONG AI TRANSLATOR — Developed by @Rising Star Music Studio</p>
         <p class="text-slate-600">Dedicated to Tapong Language Preservation</p>
@@ -618,19 +590,14 @@
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            
-            if (query.length > 0) {
-                clearBtn.classList.remove('hidden');
-            } else {
-                clearBtn.classList.add('hidden');
-            }
+            if (query.length > 0) clearBtn.classList.remove('hidden');
+            else clearBtn.classList.add('hidden');
 
             const filteredData = dictionaryData.filter(item => 
                 item.tapong.toLowerCase().includes(query) ||
                 item.english.toLowerCase().includes(query) ||
                 item.myanmar.toLowerCase().includes(query)
             );
-
             renderTable(filteredData);
         });
 
@@ -672,22 +639,18 @@
 
         function speakWord() {
             if (!selectedWord) return;
-
             const btnText = document.getElementById('listenText');
             const btnIcon = document.getElementById('listenIcon');
-
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-
                 const itemsToSpeak = [
                     { text: selectedWord.tapong, lang: 'en-US' },
                     { text: selectedWord.english, lang: 'en-US' },
                     { text: selectedWord.myanmar, lang: 'my-MM' }
                 ];
-
                 let currentIndex = 0;
 
                 function speakNext() {
@@ -696,30 +659,17 @@
                         const msg = new SpeechSynthesisUtterance(currentItem.text);
                         msg.lang = currentItem.lang;
                         msg.rate = 0.85;
-
-                        msg.onend = function() {
-                            currentIndex++;
-                            speakNext();
-                        };
-
-                        msg.onerror = function() {
-                            currentIndex++;
-                            speakNext();
-                        };
-
+                        msg.onend = () => { currentIndex++; speakNext(); };
+                        msg.onerror = () => { currentIndex++; speakNext(); };
                         window.speechSynthesis.speak(msg);
                     } else {
-                        resetListenBtn();
+                        btnText.textContent = "Listen";
+                        btnIcon.className = "fa-solid fa-volume-high";
                     }
                 }
-
                 speakNext();
             } else {
                 alert('Your browser does not support speech synthesis.');
-                resetListenBtn();
-            }
-
-            function resetListenBtn() {
                 btnText.textContent = "Listen";
                 btnIcon.className = "fa-solid fa-volume-high";
             }
@@ -786,7 +736,7 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (100% Pure Tapong)</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
                         <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
@@ -795,121 +745,96 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC - UPDATED TO SUPPORT BOTH MYANMAR & ENGLISH QUERIES
+        function clearChat() {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = `
+                <div class="flex gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me anything in Tapong, English, or Myanmar!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // DYNAMIC AI GENERATION LOGIC (NATURAL AI SYNTHESIS FROM DICTIONARY DATA)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
-            let responseText = "";
 
-            // 1. Creator & Developer Information Check (Supports Myanmar & English)
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('who creat') || 
-                lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || 
-                lower.includes('ဘယ်သူပြုလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဖန်တီးသူ')) {
-                
-                responseText += `👨‍💻 **Tapong AI Translator App Information:**\n\n`;
-                responseText += `• **Creator:** Isaiah Cung (Lati / Bualthang)\n`;
-                responseText += `• **Developed By:** Rising Star Music Studio\n`;
-                responseText += `• **Purpose:** Dedicated to Tapong Language Preservation.\n\n`;
-                responseText += `This application and its AI Q&A Assistant were designed and created to help preserve, translate, and learn the Tapong ethnic language!\n\n`;
-            }
-
-            // 2. What is Tapong Check (Supports Myanmar & English)
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ') || (lower.includes('tapong') && !lower.includes('app') && !lower.includes('who'))) {
-                responseText += `**What is Tapong?**\n\n`;
-                responseText += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.\n\n`;
-            }
-
-            if (responseText !== "") {
-                appendAiMessage(responseText.trim());
+            // 1. App Creator & Developer Information Check
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဖန်တီးသူ')) {
+                appendAiMessage(`**Tapong AI Translator** was created by **Isaiah Cung (Lati / Bualthang)** and developed by **@Rising Star Music Studio**. It is created to preserve and promote the Tapong ethnic language!`);
                 return;
             }
 
+            // 2. What is Tapong Check
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ') || (lower.includes('tapong') && !lower.includes('sentence') && !lower.includes('mean') && !lower.includes('say'))) {
+                appendAiMessage(`Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.`);
+                return;
+            }
+
+            // 3. Greeting / Thank You Check
             if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
-                const match = dictionaryData.find(i => i.id === 96);
-                let resp = `**Authentic Tapong Translation:**\n\n`;
-                resp += `• **Tapong:** ${match.tapong}\n`;
-                resp += `• **English:** ${match.english}\n`;
-                resp += `• **Myanmar:** ${match.myanmar}\n\n`;
-                resp += `📝 **Example Sentences (3 Languages):**\n`;
-                resp += `• *Tapong:* ${match.exTapong}\n`;
-                resp += `• *English:* ${match.exEng}\n`;
-                resp += `• *Myanmar:* ${match.exMyo}`;
-                appendAiMessage(resp);
+                appendAiMessage(`In Tapong, "Thank You" is expressed as **"Na ann ing"**. \n\n*Example:* Tapong: "Na ann ing." | English: "Thank you very much." | Myanmar: "ကျေးဇူးတင်ပါတယ်။"`);
                 return;
             }
 
+            // 4. Numbers / Counting Check
             if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း') || lower.includes('၁ မှ ၁၀')) {
-                let response = `**Tapong Numbers 1 to 10 (Strictly Verified):**\n\n` +
-                    `1. Pa Khat (တစ်) - *Pa khat lawng*\n` +
-                    `2. Pa Nih (နှစ်) - *Pa nih an ra*\n` +
-                    `3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n` +
-                    `6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (ကိုး)\n10. Pa Hra (တစ်ဆယ်)`;
-                appendAiMessage(response);
+                appendAiMessage(`Here is how you count 1 to 10 in Tapong:\n\n1. Pa Khat (တစ်)\n2. Pa Nih (နှစ်)\n3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (ကိုး)\n10. Pa Hra (တစ်ဆယ်)`);
                 return;
             }
 
-            let candidateMatches = [];
+            // 5. Smart Dictionary Query Search & Natural AI Synthesis
+            let matchedItems = [];
+
             dictionaryData.forEach(item => {
-                if (lower.includes(item.myanmar.toLowerCase()) || item.myanmar.toLowerCase().includes(lower)) {
-                    candidateMatches.push({ item, length: item.myanmar.length });
-                } else if (lower.includes(item.english.toLowerCase()) || item.english.toLowerCase().includes(lower)) {
-                    candidateMatches.push({ item, length: item.english.length });
+                const tapongLower = item.tapong.toLowerCase();
+                const engLower = item.english.toLowerCase();
+                const myoLower = item.myanmar.toLowerCase();
+
+                // Direct or partial match with Query
+                if (lower.includes(tapongLower) || lower.includes(engLower) || lower.includes(myoLower) ||
+                    tapongLower.includes(lower) || engLower.includes(lower) || myoLower.includes(lower)) {
+                    matchedItems.push(item);
                 } else {
-                    const terms = item.tapong.toLowerCase().split(/,\s*/);
-                    terms.forEach(term => {
-                        const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-                        if (regex.test(lower)) {
-                            candidateMatches.push({ item, length: term.length });
-                        }
-                    });
+                    // Check individual keywords
+                    const tokens = lower.split(/[\s,?.!]+/).filter(t => t.length > 1 && !['give', 'me', 'example', 'sentences', 'for', 'show', 'how', 'to', 'say', 'in', 'tapong', 'meaning', 'what', 'is', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်'].includes(t));
+                    const isMatched = tokens.some(t => tapongLower.includes(t) || engLower.includes(t) || myoLower.includes(t));
+                    if (isMatched) {
+                        matchedItems.push(item);
+                    }
                 }
             });
 
-            candidateMatches.sort((a, b) => b.length - a.length);
+            // Remove duplicate entries
+            matchedItems = Array.from(new Set(matchedItems.map(a => a.id))).map(id => matchedItems.find(a => a.id === id));
 
-            let matchedItem = candidateMatches.length > 0 ? candidateMatches[0].item : null;
+            if (matchedItems.length > 0) {
+                let naturalResponse = "";
 
-            if (!matchedItem) {
-                matchedItem = dictionaryData.find(item => 
-                    item.tapong.toLowerCase() === lower || 
-                    item.english.toLowerCase() === lower ||
-                    item.myanmar.toLowerCase() === lower
-                );
-            }
-
-            if (matchedItem) {
-                let response = `🛡️ **Tapong Verified Entry (#${matchedItem.id}):**\n\n`;
-                response += `• **Tapong:** ${matchedItem.tapong}\n`;
-                response += `• **English:** ${matchedItem.english}\n`;
-                response += `• **Myanmar:** ${matchedItem.myanmar}\n\n`;
-                response += `📝 **Example Sentences (3 Languages):**\n`;
-                response += `• *Tapong:* ${matchedItem.exTapong}\n`;
-                response += `• *English:* ${matchedItem.exEng}\n`;
-                response += `• *Myanmar:* ${matchedItem.exMyo}`;
-                appendAiMessage(response);
-                return;
-            }
-
-            const queryWords = lower.split(/\s+/).filter(w => w.length > 1 && !['ပေး', 'လို', 'ဘယ်လို', 'ပြော', 'give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
-            
-            let matches = dictionaryData.filter(item => {
-                return queryWords.some(qw => 
-                    item.myanmar.toLowerCase().includes(qw) || 
-                    item.english.toLowerCase().includes(qw) || 
-                    item.tapong.toLowerCase().includes(qw)
-                );
-            });
-
-            if (matches.length > 0) {
-                let response = `🔍 **Found ${matches.length} Authentic Tapong Match(es):**\n\n`;
-                matches.slice(0, 3).forEach(m => {
-                    response += `• **Tapong:** ${m.tapong} (${m.english} / ${m.myanmar})\n`;
-                    response += `  📝 *Tapong:* ${m.exTapong}\n`;
-                    response += `  📝 *English:* ${m.exEng}\n`;
-                    response += `  📝 *Myanmar:* ${m.exMyo}\n\n`;
-                });
-                appendAiMessage(response.trim());
+                if (matchedItems.length === 1) {
+                    const item = matchedItems[0];
+                    naturalResponse = `In Tapong, **"${item.tapong}"** means **"${item.english}"** in English and **"${item.myanmar}"** in Myanmar.\n\n`;
+                    naturalResponse += `💡 **Sentence Example:**\n`;
+                    naturalResponse += `• **Tapong:** ${item.exTapong}\n`;
+                    naturalResponse += `• **English:** ${item.exEng}\n`;
+                    naturalResponse += `• **Myanmar:** ${item.exMyo}`;
+                } else {
+                    naturalResponse = `Here are the relevant Tapong translations and examples found in the dictionary:\n\n`;
+                    matchedItems.slice(0, 3).forEach((item, index) => {
+                        naturalResponse += `${index + 1}. **${item.tapong}** (${item.english} / ${item.myanmar})\n`;
+                        naturalResponse += `   🗣️ *Tapong Sentence:* "${item.exTapong}"\n`;
+                        naturalResponse += `   🇬🇧 *English:* "${item.exEng}"\n`;
+                        naturalResponse += `   🇲🇲 *Myanmar:* "${item.exMyo}"\n\n`;
+                    });
+                }
+                appendAiMessage(naturalResponse.trim());
             } else {
-                appendAiMessage(`ဝန်ခံပါတယ်၊ "${escapeHtml(query)}" နဲ့ ကိုက်ညီတဲ့ တပေါင်စကားလုံး တိုက်ရိုက် မတွေ့သေးပါ။ ကျေးဇူးပြု၍ အင်္ဂလိပ်လို သို့မဟုတ် တပေါင်စကားလုံး သီးသန့်ဖြင့် ထပ်မံမေးမြန်းကြည့်ပါ။`);
+                appendAiMessage(`I couldn't find an exact match for "${escapeHtml(query)}" in the Tapong dictionary. Please try asking with specific words in Tapong, English, or Myanmar!`);
             }
         }
 

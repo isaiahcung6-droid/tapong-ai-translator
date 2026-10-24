@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.4 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.6 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -779,7 +779,6 @@
         function appendAiMessage(item) {
             const container = document.getElementById('chatMessages');
             
-            // If it's a structured dictionary item with 3 languages example sentences (triggered via Ask AI Breakdown or Direct AI Q&A search query)
             if (typeof item === 'object' && item !== null) {
                 const msgHtml = `
                     <div class="flex gap-3">
@@ -811,7 +810,6 @@
                 `;
                 container.insertAdjacentHTML('beforeend', msgHtml);
             } else {
-                // Plain Text fallback (for Creator info or general pure text)
                 const msgHtml = `
                     <div class="flex gap-3">
                         <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
@@ -828,23 +826,23 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // AI Q&A ASSISTANT: MATCHES 3 LANGUAGES TYPING QUERY -> RESPONDS WITH TAPONG & 3 LANGUAGES EXAMPLES
+        // UPDATED ENGINE: 2 SPECIFIC QUESTIONS REMAIN ENGLISH, ALL OTHER QUERIES RETURN DICTIONARY-BASED TAPONG RESPONSES
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. Exception 1: App Creator Info (English Response)
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်')) {
+            // 1. Who created this app? (Kept strict English as originally requested)
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဘယ်သူကတီးတွန်')) {
                 appendAiMessage("Tapong AI Translator was created by Isaiah Cung (Lati / Bualthang) and Rising Star Music Studio.");
                 return;
             }
 
-            // 2. Exception 2: What is Tapong (English Response)
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ ဘာလဲ')) {
+            // 2. What is Tapong? (Kept strict English as originally requested)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာကဘာလည်း')) {
                 appendAiMessage("Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.");
                 return;
             }
 
-            // 3. Autonomous Search across all 280 dictionary entries (Matches any of the 3 languages typing)
+            // 3. All other questions search dictionary and return accurate Tapong dictionary data/results
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -856,7 +854,6 @@
                 return;
             }
 
-            // Keyword Autonomous Search
             const queryWords = lower.split(/\s+/).filter(word => word.length > 1);
             let bestMatch = null;
 

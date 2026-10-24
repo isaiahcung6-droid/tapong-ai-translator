@@ -363,7 +363,7 @@
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", exTapong: "La sa in.", exEng: "Sing a song.", exMyo: "သီချင်း ဆိုပါ။" },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", exTapong: "Ca uk ah lai ngan in.", exEng: "Write in the book.", exMyo: "စာအုပ်ထဲမှာ ရေးပါ။" },
             { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး", exTapong: "Lai ngantu pa a ra.", exEng: "The secretary comes.", exMyo: "အတွင်းရေးမှူး လာတယ်။" },
-            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်ပါ။" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်တယ်။" },
             { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်", exTapong: "Hlai ka lei.", exEng: "I buy food.", exMyo: "အစားအစာ ဝယ်တယ်။" },
             { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ", exTapong: "Ka lei a na.", exEng: "My tongue hurts.", exMyo: "လျှာ နာတယ်။" },
             { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး", exTapong: "Lei lung hi a mawi.", exEng: "This land is beautiful.", exMyo: "ဒီမြေကြီး လှတယ်။" },
@@ -803,7 +803,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART DICTIONARY AI MATCHING ENGINE (Automated Mapping from Dictionary Data)
+        // SMART AUTOMATED AI MATCHING ENGINE (Self-Search & Autonomous Matching)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -819,48 +819,8 @@
                 return;
             }
 
-            // 3. Automated Smart Dictionary Matching & Pattern Engine (Tapong Pure Response)
-            // Alcohol Rule
-            if (lower.includes('zu in') && (lower.includes('pha') || lower.includes('maw') || lower.includes('tha'))) {
-                appendAiMessage("Zu in ah pha tawh. (or) Zu in a pha ngua. (or) Zu in ah pha ngua si.");
-                return;
-            }
-
-            // Health & Headache Rule (Linked with Dictionary #164 "Sii")
-            if (lower.includes('lu na')) {
-                appendAiMessage("Lu na le sii in in. (or) Lu na le si zung ah hawh in.");
-                return;
-            }
-
-            // Going & Returning Rules
-            if (lower.includes('lo ah') && lower.includes('hawh')) {
-                appendAiMessage("Lo ah ka hawh.");
-                return;
-            }
-            if (lower.includes('bazar ah') && lower.includes('hawh')) {
-                appendAiMessage("Bazar ah ka hawh.");
-                return;
-            }
-            if (lower.includes('si zung ah') && lower.includes('hawh')) {
-                appendAiMessage("Si zung ah ka hawh.");
-                return;
-            }
-            if (lower.includes('khua ah') && lower.includes('tlung')) {
-                appendAiMessage("Khua ah ka tlung.");
-                return;
-            }
-            if (lower.includes('in ah') && lower.includes('tlung')) {
-                appendAiMessage("In ah ka tlung.");
-                return;
-            }
-
-            // Health Tlei Rule
-            if (lower.includes('tlei maw') || lower.includes('na tlei maw')) {
-                appendAiMessage("Ka tlei si khaw. (or) Tlei sing khaw.");
-                return;
-            }
-
-            // 4. Exact Dictionary Entry Lookup (Auto searches across all 280 entries)
+            // 3. Automated Autonomous Dictionary Search (AI Self-Picks Best Match across 280 entries)
+            // Exact Match Search
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -872,19 +832,25 @@
                 return;
             }
 
-            // 5. Smart Fallback Search inside Dictionary Array (Auto-detect keywords)
-            const keywordMatch = dictionaryData.find(item => 
-                item.tapong.toLowerCase().includes(lower) || 
-                item.english.toLowerCase().includes(lower) || 
-                item.myanmar.toLowerCase().includes(lower)
-            );
+            // Keyword / Partial Autonomous Search (Splits query into words and finds best dictionary match)
+            const queryWords = lower.split(/\s+/).filter(word => word.length > 1);
+            let bestMatch = null;
 
-            if (keywordMatch) {
-                appendAiMessage(keywordMatch.exTapong || keywordMatch.tapong);
+            for (const word of queryWords) {
+                bestMatch = dictionaryData.find(item => 
+                    item.tapong.toLowerCase().includes(word) || 
+                    item.english.toLowerCase().includes(word) || 
+                    item.myanmar.toLowerCase().includes(word)
+                );
+                if (bestMatch) break;
+            }
+
+            if (bestMatch) {
+                appendAiMessage(bestMatch.exTapong || bestMatch.tapong);
                 return;
             }
 
-            // 6. Default 100% Pure Tapong Response
+            // 4. Default 100% Pure Tapong Response (Fallback)
             appendAiMessage("Tapong uan in ai in. Na suan ang.");
         }
 

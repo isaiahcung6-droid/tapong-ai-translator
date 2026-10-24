@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v4.9 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.1 (281 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -99,7 +99,7 @@
                 <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
                     <span>Dictionary</span>
-                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">280</span>
+                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">281</span>
                 </button>
                 <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-robot text-indigo-400"></i>
@@ -171,7 +171,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (280 Total Items)</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (281 Total Items)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -554,7 +554,8 @@
             { id: 277, tapong: "Van Cung Mi", english: "Angel", myanmar: "ကောင်းကင်တမန်", exTapong: "Van Cung Mi a ra.", exEng: "An angel comes.", exMyo: "ကောင်းကင်တမန် လာတယ်။" },
             { id: 278, tapong: "Van vum", english: "Heaven", myanmar: "ကောင်းကင်ဘုံ", exTapong: "Van vum ah ka hawh.", exEng: "I go to heaven.", exMyo: "ကောင်းကင်ဘုံ သွားတယ်။" },
             { id: 279, tapong: "An cang kha", english: "Bitter gourd", myanmar: "ကြက်ဟင်းခါးသီး", exTapong: "An cang kha a kha.", exEng: "Bitter gourd is bitter.", exMyo: "ကြက်ဟင်းခါးသီး ခါးတယ်။" },
-            { id: 280, tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး", exTapong: "Pihuam ka suang.", exEng: "I cook chayote.", exMyo: "ဂေါ်ရခါးသီး ချက်တယ်။" }
+            { id: 280, tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး", exTapong: "Pihuam ka suang.", exEng: "I cook chayote.", exMyo: "ဂေါ်ရခါးသီး ချက်တယ်။" },
+            { id: 281, tapong: "Tawh", english: "No, Not, Don't (Negative Particle)", myanmar: "မ, မဟုတ်, မပါ (ငြင်းပယ်ပြ စကားလုံး)", exTapong: "A tawh.", exEng: "No / Not.", exMyo: "မပါ / မဟုတ်ပါ။" }
         ];
 
         let selectedWord = null;
@@ -775,20 +776,35 @@
                 return;
             }
 
-            const stopWords = ['in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်'];
-            const tokens = cleanQuery.split(/[\s,?.!]+/).filter(t => t.length > 0 && !stopWords.includes(t));
+            const stopWords = [
+                'in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the',
+                'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်', 'တရ်', 'တယ်', 'ဆိုရင်', 'ဘယ်လို', 'ကိုတပေါ်င်လို', 'တပေါ်င်လို'
+            ];
+
+            let sanitizedQuery = cleanQuery;
+            stopWords.forEach(sw => {
+                sanitizedQuery = sanitizedQuery.replaceAll(sw, ' ');
+            });
+
+            const tokens = sanitizedQuery.split(/[\s,?.!]+/).filter(t => t.length > 0);
 
             let bestMatch = null;
 
-            // Step A: Exact word match in Dictionary
+            // Step A: Search for exact or key dictionary word inside the user sentence
             for (let item of dictionaryData) {
                 const engList = item.english.toLowerCase().split(/,\s*/);
                 const myoList = item.myanmar.toLowerCase().split(/,\s*/);
                 const tapList = item.tapong.toLowerCase().split(/,\s*/);
 
-                const matchFound = tokens.some(t => 
-                    engList.includes(t) || myoList.includes(t) || tapList.includes(t)
-                );
+                const cleanMyoList = myoList.map(m => m.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim());
+
+                const matchFound = tokens.some(t => {
+                    const cleanToken = t.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
+                    return engList.some(e => e.includes(cleanToken) || cleanToken.includes(e)) ||
+                           myoList.some(m => m.includes(cleanToken) || cleanToken.includes(m)) ||
+                           cleanMyoList.some(cm => cleanToken.includes(cm) || cm.includes(cleanToken)) ||
+                           tapList.some(tp => tp.includes(cleanToken) || cleanToken.includes(tp));
+                });
 
                 if (matchFound) {
                     bestMatch = item;
@@ -796,15 +812,11 @@
                 }
             }
 
-            // Step B: Partial match if no exact match found
-            if (!bestMatch && tokens.length > 0) {
+            // Direct String Inclusion Check (Fallback)
+            if (!bestMatch) {
                 for (let item of dictionaryData) {
-                    const eng = item.english.toLowerCase();
-                    const myo = item.myanmar.toLowerCase();
-                    const tap = item.tapong.toLowerCase();
-
-                    const partialFound = tokens.some(t => eng.includes(t) || myo.includes(t) || tap.includes(t));
-                    if (partialFound) {
+                    const myoRoot = item.myanmar.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
+                    if (cleanQuery.includes(myoRoot) || cleanQuery.includes(item.tapong.toLowerCase())) {
                         bestMatch = item;
                         break;
                     }
@@ -818,7 +830,7 @@
                     let breakdownText = `📌 Breakdown: ${bestMatch.tapong}\n• English: ${bestMatch.english}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${bestMatch.exTapong || bestMatch.tapong}\n• English: ${bestMatch.exEng || bestMatch.english}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    // MODE 2: Direct Chatbox Query (100% Pure Tapong Sentence ONLY)
+                    // MODE 2: Direct Chatbox Query (100% Pure Tapong Sentence ONLY with Contextual Continuation)
                     let pureTapongText = `${bestMatch.tapong} a si.`;
                     if (bestMatch.exTapong) {
                         pureTapongText += ` (${bestMatch.exTapong})`;
@@ -826,8 +838,8 @@
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // Return Pure Tapong response for unknown words
-                appendAiMessage(`Tapong uan ah om lo.`);
+                // MODE 3: Unknown words fallback -> "tapong uan dictionary tah ngan lai ngua si" with contextual flow
+                appendAiMessage(`tapong uan dictionary tah ngan lai ngua si.`);
             }
         }
 

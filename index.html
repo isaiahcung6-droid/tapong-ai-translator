@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.1 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.5 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -305,7 +305,7 @@
             { id: 28, tapong: "Hau dun, tuang dun", english: "Fight", myanmar: "ရန်ဖြစ်", exTapong: "Hau dun mah un.", exEng: "Do not fight.", exMyo: "ရန်မဖြစ်ကြနဲ့။" },
             { id: 29, tapong: "Hawh", english: "Go", myanmar: "သွားသည်", exTapong: "Khua ah na hawh?", exEng: "Are you going to the village?", exMyo: "ရွာကို သွားမလို့လား။" },
             { id: 30, tapong: "Hla", english: "Month", myanmar: "လ", exTapong: "Hla khat a liam.", exEng: "One month has passed.", exMyo: "တစ်လ ကုန်သွားပြီ။" },
-            { id: 31, tapong: "Hla pui, Hla de", english: "Moon, Moonlight", myanmar: "လမင်းကြီး, လရောင်ထိန်လင်းသည်", exTapong: "Zan ah hla pui a lang, hla de a var ngai.", exEng: "The moon shines at night, and the moonlight is very bright.", exMyo: "ညဘက်မှာ လမင်းကြီး ထွက်ပြီး လရောင် ထိန်ထိန်လင်းတယ်။" },
+            { id: 31, tapong: "Hla pui, Hla de", english: "Moon, Moonlight", myanmar: "လမင်းကြီး, လရောင်ထိန်လင်းသည်", exTapong: "Zan ah hla pui, hla de a var ngai.", exEng: "The moon shines at night, and the moonlight is very bright.", exMyo: "ညဘက်မှာ လမင်းကြီး ထွက်ပြီး လရောင် ထိန်ထိန်လင်းတယ်။" },
             { id: 32, tapong: "Hlai", english: "Food", myanmar: "ထမင်း", exTapong: "Hlai suang in.", exEng: "Cook food.", exMyo: "ထမင်း ချက်ပါ။" },
             { id: 33, tapong: "Hlai suang, hmeh suang", english: "Cook", myanmar: "ထမင်းချက်, ဟင်းချက်", exTapong: "Nu nu nih hlai a suang.", exEng: "Mother is cooking food.", exMyo: "အမေ ထမင်းချက်နေတယ်။" },
             { id: 34, tapong: "Hli vua", english: "Air", myanmar: "လေ", exTapong: "Hli vua a lum.", exEng: "The air is warm.", exMyo: "လေ နွေးတယ်။" },
@@ -763,7 +763,6 @@
             `;
         }
 
-        // FUZZY MATCHING & LEVENSHTEIN DISTANCE FOR MISSPELLED INPUTS
         function levenshteinDistance(a, b) {
             const matrix = [];
             for (let i = 0; i <= b.length; i++) matrix[i] = [i];
@@ -792,31 +791,59 @@
 
         function generateAiResponse(query) {
             const isBreakdown = query.startsWith('[BREAKDOWN]');
-            const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
+            let cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
 
             const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
             const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
 
-            const asksTapong = cleanQuery.includes('what is tapong') || cleanQuery.includes('တပေါင်ဆိုတာဘာလဲ') || cleanQuery.includes('တပေါင်ဆိုတာဘာလည်း') || cleanQuery.includes('tapong ti hak ah zei ha') || cleanQuery.includes('tapong') || cleanQuery.includes('tpong');
-            const asksCreator = cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဘယ်သူဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်') || cleanQuery.includes('ဘယ်သူကတီထွင်') || cleanQuery.includes('a vuah tu ah tu ha') || cleanQuery.includes('a vuah tu');
+            // --- STRICT INTENT MATCHING FOR FIXED ANSWERS ---
+            const exactTapongAsks = [
+                'what is tapong', 'what is tapong language', 'what is tapong?', 
+                'တပေါင်ဆိုတာဘာလဲ', 'တပေါင်ဆိုတာဘာလည်း', 'tapong ti hak ah zei ha', 'tapong'
+            ];
+            const exactCreatorAsks = [
+                'who created this app?', 'who created this app', 'who created tapong translator',
+                'who made this app', 'who is the creator', 'who created', 'who made',
+                'ဘယ်သူဖန်တီးတာလဲ', 'ဘယ်သူလုပ်တာလဲ', 'a vuah tu ah tu ha'
+            ];
 
-            // 1. COMBINED QUESTION CHECK
-            if (asksTapong && asksCreator) {
+            const isStrictTapongAsk = exactTapongAsks.includes(cleanQuery);
+            const isStrictCreatorAsk = exactCreatorAsks.includes(cleanQuery);
+
+            if (isStrictTapongAsk && isStrictCreatorAsk) {
                 appendAiMessage(`${ansWhoMadeThis}\n\n${ansWhatIsTapong}`);
                 return;
             }
 
-            // 2. SINGLE QUESTION: WHAT IS TAPONG
-            if (asksTapong) {
+            if (isStrictTapongAsk) {
                 appendAiMessage(ansWhatIsTapong);
                 return;
             }
 
-            // 3. SINGLE QUESTION: WHO MADE THIS
-            if (asksCreator) {
+            if (isStrictCreatorAsk) {
                 appendAiMessage(ansWhoMadeThis);
                 return;
             }
+
+            // --- COMPREHENSIVE QUESTION WRAPPER STRIPPER ---
+            // Fixes "how to made a sentance mango", "make sentence using biak", etc.
+            cleanQuery = cleanQuery
+                .replace(/^how to (made|make) a (sentence|sentance)\s+/g, '')
+                .replace(/^make a (sentence|sentance) (with|using)?\s+/g, '')
+                .replace(/^sentence (of|for|with)\s+/g, '')
+                .replace(/^what the meaning is\s+/g, '')
+                .replace(/^what is the meaning of\s+/g, '')
+                .replace(/^what is the meaning\s+/g, '')
+                .replace(/^what does\s+/g, '')
+                .replace(/\s+mean\??$/g, '')
+                .replace(/^how to say\s+/g, '')
+                .replace(/^what is\s+/g, '')
+                .replace(/^how do you say\s+/g, '')
+                .replace(/^translate\s+/g, '')
+                .replace(/\s+in tapong\??$/g, '')
+                .replace(/\s+tapong uan in\??$/g, '')
+                .replace(/\s+in tapong language\??$/g, '')
+                .trim();
 
             let bestMatch = null;
 
@@ -824,7 +851,8 @@
             bestMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === cleanQuery || 
                 item.english.toLowerCase() === cleanQuery || 
-                item.myanmar.toLowerCase() === cleanQuery
+                item.myanmar.toLowerCase() === cleanQuery ||
+                item.tapong.toLowerCase().split(/[\s,]+/).includes(cleanQuery)
             );
 
             // Step B: Smart Partial Keyword Match
@@ -843,7 +871,7 @@
                 }
             }
 
-            // Step C: FUZZY SEARCH (AI Brain - Handling Misspelled Inputs)
+            // Step C: FUZZY SEARCH (Strict Limit to Prevent Wrong Output)
             if (!bestMatch) {
                 let lowestDistance = 999;
                 let candidate = null;
@@ -859,27 +887,26 @@
                     }
                 }
 
-                // If distance is reasonable (misspelled by 1 to 4 characters), use candidate
-                if (candidate && lowestDistance <= 4) {
+                // Strictly allow distance <= 2 to avoid matching unrelated words
+                if (candidate && lowestDistance <= 2) {
                     bestMatch = candidate;
                 }
             }
 
-            // Step D: ROUTING RESULT OR SMART FALLBACK
+            // Step D: ROUTING RESULT OR FALLBACK
             if (bestMatch) {
                 if (isBreakdown) {
                     let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
                     let formattedTap = capitalizeFirstLetter(bestMatch.tapong);
-                    let pureTapongText = `${formattedTap} pha ngai.`;
+                    let pureTapongText = `${formattedTap} (${capitalizeFirstLetter(bestMatch.english)} / ${bestMatch.myanmar})`;
                     if (bestMatch.exTapong) {
-                        pureTapongText += ` (${capitalizeFirstLetter(bestMatch.exTapong)})`;
+                        pureTapongText += `\nExample: ${capitalizeFirstLetter(bestMatch.exTapong)}`;
                     }
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // LAST RESORT FALLBACK ONLY WHEN ABSOLUTELY UNKNOWABLE
                 appendAiMessage(`Tapong uan dictionary tah ngan lai ngua si.`);
             }
         }

@@ -224,7 +224,7 @@
 
     </main>
 
-    <!-- Detail Drawer Modal -->
+    <!-- Detail Drawer Modal (Only 3 Meanings, No Example Sentences Here) -->
     <div id="detailModal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
         <div class="custom-glass rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-700/80 space-y-5">
             <button onclick="closeModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-2 z-20">
@@ -249,7 +249,7 @@
                 </button>
             </div>
 
-            <!-- 3 Languages Reading Card -->
+            <!-- 3 Languages Reading Card (Only Meanings, No Examples) -->
             <div class="space-y-4 bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs">
                 <div>
                     <p class="text-blue-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Tapong Language</p>
@@ -262,13 +262,6 @@
                 <div class="border-t border-slate-800/80 pt-3">
                     <p class="text-emerald-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Myanmar Translation</p>
                     <p class="text-emerald-300 font-medium text-sm" id="modalMyanmar"></p>
-                </div>
-                <!-- Modal Example Sentence Display -->
-                <div class="border-t border-slate-800/80 pt-3 space-y-1">
-                    <p class="text-amber-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Example Sentences</p>
-                    <p class="text-slate-200"><strong>Tapong:</strong> <span id="modalExTapong" class="italic text-blue-300"></span></p>
-                    <p class="text-slate-200"><strong>English:</strong> <span id="modalExEng" class="italic"></span></p>
-                    <p class="text-slate-200"><strong>Myanmar:</strong> <span id="modalExMyo" class="italic text-emerald-300"></span></p>
                 </div>
             </div>
 
@@ -654,9 +647,6 @@
             document.getElementById('modalTapong').textContent = item.tapong;
             document.getElementById('modalEnglish').textContent = item.english;
             document.getElementById('modalMyanmar').textContent = item.myanmar;
-            document.getElementById('modalExTapong').textContent = item.exTapong;
-            document.getElementById('modalExEng').textContent = item.exEng;
-            document.getElementById('modalExMyo').textContent = item.exMyo;
             document.getElementById('detailModal').classList.remove('hidden');
         }
 
@@ -721,7 +711,7 @@
 
         function copyModalText() {
             if (!selectedWord) return;
-            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}\nExample (Tapong): ${selectedWord.exTapong}\nExample (English): ${selectedWord.exEng}\nExample (Myanmar): ${selectedWord.exMyo}`;
+            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 alert('Copied to clipboard!');
             });
@@ -789,7 +779,7 @@
         function appendAiMessage(item) {
             const container = document.getElementById('chatMessages');
             
-            // If it's a structured dictionary item with 3 languages example
+            // If it's a structured dictionary item with 3 languages example sentences (triggered via Ask AI Breakdown or Direct AI Q&A search query)
             if (typeof item === 'object' && item !== null) {
                 const msgHtml = `
                     <div class="flex gap-3">
@@ -798,11 +788,11 @@
                         </div>
                         <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Pure Autonomous Match)</p>
+                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Tapong Only & 3 Languages Example)</p>
                                 <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">#${item.id}</span>
                             </div>
                             
-                            <!-- 3 Languages Display -->
+                            <!-- 3 Languages Meaning Display -->
                             <div class="space-y-2 text-xs md:text-sm">
                                 <p><strong class="text-blue-400">Tapong:</strong> <span class="text-white font-semibold">${escapeHtml(item.tapong)}</span></p>
                                 <p><strong class="text-slate-400">English:</strong> <span class="text-slate-100">${escapeHtml(item.english)}</span></p>
@@ -838,7 +828,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AUTOMATED AI MATCHING ENGINE WITH 3 LANGUAGES EXAMPLE SENTENCES
+        // AI Q&A ASSISTANT: MATCHES 3 LANGUAGES TYPING QUERY -> RESPONDS WITH TAPONG & 3 LANGUAGES EXAMPLES
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -854,7 +844,7 @@
                 return;
             }
 
-            // 3. Autonomous Search across all 280 dictionary entries
+            // 3. Autonomous Search across all 280 dictionary entries (Matches any of the 3 languages typing)
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -866,7 +856,7 @@
                 return;
             }
 
-            // Keyword / Partial Autonomous Search
+            // Keyword Autonomous Search
             const queryWords = lower.split(/\s+/).filter(word => word.length > 1);
             let bestMatch = null;
 
@@ -884,7 +874,7 @@
                 return;
             }
 
-            // 4. Default Fallback (Pure Tapong structure)
+            // 4. Default Fallback
             appendAiMessage({
                 id: 0,
                 tapong: "Tapong uan in ai in.",

@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.1 (281 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.2 (281 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -765,7 +765,7 @@
             `;
         }
 
-        // ACCURATE & STRICT RESPONSE LOGIC
+        // ACCURATE & STRICT RESPONSE LOGIC (ENHANCED FOR EXACT PHRASE PRIORITY)
         function generateAiResponse(query) {
             const isBreakdown = query.startsWith('[BREAKDOWN]');
             const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
@@ -776,49 +776,52 @@
                 return;
             }
 
-            const stopWords = [
-                'in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the',
-                'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်', 'တရ်', 'တယ်', 'ဆိုရင်', 'ဘယ်လို', 'ကိုတပေါ်င်လို', 'တပေါ်င်လို'
-            ];
+            // Step A: Exact Tapong Phrase Match First
+            let bestMatch = dictionaryData.find(item => item.tapong.toLowerCase() === cleanQuery);
 
-            let sanitizedQuery = cleanQuery;
-            stopWords.forEach(sw => {
-                sanitizedQuery = sanitizedQuery.replaceAll(sw, ' ');
-            });
+            if (!bestMatch) {
+                const stopWords = [
+                    'in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the',
+                    'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်', 'တရ်', 'တယ်', 'ဆိုရင်', 'ဘယ်လို', 'ကိုတပေါ်င်လို', 'တပေါ်င်လို'
+                ];
 
-            const tokens = sanitizedQuery.split(/[\s,?.!]+/).filter(t => t.length > 0);
-
-            let bestMatch = null;
-
-            // Step A: Search for exact or key dictionary word inside the user sentence
-            for (let item of dictionaryData) {
-                const engList = item.english.toLowerCase().split(/,\s*/);
-                const myoList = item.myanmar.toLowerCase().split(/,\s*/);
-                const tapList = item.tapong.toLowerCase().split(/,\s*/);
-
-                const cleanMyoList = myoList.map(m => m.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim());
-
-                const matchFound = tokens.some(t => {
-                    const cleanToken = t.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
-                    return engList.some(e => e.includes(cleanToken) || cleanToken.includes(e)) ||
-                           myoList.some(m => m.includes(cleanToken) || cleanToken.includes(m)) ||
-                           cleanMyoList.some(cm => cleanToken.includes(cm) || cm.includes(cleanToken)) ||
-                           tapList.some(tp => tp.includes(cleanToken) || cleanToken.includes(tp));
+                let sanitizedQuery = cleanQuery;
+                stopWords.forEach(sw => {
+                    sanitizedQuery = sanitizedQuery.replaceAll(sw, ' ');
                 });
 
-                if (matchFound) {
-                    bestMatch = item;
-                    break;
-                }
-            }
+                const tokens = sanitizedQuery.split(/[\s,?.!]+/).filter(t => t.length > 0);
 
-            // Direct String Inclusion Check (Fallback)
-            if (!bestMatch) {
+                // Step B: Search for partial match inside tokens
                 for (let item of dictionaryData) {
-                    const myoRoot = item.myanmar.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
-                    if (cleanQuery.includes(myoRoot) || cleanQuery.includes(item.tapong.toLowerCase())) {
+                    const engList = item.english.toLowerCase().split(/,\s*/);
+                    const myoList = item.myanmar.toLowerCase().split(/,\s*/);
+                    const tapList = item.tapong.toLowerCase().split(/,\s*/);
+
+                    const cleanMyoList = myoList.map(m => m.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim());
+
+                    const matchFound = tokens.some(t => {
+                        const cleanToken = t.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
+                        return engList.some(e => e.includes(cleanToken) || cleanToken.includes(e)) ||
+                               myoList.some(m => m.includes(cleanToken) || cleanToken.includes(m)) ||
+                               cleanMyoList.some(cm => cleanToken.includes(cm) || cm.includes(cleanToken)) ||
+                               tapList.some(tp => tp === cleanToken || tp.includes(cleanToken));
+                    });
+
+                    if (matchFound) {
                         bestMatch = item;
                         break;
+                    }
+                }
+
+                // Step C: Direct String Inclusion Fallback
+                if (!bestMatch) {
+                    for (let item of dictionaryData) {
+                        const myoRoot = item.myanmar.replace(/သည်|ခြင်း|သော|များ|ပါသည်/g, '').trim();
+                        if (cleanQuery.includes(myoRoot) || cleanQuery.includes(item.tapong.toLowerCase())) {
+                            bestMatch = item;
+                            break;
+                        }
                     }
                 }
             }
@@ -838,7 +841,7 @@
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // MODE 3: Unknown words fallback -> "tapong uan dictionary tah ngan lai ngua si" with contextual flow
+                // MODE 3: Unknown words fallback -> "tapong uan dictionary tah ngan lai ngua si"
                 appendAiMessage(`tapong uan dictionary tah ngan lai ngua si.`);
             }
         }

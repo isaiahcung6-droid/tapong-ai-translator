@@ -683,12 +683,14 @@
             });
         }
 
+        // Ask AI Breakdown Button (From Modal)
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const word = selectedWord.tapong;
             closeModal();
             switchTab('ai');
-            sendQuickPrompt(`${word}`);
+            // Add Special Prefix so AI knows it came from Ask AI Breakdown button
+            sendQuickPrompt(`[BREAKDOWN] ${word}`);
         }
 
         function askAiFromSearch() {
@@ -707,7 +709,9 @@
             const query = input.value.trim();
             if (!query) return;
 
-            appendUserMessage(query);
+            // Display user prompt cleanly (remove prefix if present)
+            const displayPrompt = query.replace('[BREAKDOWN] ', '');
+            appendUserMessage(displayPrompt);
             input.value = '';
 
             setTimeout(() => {
@@ -760,23 +764,23 @@
             `;
         }
 
-        // DYNAMIC TAPONG SENTENCE GENERATOR LOGIC
+        // ACCURATE & DISTINCT AI RESPONSE LOGIC
         function generateAiResponse(query) {
-            const lower = query.toLowerCase().trim();
+            const isBreakdown = query.startsWith('[BREAKDOWN]');
+            const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
 
             // 1. App Creator Check
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဖန်တီးသူ')) {
+            if (cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဘယ်သူဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်') || cleanQuery.includes('ဖန်တီးသူ')) {
                 appendAiMessage(`Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio nih a vuah si.`);
                 return;
             }
 
-            // Stop words ကို ဖယ်ထုတ်ပြီး တိကျတဲ့ စကားလုံး ရှာဖွေခြင်း
             const stopWords = ['in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်'];
-            const tokens = lower.split(/[\s,?.!]+/).filter(t => t.length > 0 && !stopWords.includes(t));
+            const tokens = cleanQuery.split(/[\s,?.!]+/).filter(t => t.length > 0 && !stopWords.includes(t));
 
             let bestMatch = null;
 
-            // Step A: Exact word match in Dictionary
+            // Step A: Exact word match
             for (let item of dictionaryData) {
                 const engList = item.english.toLowerCase().split(/,\s*/);
                 const myoList = item.myanmar.toLowerCase().split(/,\s*/);
@@ -792,7 +796,7 @@
                 }
             }
 
-            // Step B: Partial match if no exact match found
+            // Step B: Partial match
             if (!bestMatch && tokens.length > 0) {
                 for (let item of dictionaryData) {
                     const eng = item.english.toLowerCase();
@@ -807,14 +811,22 @@
                 }
             }
 
-            // 2. တပေါင် ဘာသာစကားဖြင့် ဝါကျဖွဲ့၍ ပြန်လည်ဖြေကြားခြင်း
+            // RESPONSE LOGIC BASED ON SOURCE (MODAL BREAKDOWN vs DIRECT CHAT)
             if (bestMatch) {
-                let tapongSentence = `${bestMatch.tapong} a si.`;
-                if (bestMatch.exTapong) {
-                    tapongSentence += ` (${bestMatch.exTapong})`;
+                if (isBreakdown) {
+                    // Scenario 1: Triggered via "Ask AI Breakdown" (Shows 3 Languages Examples)
+                    let breakdownText = `📌 Breakdown: ${bestMatch.tapong}\n• English: ${bestMatch.english}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Examples:\n• Tapong: ${bestMatch.exTapong || bestMatch.tapong}\n• English: ${bestMatch.exEng || bestMatch.english}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
+                    appendAiMessage(breakdownText);
+                } else {
+                    // Scenario 2: Direct Chat Box Query (100% Pure Tapong Sentence ONLY)
+                    let pureTapongText = `${bestMatch.tapong} a si.`;
+                    if (bestMatch.exTapong) {
+                        pureTapongText += ` (${bestMatch.exTapong})`;
+                    }
+                    appendAiMessage(pureTapongText);
                 }
-                appendAiMessage(tapongSentence);
             } else {
+                // Dictionary မရှိသည့် စကားလုံးဖြစ်ပါက Pure Tapong ဖြင့်သာ တုံ့ပြန်မည်
                 appendAiMessage(`Tapong uan ah om lo.`);
             }
         }

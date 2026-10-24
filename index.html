@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.8 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.0 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -763,7 +763,7 @@
             `;
         }
 
-        // AUTO CAPITALIZATION & ADVANCED SMART INTENT MAPPING LOGIC
+        // AUTO CAPITALIZATION & SPECIAL QUESTION PRIORITY CHECK
         function capitalizeFirstLetter(val) {
             if (!val) return '';
             return val.charAt(0).toUpperCase() + val.slice(1);
@@ -773,9 +773,27 @@
             const isBreakdown = query.startsWith('[BREAKDOWN]');
             const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
 
-            // 1. App Creator Check
-            if (cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဘယ်သူဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်') || cleanQuery.includes('ဖန်တီးသူ')) {
-                appendAiMessage(`Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio nih a vuah si.`);
+            const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
+            const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
+
+            const asksTapong = cleanQuery.includes('what is tapong') || cleanQuery.includes('တပေါင်ဆိုတာဘာလဲ') || cleanQuery.includes('တပေါင်ဆိုတာဘာလည်း') || cleanQuery.includes('tapong ti hak ah zei ha') || cleanQuery === 'tapong' || cleanQuery === 'what is tapong?';
+            const asksCreator = cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဘယ်သူဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်') || cleanQuery.includes('ဘယ်သူကတီထွင်') || cleanQuery.includes('a vuah tu ah tu ha') || cleanQuery.includes('a vuah tu');
+
+            // 1. COMBINED QUESTION CHECK (Ask both at once -> Return both answers in English)
+            if (asksTapong && asksCreator) {
+                appendAiMessage(`${ansWhoMadeThis}\n\n${ansWhatIsTapong}`);
+                return;
+            }
+
+            // 2. SINGLE QUESTION: WHAT IS TAPONG
+            if (asksTapong) {
+                appendAiMessage(ansWhatIsTapong);
+                return;
+            }
+
+            // 3. SINGLE QUESTION: WHO MADE THIS
+            if (asksCreator) {
+                appendAiMessage(ansWhoMadeThis);
                 return;
             }
 
@@ -784,18 +802,18 @@
             // Step A: Direct/Exact Tapong Match
             bestMatch = dictionaryData.find(item => item.tapong.toLowerCase() === cleanQuery);
 
-            // Step B: Smart Context & Keyword Mapping (Handles natural phrases like "နေပူတာ", "မိုးရွာတာ", etc.)
+            // Step B: Smart Context & Keyword Mapping
             if (!bestMatch) {
                 if (cleanQuery.includes('နေ') || cleanQuery.includes('ပူ')) {
-                    bestMatch = dictionaryData.find(item => item.id === 104); // Ni (Sun) or Sa (Hot)
+                    bestMatch = dictionaryData.find(item => item.id === 104);
                 } else if (cleanQuery.includes('မိုး') || cleanQuery.includes('ရွာ')) {
-                    bestMatch = dictionaryData.find(item => item.id === 148); // Ruah
+                    bestMatch = dictionaryData.find(item => item.id === 148);
                 } else if (cleanQuery.includes('ရေ') || cleanQuery.includes('သောက်')) {
-                    bestMatch = dictionaryData.find(item => item.id === 174); // Ti
+                    bestMatch = dictionaryData.find(item => item.id === 174);
                 } else if (cleanQuery.includes('အိမ်') || cleanQuery.includes('ပြန်')) {
-                    bestMatch = dictionaryData.find(item => item.id === 270); // In ah ka tlung
+                    bestMatch = dictionaryData.find(item => item.id === 270);
                 } else if (cleanQuery.includes('ကျေးဇူး')) {
-                    bestMatch = dictionaryData.find(item => item.id === 96); // Na ann ing
+                    bestMatch = dictionaryData.find(item => item.id === 96);
                 }
             }
 
@@ -806,7 +824,6 @@
                     const engText = item.english.toLowerCase();
                     const tapText = item.tapong.toLowerCase();
 
-                    // Check if any significant word from user input exists in dictionary meaning
                     const words = cleanQuery.split(/[\s,?.!]+/);
                     const matched = words.some(w => w.length > 1 && (myoText.includes(w) || engText.includes(w) || tapText.includes(w)));
                     if (matched) {
@@ -819,7 +836,7 @@
             // DUAL-LOGIC ROUTING: BREAKDOWN vs CHATBOX
             if (bestMatch) {
                 if (isBreakdown) {
-                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
+                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.myanmar)}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
                     let formattedTap = capitalizeFirstLetter(bestMatch.tapong);

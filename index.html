@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.0 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.1 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -763,7 +763,28 @@
             `;
         }
 
-        // AUTO CAPITALIZATION & SPECIAL QUESTION PRIORITY CHECK
+        // FUZZY MATCHING & LEVENSHTEIN DISTANCE FOR MISSPELLED INPUTS
+        function levenshteinDistance(a, b) {
+            const matrix = [];
+            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+
+            for (let i = 1; i <= b.length; i++) {
+                for (let j = 1; j <= a.length; j++) {
+                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            return matrix[b.length][a.length];
+        }
+
         function capitalizeFirstLetter(val) {
             if (!val) return '';
             return val.charAt(0).toUpperCase() + val.slice(1);
@@ -776,10 +797,10 @@
             const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
             const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
 
-            const asksTapong = cleanQuery.includes('what is tapong') || cleanQuery.includes('တပေါင်ဆိုတာဘာလဲ') || cleanQuery.includes('တပေါင်ဆိုတာဘာလည်း') || cleanQuery.includes('tapong ti hak ah zei ha') || cleanQuery === 'tapong' || cleanQuery === 'what is tapong?';
+            const asksTapong = cleanQuery.includes('what is tapong') || cleanQuery.includes('တပေါင်ဆိုတာဘာလဲ') || cleanQuery.includes('တပေါင်ဆိုတာဘာလည်း') || cleanQuery.includes('tapong ti hak ah zei ha') || cleanQuery.includes('tapong') || cleanQuery.includes('tpong');
             const asksCreator = cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဘယ်သူဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်') || cleanQuery.includes('ဘယ်သူကတီထွင်') || cleanQuery.includes('a vuah tu ah tu ha') || cleanQuery.includes('a vuah tu');
 
-            // 1. COMBINED QUESTION CHECK (Ask both at once -> Return both answers in English)
+            // 1. COMBINED QUESTION CHECK
             if (asksTapong && asksCreator) {
                 appendAiMessage(`${ansWhoMadeThis}\n\n${ansWhatIsTapong}`);
                 return;
@@ -799,32 +820,21 @@
 
             let bestMatch = null;
 
-            // Step A: Direct/Exact Tapong Match
-            bestMatch = dictionaryData.find(item => item.tapong.toLowerCase() === cleanQuery);
+            // Step A: Direct Exact Match
+            bestMatch = dictionaryData.find(item => 
+                item.tapong.toLowerCase() === cleanQuery || 
+                item.english.toLowerCase() === cleanQuery || 
+                item.myanmar.toLowerCase() === cleanQuery
+            );
 
-            // Step B: Smart Context & Keyword Mapping
+            // Step B: Smart Partial Keyword Match
             if (!bestMatch) {
-                if (cleanQuery.includes('နေ') || cleanQuery.includes('ပူ')) {
-                    bestMatch = dictionaryData.find(item => item.id === 104);
-                } else if (cleanQuery.includes('မိုး') || cleanQuery.includes('ရွာ')) {
-                    bestMatch = dictionaryData.find(item => item.id === 148);
-                } else if (cleanQuery.includes('ရေ') || cleanQuery.includes('သောက်')) {
-                    bestMatch = dictionaryData.find(item => item.id === 174);
-                } else if (cleanQuery.includes('အိမ်') || cleanQuery.includes('ပြန်')) {
-                    bestMatch = dictionaryData.find(item => item.id === 270);
-                } else if (cleanQuery.includes('ကျေးဇူး')) {
-                    bestMatch = dictionaryData.find(item => item.id === 96);
-                }
-            }
-
-            // Step C: Flexible Partial Token & Meaning Matching
-            if (!bestMatch) {
+                const words = cleanQuery.split(/[\s,?.!]+/);
                 for (let item of dictionaryData) {
                     const myoText = item.myanmar.toLowerCase();
                     const engText = item.english.toLowerCase();
                     const tapText = item.tapong.toLowerCase();
 
-                    const words = cleanQuery.split(/[\s,?.!]+/);
                     const matched = words.some(w => w.length > 1 && (myoText.includes(w) || engText.includes(w) || tapText.includes(w)));
                     if (matched) {
                         bestMatch = item;
@@ -833,10 +843,32 @@
                 }
             }
 
-            // DUAL-LOGIC ROUTING: BREAKDOWN vs CHATBOX
+            // Step C: FUZZY SEARCH (AI Brain - Handling Misspelled Inputs)
+            if (!bestMatch) {
+                let lowestDistance = 999;
+                let candidate = null;
+
+                for (let item of dictionaryData) {
+                    const tapongDist = levenshteinDistance(cleanQuery, item.tapong.toLowerCase());
+                    const engDist = levenshteinDistance(cleanQuery, item.english.toLowerCase());
+                    
+                    const minForThisItem = Math.min(tapongDist, engDist);
+                    if (minForThisItem < lowestDistance) {
+                        lowestDistance = minForThisItem;
+                        candidate = item;
+                    }
+                }
+
+                // If distance is reasonable (misspelled by 1 to 4 characters), use candidate
+                if (candidate && lowestDistance <= 4) {
+                    bestMatch = candidate;
+                }
+            }
+
+            // Step D: ROUTING RESULT OR SMART FALLBACK
             if (bestMatch) {
                 if (isBreakdown) {
-                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.myanmar)}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
+                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
                     let formattedTap = capitalizeFirstLetter(bestMatch.tapong);
@@ -847,7 +879,7 @@
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // FALLBACK ONLY IF TRULY NOT FOUND
+                // LAST RESORT FALLBACK ONLY WHEN ABSOLUTELY UNKNOWABLE
                 appendAiMessage(`Tapong uan dictionary tah ngan lai ngua si.`);
             }
         }

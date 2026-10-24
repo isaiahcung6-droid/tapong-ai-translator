@@ -198,7 +198,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong language.</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong sentences.</p>
                     </div>
                 </div>
             </div>
@@ -688,7 +688,7 @@
             const word = selectedWord.tapong;
             closeModal();
             switchTab('ai');
-            sendQuickPrompt(`Give me example sentences for ${word}`);
+            sendQuickPrompt(`${word}`);
         }
 
         function askAiFromSearch() {
@@ -712,7 +712,7 @@
 
             setTimeout(() => {
                 generateAiResponse(query);
-            }, 500);
+            }, 300);
         }
 
         function appendUserMessage(text) {
@@ -754,80 +754,66 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong language.</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong sentences.</p>
                     </div>
                 </div>
             `;
         }
 
-        // DYNAMIC SINGLE-MATCH TAPONG-ONLY AI LOGIC
+        // DYNAMIC TAPONG SENTENCE GENERATOR LOGIC
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
             // 1. App Creator Check
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဖန်တီးသူ')) {
-                appendAiMessage(`Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio`);
+                appendAiMessage(`Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio nih a vuah si.`);
                 return;
             }
 
-            // 2. What is Tapong Check
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ')) {
-                appendAiMessage(`Tapong uan si.`);
-                return;
-            }
+            // Stop words ကို ဖယ်ထုတ်ပြီး တိကျတဲ့ စကားလုံး ရှာဖွေခြင်း
+            const stopWords = ['in', 'taping', 'tapong', 'meaning', 'say', 'how', 'to', 'what', 'is', 'a', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်'];
+            const tokens = lower.split(/[\s,?.!]+/).filter(t => t.length > 0 && !stopWords.includes(t));
 
-            // 3. Thank You Check
-            if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
-                appendAiMessage(`Na ann ing.`);
-                return;
-            }
+            let bestMatch = null;
 
-            // 4. Numbers Check
-            if (lower.includes('count') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း') || lower.includes('၁ မှ ၁၀')) {
-                appendAiMessage(`Pa Khat, Pa Nih, Pa Thum, Pa Li, Pa Nga, Pa Ruk, Pa Sarih, Pa Riat, Pa Kua, Pa Hra`);
-                return;
-            }
+            // Step A: Exact word match in Dictionary
+            for (let item of dictionaryData) {
+                const engList = item.english.toLowerCase().split(/,\s*/);
+                const myoList = item.myanmar.toLowerCase().split(/,\s*/);
+                const tapList = item.tapong.toLowerCase().split(/,\s*/);
 
-            // 5. Smart Single Match & Sentence Synthesizer Logic
-            let matchedWords = [];
+                const matchFound = tokens.some(t => 
+                    engList.includes(t) || myoList.includes(t) || tapList.includes(t)
+                );
 
-            dictionaryData.forEach(item => {
-                const tapong = item.tapong.toLowerCase();
-                const english = item.english.toLowerCase();
-                const myanmar = item.myanmar.toLowerCase();
-
-                // Check if query matches myanmar, english, or tapong
-                if (lower.includes(myanmar) || myanmar.includes(lower) ||
-                    lower.includes(english) || english.includes(lower) ||
-                    lower.includes(tapong) || tapong.includes(lower)) {
-                    matchedWords.push(item);
+                if (matchFound) {
+                    bestMatch = item;
+                    break;
                 }
-            });
+            }
 
-            // If multiple sub-words match in a phrase (e.g. "သရက်သီး" + "အခွံခွာ"), synthesize them into a single Tapong phrase
-            if (matchedWords.length > 0) {
-                // Find most accurate matching item based on best fit
-                let bestMatch = matchedWords[0];
-                
-                // If the user query has multiple words (e.g. "သရက်သီး အခွံခွာတာ"), join matched Tapong words together
-                let combinedTapongWords = [];
-                dictionaryData.forEach(item => {
-                    const myanmarTerms = item.myanmar.toLowerCase().split(/,\s*/);
-                    myanmarTerms.forEach(term => {
-                        if (term.length > 1 && lower.includes(term)) {
-                            combinedTapongWords.push(item.tapong.split(',')[0].trim());
-                        }
-                    });
-                });
+            // Step B: Partial match if no exact match found
+            if (!bestMatch && tokens.length > 0) {
+                for (let item of dictionaryData) {
+                    const eng = item.english.toLowerCase();
+                    const myo = item.myanmar.toLowerCase();
+                    const tap = item.tapong.toLowerCase();
 
-                if (combinedTapongWords.length > 1) {
-                    // Combine into single concise Tapong answer (e.g. Kual hai vel)
-                    const uniqueTapong = Array.from(new Set(combinedTapongWords)).join(' ');
-                    appendAiMessage(`${uniqueTapong}`);
-                } else {
-                    // Output ONLY the single best Tapong translation/phrase
-                    appendAiMessage(`${bestMatch.tapong}`);
+                    const partialFound = tokens.some(t => eng.includes(t) || myo.includes(t) || tap.includes(t));
+                    if (partialFound) {
+                        bestMatch = item;
+                        break;
+                    }
                 }
+            }
+
+            // 2. တပေါင် ဘာသာစကားဖြင့် ဝါကျဖွဲ့၍ ပြန်လည်ဖြေကြားခြင်း
+            if (bestMatch) {
+                let tapongSentence = `${bestMatch.tapong} a si.`;
+                if (bestMatch.exTapong) {
+                    tapongSentence += ` (${bestMatch.exTapong})`;
+                }
+                appendAiMessage(tapongSentence);
             } else {
                 appendAiMessage(`Tapong uan ah om lo.`);
             }

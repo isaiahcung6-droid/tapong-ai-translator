@@ -183,10 +183,10 @@
                 <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Who created this app?
                 </button>
-                <button onclick="sendQuickPrompt('How do you say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                <button onclick="sendQuickPrompt('How to say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     💡 How to say "Thank You"?
                 </button>
-                <button onclick="sendQuickPrompt('Explain Tapong numbers 1 to 10')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                <button onclick="sendQuickPrompt('Count 1 to 10 in Tapong')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🔢 Count 1 to 10
                 </button>
             </div>
@@ -891,12 +891,13 @@
                 }
             }
 
-            // Step D: DIRECT TAPONG SENTENCE ONLY OUTPUT
+            // Step D: ALWAYS DIRECT TAPONG SENTENCE ONLY OUTPUT (NO DICTIONARY FORMAT)
             if (bestMatch) {
                 if (isBreakdown) {
-                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
+                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.myanmar)}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
+                    // Always show ONLY pure Tapong sentence
                     let pureSentence = bestMatch.exTapong ? capitalizeFirstLetter(bestMatch.exTapong) : `${capitalizeFirstLetter(bestMatch.tapong)} pha ngai.`;
                     appendAiMessage(pureSentence);
                 }

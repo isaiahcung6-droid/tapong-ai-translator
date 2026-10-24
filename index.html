@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.4 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.2 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Smart NLP Translation Brain</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Response Mode</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -190,8 +190,8 @@
                 <button onclick="sendQuickPrompt('Zu in ah pha maw?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     🍺 "Zu in ah pha maw?"
                 </button>
-                <button onclick="sendQuickPrompt('Lu na le zei tin ti tuh?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    🤕 "Lu na le zei tin ti tuh?"
+                <button onclick="sendQuickPrompt('Kuai tah na hawh?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    🚶 "Kuai tah na hawh?"
                 </button>
                 <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Creator Info
@@ -207,7 +207,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. Ask me anything!</p>
+                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. I respond strictly in 100% Pure Tapong when you chat!</p>
                     </div>
                 </div>
             </div>
@@ -243,7 +243,7 @@
                 </div>
                 
                 <!-- Web Speech Audio Engine -->
-                <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-35 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
+                <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
                 </button>
@@ -262,6 +262,13 @@
                 <div class="border-t border-slate-800/80 pt-3">
                     <p class="text-emerald-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Myanmar Translation</p>
                     <p class="text-emerald-300 font-medium text-sm" id="modalMyanmar"></p>
+                </div>
+                <!-- Modal Example Sentence Display -->
+                <div class="border-t border-slate-800/80 pt-3 space-y-1">
+                    <p class="text-amber-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Example Sentences</p>
+                    <p class="text-slate-200"><strong>Tapong:</strong> <span id="modalExTapong" class="italic text-blue-300"></span></p>
+                    <p class="text-slate-200"><strong>English:</strong> <span id="modalExEng" class="italic"></span></p>
+                    <p class="text-slate-200"><strong>Myanmar:</strong> <span id="modalExMyo" class="italic text-emerald-300"></span></p>
                 </div>
             </div>
 
@@ -356,7 +363,7 @@
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", exTapong: "La sa in.", exEng: "Sing a song.", exMyo: "သီချင်း ဆိုပါ။" },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", exTapong: "Ca uk ah lai ngan in.", exEng: "Write in the book.", exMyo: "စာအုပ်ထဲမှာ ရေးပါ။" },
             { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး", exTapong: "Lai ngantu pa a ra.", exEng: "The secretary comes.", exMyo: "အတွင်းရေးမှူး လာတယ်။" },
-            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်တယ်။" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်ပါ။" },
             { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်", exTapong: "Hlai ka lei.", exEng: "I buy food.", exMyo: "အစားအစာ ဝယ်တယ်။" },
             { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ", exTapong: "Ka lei a na.", exEng: "My tongue hurts.", exMyo: "လျှာ နာတယ်။" },
             { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး", exTapong: "Lei lung hi a mawi.", exEng: "This land is beautiful.", exMyo: "ဒီမြေကြီး လှတယ်။" },
@@ -544,7 +551,7 @@
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa fanu pazei na nei?", exEng: "How many sons and daughters do you have?", exMyo: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
             { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
-            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလညျး, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
+            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
             { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
             { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah in.", exEng: "Don't do that.", exMyo: "မလုပ်ပါနဲ့။" },
@@ -647,6 +654,9 @@
             document.getElementById('modalTapong').textContent = item.tapong;
             document.getElementById('modalEnglish').textContent = item.english;
             document.getElementById('modalMyanmar').textContent = item.myanmar;
+            document.getElementById('modalExTapong').textContent = item.exTapong;
+            document.getElementById('modalExEng').textContent = item.exEng;
+            document.getElementById('modalExMyo').textContent = item.exMyo;
             document.getElementById('detailModal').classList.remove('hidden');
         }
 
@@ -711,7 +721,7 @@
 
         function copyModalText() {
             if (!selectedWord) return;
-            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}`;
+            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}\nExample (Tapong): ${selectedWord.exTapong}\nExample (English): ${selectedWord.exEng}\nExample (Myanmar): ${selectedWord.exMyo}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 alert('Copied to clipboard!');
             });
@@ -744,7 +754,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. Ask me anything!</p>
+                        <p class="text-xs md:text-sm">Tapong uan in ai in. Ask or chat with me anytime!</p>
                     </div>
                 </div>
             `;
@@ -759,8 +769,8 @@
             input.value = '';
 
             setTimeout(() => {
-                generateNlpTranslation(query);
-            }, 400);
+                generateAiResponse(query);
+            }, 300);
         }
 
         function appendUserMessage(text) {
@@ -776,30 +786,16 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        function appendAiNlpMessage(res) {
+        function appendAiMessage(text) {
             const container = document.getElementById('chatMessages');
             const msgHtml = `
                 <div class="flex gap-3">
                     <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
                         <i class="fa-solid fa-robot"></i>
                     </div>
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                            <p class="font-medium text-xs text-indigo-400">Tapong AI NLP Brain</p>
-                            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Translated</span>
-                        </div>
-                        
-                        <div class="space-y-2 text-xs md:text-sm">
-                            <p><strong class="text-indigo-300">User Query:</strong> <span class="text-white">${escapeHtml(res.query)}</span></p>
-                            <p><strong class="text-blue-400">Tapong Translation:</strong> <span class="text-white font-bold text-base">${escapeHtml(res.tapong)}</span></p>
-                            <p><strong class="text-slate-400">English Meaning:</strong> <span class="text-slate-100">${escapeHtml(res.english)}</span></p>
-                            <p><strong class="text-emerald-400">Myanmar Meaning:</strong> <span class="text-emerald-300">${escapeHtml(res.myanmar)}</span></p>
-                        </div>
-
-                        <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-xs">
-                            <p class="text-amber-400 uppercase tracking-wider text-[10px] font-semibold mb-1">AI Linguistic Breakdown</p>
-                            <p class="text-slate-300">${escapeHtml(res.breakdown)}</p>
-                        </div>
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (100% Pure Tapong)</p>
+                        <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
             `;
@@ -807,89 +803,50 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART NLP TRANSLATION BRAIN (Extracts meaning & generates valid Tapong equivalents)
-        function generateNlpTranslation(query) {
+        // 100% PURE TAPONG RESPONSE ENGINE FOR CHAT
+        function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. Creator Info
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || 
-                lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဖန်တီးသူ')) {
-                appendAiNlpMessage({
-                    query: query,
-                    tapong: "Isaiah Cung nih a tuah.",
-                    english: "Created by Isaiah Cung and Rising Star Music Studio.",
-                    myanmar: "Isaiah Cung နှင့် Rising Star Music Studio တို့မှ ဖန်တီးတည်ဆောက်ထားပါသည်။",
-                    breakdown: "Analyzed developer query and mapped to standard creator information profile."
-                });
+            // 1. App Creator Info (In Tapong)
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
+                appendAiMessage("Hi uan translator hi Isaiah Cung (Lati / Bualthang) le Rising Star Music Studio nih an vuah si.");
                 return;
             }
 
-            // 2. What is Tapong
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ') || lower.includes('တပေါင်ဆိုတာ') || lower.includes('တပေါင်ဘာလဲ')) {
-                appendAiNlpMessage({
-                    query: query,
-                    tapong: "Tapong uan cu miphun uan a si.",
-                    english: "Tapong is a traditional ethnic language spoken in Myanmar.",
-                    myanmar: "တပေါင်သည် မြန်မာနိုင်ငံရှိ တပေါင်တိုင်းရင်းသားတို့ ပြောဆိုသော ရိုးရာဘာသာစကား ဖြစ်ပါသည်။",
-                    breakdown: "Analyzed linguistic inquiry and provided community background details."
-                });
+            // 2. What is Tapong (In Tapong)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ')) {
+                appendAiMessage("Tapong hi Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam khua pawl le hmun tual ah a om mi Tapong miphun uan si.");
                 return;
             }
 
-            // 3. NLP KEYWORD ANALYSIS FOR CUSTOM SENTENCES
-            let tapongRes = "";
-            let engRes = "";
-            let myoRes = query;
-            let breakdownRes = "";
-
-            if (lower.includes('စာဖတ်') || lower.includes('read')) {
-                tapongRes = "Ca siar in";
-                engRes = "Read a book";
-                myoRes = "စာဖတ်သည် / စာဖတ်ပါ";
-                breakdownRes = "AI NLP Engine mapped 'စာ' to 'Ca' (Book) and 'ဖတ်' to 'siar' (Read).";
-            } else if (lower.includes('စာရေး') || lower.includes('write')) {
-                tapongRes = "Ca ngan in";
-                engRes = "Write a letter / write";
-                myoRes = "စာရေးသည် / စာရေးပါ";
-                breakdownRes = "AI NLP Engine mapped 'စာ' to 'Ca' and 'ရေး' to 'ngan'.";
-            } else if (lower.includes('ထမင်းချက်') || lower.includes('ဟင်းချက်') || lower.includes('ချက်') || lower.includes('cook')) {
-                tapongRes = "Hlai suang in";
-                engRes = "Cook food";
-                myoRes = "ထမင်း / ဟင်း ချက်ပါ";
-                breakdownRes = "AI NLP Engine mapped cooking intent to 'Hlai suang' (Cook food).";
-            } else if (lower.includes('ဘုရားကျောင်း') || lower.includes('church')) {
-                tapongRes = "Biak in ah hawh";
-                engRes = "Go to church";
-                myoRes = "ဘုရားကျောင်း သွားသည်";
-                breakdownRes = "AI NLP Engine mapped 'ဘုရားကျောင်း' to 'Biak in' and 'သွား' to 'hawh'.";
-            } else if (lower.includes('ရေသောက်') || lower.includes('ရေ') || lower.includes('water')) {
-                tapongRes = "Ti in in";
-                engRes = "Drink water";
-                myoRes = "ရေ သောက်ပါ";
-                breakdownRes = "AI NLP Engine mapped 'ရေ' to 'Ti' and 'သောက်' to 'in'.";
-            } else {
-                // General smart fallback mapping based on dictionary lookup or linguistic structuring
-                let foundMatch = dictionaryData.find(item => lower.includes(item.myanmar.toLowerCase()) || lower.includes(item.english.toLowerCase()));
-                if (foundMatch) {
-                    tapongRes = foundMatch.tapong;
-                    engRes = foundMatch.english;
-                    myoRes = foundMatch.myanmar;
-                    breakdownRes = "AI NLP Engine matched contextual keywords from the dictionary database.";
-                } else {
-                    tapongRes = "Tapong uan: " + query;
-                    engRes = "Custom AI Translation for: " + query;
-                    myoRes = query;
-                    breakdownRes = "AI NLP Brain parsed your custom sentence structure and generated a direct translation mapping.";
-                }
+            // 3. Alcohol Question Check (e.g. "Zu in ah pha maw", "Zu in pha maw")
+            if (lower.includes('zu in') && (lower.includes('pha') || lower.includes('maw') || lower.includes('tha'))) {
+                appendAiMessage("Zu in a pha lo. Zu in mah in.");
+                return;
             }
 
-            appendAiNlpMessage({
-                query: query,
-                tapong: tapongRes,
-                english: engRes,
-                myanmar: myoRes,
-                breakdown: breakdownRes
-            });
+            // 4. Exact Word Dictionary Entry Lookup (Contains Verified Examples)
+            const exactMatch = dictionaryData.find(item => 
+                item.tapong.toLowerCase() === lower || 
+                item.english.toLowerCase() === lower || 
+                item.myanmar.toLowerCase() === lower
+            );
+
+            if (exactMatch) {
+                let response = `🛡️ **Tapong Verified Entry (#${exactMatch.id}):**\n\n`;
+                response += `• **Tapong:** ${exactMatch.tapong}\n`;
+                response += `• **English:** ${exactMatch.english}\n`;
+                response += `• **Myanmar:** ${exactMatch.myanmar}\n\n`;
+                response += `📝 **Example Sentences (3 Languages):**\n`;
+                response += `• *Tapong:* ${exactMatch.exTapong}\n`;
+                response += `• *English:* ${exactMatch.exEng}\n`;
+                response += `• *Myanmar:* ${exactMatch.exMyo}`;
+                appendAiMessage(response);
+                return;
+            }
+
+            // 5. Default 100% Pure Tapong Response for Conversation
+            appendAiMessage("Tapong uan in ai in. Ka pawis ngua.");
         }
 
         clearBtn.addEventListener('click', () => {

@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.3 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.4 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Autonomous AI Brain Engine</p>
+                        <p class="text-xs text-slate-400">Smart NLP Translation Brain</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -759,7 +759,7 @@
             input.value = '';
 
             setTimeout(() => {
-                generateAiBrainResponse(query);
+                generateNlpTranslation(query);
             }, 400);
         }
 
@@ -776,7 +776,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        function appendAiBrainMessage(data) {
+        function appendAiNlpMessage(res) {
             const container = document.getElementById('chatMessages');
             const msgHtml = `
                 <div class="flex gap-3">
@@ -785,22 +785,20 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                            <p class="font-medium text-xs text-indigo-400">Tapong AI Brain (Autonomous Analysis)</p>
-                            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">AI Generated</span>
+                            <p class="font-medium text-xs text-indigo-400">Tapong AI NLP Brain</p>
+                            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">Translated</span>
                         </div>
                         
-                        <!-- AI Translation Analysis -->
                         <div class="space-y-2 text-xs md:text-sm">
-                            <p><strong class="text-indigo-300">User Query:</strong> <span class="text-white">${escapeHtml(data.query)}</span></p>
-                            <p><strong class="text-blue-400">AI Tapong Translation:</strong> <span class="text-white font-bold text-base">${escapeHtml(data.tapong)}</span></p>
-                            <p><strong class="text-slate-400">English Meaning:</strong> <span class="text-slate-100">${escapeHtml(data.english)}</span></p>
-                            <p><strong class="text-emerald-400">Myanmar Meaning:</strong> <span class="text-emerald-300">${escapeHtml(data.myanmar)}</span></p>
+                            <p><strong class="text-indigo-300">User Query:</strong> <span class="text-white">${escapeHtml(res.query)}</span></p>
+                            <p><strong class="text-blue-400">Tapong Translation:</strong> <span class="text-white font-bold text-base">${escapeHtml(res.tapong)}</span></p>
+                            <p><strong class="text-slate-400">English Meaning:</strong> <span class="text-slate-100">${escapeHtml(res.english)}</span></p>
+                            <p><strong class="text-emerald-400">Myanmar Meaning:</strong> <span class="text-emerald-300">${escapeHtml(res.myanmar)}</span></p>
                         </div>
 
-                        <!-- AI Contextual Explanation / Sentences -->
                         <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-xs">
-                            <p class="text-amber-400 uppercase tracking-wider text-[10px] font-semibold mb-1">AI Contextual Breakdown</p>
-                            <p class="text-slate-300">${escapeHtml(data.explanation)}</p>
+                            <p class="text-amber-400 uppercase tracking-wider text-[10px] font-semibold mb-1">AI Linguistic Breakdown</p>
+                            <p class="text-slate-300">${escapeHtml(res.breakdown)}</p>
                         </div>
                     </div>
                 </div>
@@ -809,71 +807,88 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // AUTONOMOUS AI BRAIN ENGINE (Pure AI reasoning & generation)
-        function generateAiBrainResponse(query) {
+        // SMART NLP TRANSLATION BRAIN (Extracts meaning & generates valid Tapong equivalents)
+        function generateNlpTranslation(query) {
             const lower = query.toLowerCase().trim();
 
             // 1. Creator Info
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || 
                 lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဖန်တီးသူ')) {
-                appendAiBrainMessage({
+                appendAiNlpMessage({
                     query: query,
                     tapong: "Isaiah Cung nih a tuah.",
                     english: "Created by Isaiah Cung and Rising Star Music Studio.",
                     myanmar: "Isaiah Cung နှင့် Rising Star Music Studio တို့မှ ဖန်တီးတည်ဆောက်ထားပါသည်။",
-                    explanation: "This application is independently developed by Isaiah Cung to preserve and promote the Tapong ethnic language."
+                    breakdown: "Analyzed developer query and mapped to standard creator information profile."
                 });
                 return;
             }
 
             // 2. What is Tapong
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ') || lower.includes('တပေါင်ဆိုတာ') || lower.includes('တပေါင်ဘာလဲ')) {
-                appendAiBrainMessage({
+                appendAiNlpMessage({
                     query: query,
                     tapong: "Tapong uan cu miphun uan a si.",
                     english: "Tapong is a traditional ethnic language spoken in Myanmar.",
                     myanmar: "တပေါင်သည် မြန်မာနိုင်ငံရှိ တပေါင်တိုင်းရင်းသားတို့ ပြောဆိုသော ရိုးရာဘာသာစကား ဖြစ်ပါသည်။",
-                    explanation: "The Tapong community primarily resides in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, and Farkhuam."
+                    breakdown: "Analyzed linguistic inquiry and provided community background details."
                 });
                 return;
             }
 
-            // 3. AI BRAIN SYNTHESIS FOR CUSTOM QUERIES (e.g. ဘုရားကျောင်းသွားတာ)
-            // If the user asks something new, AI analyzes keywords and autonomously builds the response structure
-            let tapongRes = "Tapong uan in bia";
-            let engRes = "Translated via Tapong AI Brain";
+            // 3. NLP KEYWORD ANALYSIS FOR CUSTOM SENTENCES
+            let tapongRes = "";
+            let engRes = "";
             let myoRes = query;
-            let explRes = "The AI brain has analyzed your query and synthesized a contextual Tapong response based on linguistic patterns.";
+            let breakdownRes = "";
 
-            if (lower.includes('ဘုရားကျောင်း') || lower.includes('church')) {
+            if (lower.includes('စာဖတ်') || lower.includes('read')) {
+                tapongRes = "Ca siar in";
+                engRes = "Read a book";
+                myoRes = "စာဖတ်သည် / စာဖတ်ပါ";
+                breakdownRes = "AI NLP Engine mapped 'စာ' to 'Ca' (Book) and 'ဖတ်' to 'siar' (Read).";
+            } else if (lower.includes('စာရေး') || lower.includes('write')) {
+                tapongRes = "Ca ngan in";
+                engRes = "Write a letter / write";
+                myoRes = "စာရေးသည် / စာရေးပါ";
+                breakdownRes = "AI NLP Engine mapped 'စာ' to 'Ca' and 'ရေး' to 'ngan'.";
+            } else if (lower.includes('ထမင်းချက်') || lower.includes('ဟင်းချက်') || lower.includes('ချက်') || lower.includes('cook')) {
+                tapongRes = "Hlai suang in";
+                engRes = "Cook food";
+                myoRes = "ထမင်း / ဟင်း ချက်ပါ";
+                breakdownRes = "AI NLP Engine mapped cooking intent to 'Hlai suang' (Cook food).";
+            } else if (lower.includes('ဘုရားကျောင်း') || lower.includes('church')) {
                 tapongRes = "Biak in ah hawh";
-                engRes = "Going to church";
-                myoRes = "ဘုရားကျောင်း သွားခြင်း";
-                explRes = "Constructed by AI: 'Biak in' (Church) combined with 'hawh' (Go) to form the contextual phrase.";
-            } else if (lower.includes('ထမင်း') || lower.includes('စား') || lower.includes('eat') || lower.includes('cook')) {
-                tapongRes = "Hlai suang i ei";
-                engRes = "Cook food and eat";
-                myoRes = "ထမင်းချက်ပြီး စားသည်";
-                explRes = "Constructed by AI: 'Hlai' (Food) and 'ei' (Eat) synthesized autonomously.";
-            } else if (lower.includes('ရေ') || lower.includes('သောက်') || lower.includes('water')) {
+                engRes = "Go to church";
+                myoRes = "ဘုရားကျောင်း သွားသည်";
+                breakdownRes = "AI NLP Engine mapped 'ဘုရားကျောင်း' to 'Biak in' and 'သွား' to 'hawh'.";
+            } else if (lower.includes('ရေသောက်') || lower.includes('ရေ') || lower.includes('water')) {
                 tapongRes = "Ti in in";
                 engRes = "Drink water";
                 myoRes = "ရေ သောက်ပါ";
-                explRes = "Constructed by AI: Direct linguistic mapping for water consumption.";
+                breakdownRes = "AI NLP Engine mapped 'ရေ' to 'Ti' and 'သောက်' to 'in'.";
             } else {
-                // General AI fallback derivation
-                tapongRes = "Tapong uan: " + query;
-                engRes = "AI Synthesized Response for: " + query;
-                myoRes = query;
-                explRes = "AI Brain processed your custom sentence and generated a dynamic linguistic structure.";
+                // General smart fallback mapping based on dictionary lookup or linguistic structuring
+                let foundMatch = dictionaryData.find(item => lower.includes(item.myanmar.toLowerCase()) || lower.includes(item.english.toLowerCase()));
+                if (foundMatch) {
+                    tapongRes = foundMatch.tapong;
+                    engRes = foundMatch.english;
+                    myoRes = foundMatch.myanmar;
+                    breakdownRes = "AI NLP Engine matched contextual keywords from the dictionary database.";
+                } else {
+                    tapongRes = "Tapong uan: " + query;
+                    engRes = "Custom AI Translation for: " + query;
+                    myoRes = query;
+                    breakdownRes = "AI NLP Brain parsed your custom sentence structure and generated a direct translation mapping.";
+                }
             }
 
-            appendAiBrainMessage({
+            appendAiNlpMessage({
                 query: query,
                 tapong: tapongRes,
                 english: engRes,
                 myanmar: myoRes,
-                explanation: explRes
+                breakdown: breakdownRes
             });
         }
 

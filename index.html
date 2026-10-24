@@ -795,15 +795,15 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AI LOGIC - COMBINED MULTI-QUESTION SUPPORT & FARKHUAM
+        // SMART AI LOGIC - UPDATED TO SUPPORT BOTH MYANMAR & ENGLISH QUERIES
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
             let responseText = "";
 
-            // 1. Creator & Developer Information Check
+            // 1. Creator & Developer Information Check (Supports Myanmar & English)
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('who creat') || 
                 lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || 
-                lower.includes('ဘယ်သူပြုလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
+                lower.includes('ဘယ်သူပြုလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဖန်တီးသူ')) {
                 
                 responseText += `👨‍💻 **Tapong AI Translator App Information:**\n\n`;
                 responseText += `• **Creator:** Isaiah Cung (Lati / Bualthang)\n`;
@@ -812,8 +812,8 @@
                 responseText += `This application and its AI Q&A Assistant were designed and created to help preserve, translate, and learn the Tapong ethnic language!\n\n`;
             }
 
-            // 2. What is Tapong Check
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || (lower.includes('tapong') && !lower.includes('app') && !lower.includes('who'))) {
+            // 2. What is Tapong Check (Supports Myanmar & English)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ') || (lower.includes('tapong') && !lower.includes('app') && !lower.includes('who'))) {
                 responseText += `**What is Tapong?**\n\n`;
                 responseText += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.\n\n`;
             }
@@ -837,7 +837,7 @@
                 return;
             }
 
-            if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း')) {
+            if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း') || lower.includes('၁ မှ ၁၀')) {
                 let response = `**Tapong Numbers 1 to 10 (Strictly Verified):**\n\n` +
                     `1. Pa Khat (တစ်) - *Pa khat lawng*\n` +
                     `2. Pa Nih (နှစ်) - *Pa nih an ra*\n` +
@@ -849,13 +849,19 @@
 
             let candidateMatches = [];
             dictionaryData.forEach(item => {
-                const terms = item.tapong.toLowerCase().split(/,\s*/);
-                terms.forEach(term => {
-                    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
-                    if (regex.test(lower)) {
-                        candidateMatches.push({ item, matchedTerm: term, length: term.length });
-                    }
-                });
+                if (lower.includes(item.myanmar.toLowerCase()) || item.myanmar.toLowerCase().includes(lower)) {
+                    candidateMatches.push({ item, length: item.myanmar.length });
+                } else if (lower.includes(item.english.toLowerCase()) || item.english.toLowerCase().includes(lower)) {
+                    candidateMatches.push({ item, length: item.english.length });
+                } else {
+                    const terms = item.tapong.toLowerCase().split(/,\s*/);
+                    terms.forEach(term => {
+                        const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+                        if (regex.test(lower)) {
+                            candidateMatches.push({ item, length: term.length });
+                        }
+                    });
+                }
             });
 
             candidateMatches.sort((a, b) => b.length - a.length);
@@ -883,11 +889,14 @@
                 return;
             }
 
-            const queryWords = lower.split(/\s+/).filter(w => w.length > 2 && !['give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
+            const queryWords = lower.split(/\s+/).filter(w => w.length > 1 && !['ပေး', 'လို', 'ဘယ်လို', 'ပြော', 'give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
             
             let matches = dictionaryData.filter(item => {
-                const itemWords = item.tapong.toLowerCase().split(/[\s,]+/);
-                return queryWords.some(qw => itemWords.includes(qw) || item.english.toLowerCase().includes(qw) || item.myanmar.toLowerCase().includes(qw));
+                return queryWords.some(qw => 
+                    item.myanmar.toLowerCase().includes(qw) || 
+                    item.english.toLowerCase().includes(qw) || 
+                    item.tapong.toLowerCase().includes(qw)
+                );
             });
 
             if (matches.length > 0) {
@@ -900,7 +909,7 @@
                 });
                 appendAiMessage(response.trim());
             } else {
-                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}". Only verified entries with strict pure Tapong sentences are provided.`);
+                appendAiMessage(`ဝန်ခံပါတယ်၊ "${escapeHtml(query)}" နဲ့ ကိုက်ညီတဲ့ တပေါင်စကားလုံး တိုက်ရိုက် မတွေ့သေးပါ။ ကျေးဇူးပြု၍ အင်္ဂလိပ်လို သို့မဟုတ် တပေါင်စကားလုံး သီးသန့်ဖြင့် ထပ်မံမေးမြန်းကြည့်ပါ။`);
             }
         }
 

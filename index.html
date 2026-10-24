@@ -786,24 +786,59 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        function appendAiMessage(text) {
+        function appendAiMessage(item) {
             const container = document.getElementById('chatMessages');
-            const msgHtml = `
-                <div class="flex gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
-                        <i class="fa-solid fa-robot"></i>
+            
+            // If it's a structured dictionary item with 3 languages example
+            if (typeof item === 'object' && item !== null) {
+                const msgHtml = `
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Pure Autonomous Match)</p>
+                                <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">#${item.id}</span>
+                            </div>
+                            
+                            <!-- 3 Languages Display -->
+                            <div class="space-y-2 text-xs md:text-sm">
+                                <p><strong class="text-blue-400">Tapong:</strong> <span class="text-white font-semibold">${escapeHtml(item.tapong)}</span></p>
+                                <p><strong class="text-slate-400">English:</strong> <span class="text-slate-100">${escapeHtml(item.english)}</span></p>
+                                <p><strong class="text-emerald-400">Myanmar:</strong> <span class="text-emerald-300">${escapeHtml(item.myanmar)}</span></p>
+                            </div>
+
+                            <!-- Example Sentences 3 Languages -->
+                            <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-1.5 text-xs">
+                                <p class="text-amber-400 uppercase tracking-wider text-[10px] font-semibold mb-1">Example Sentences (3 Languages)</p>
+                                <p class="text-slate-200"><strong>Tapong:</strong> <span class="italic text-blue-300">${escapeHtml(item.exTapong || item.tapong)}</span></p>
+                                <p class="text-slate-200"><strong>English:</strong> <span class="italic text-slate-300">${escapeHtml(item.exEng || item.english)}</span></p>
+                                <p class="text-slate-200"><strong>Myanmar:</strong> <span class="italic text-emerald-300">${escapeHtml(item.exMyo || item.myanmar)}</span></p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Smart Dictionary Integration)</p>
-                        <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
+                `;
+                container.insertAdjacentHTML('beforeend', msgHtml);
+            } else {
+                // Plain Text fallback (for Creator info or general pure text)
+                const msgHtml = `
+                    <div class="flex gap-3">
+                        <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
+                            <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
+                            <p class="text-xs md:text-sm whitespace-pre-line">${escapeHtml(item)}</p>
+                        </div>
                     </div>
-                </div>
-            `;
-            container.insertAdjacentHTML('beforeend', msgHtml);
+                `;
+                container.insertAdjacentHTML('beforeend', msgHtml);
+            }
             container.scrollTop = container.scrollHeight;
         }
 
-        // SMART AUTOMATED AI MATCHING ENGINE (Self-Search & Autonomous Matching)
+        // SMART AUTOMATED AI MATCHING ENGINE WITH 3 LANGUAGES EXAMPLE SENTENCES
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -819,8 +854,7 @@
                 return;
             }
 
-            // 3. Automated Autonomous Dictionary Search (AI Self-Picks Best Match across 280 entries)
-            // Exact Match Search
+            // 3. Autonomous Search across all 280 dictionary entries
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -828,11 +862,11 @@
             );
 
             if (exactMatch) {
-                appendAiMessage(exactMatch.exTapong || exactMatch.tapong);
+                appendAiMessage(exactMatch);
                 return;
             }
 
-            // Keyword / Partial Autonomous Search (Splits query into words and finds best dictionary match)
+            // Keyword / Partial Autonomous Search
             const queryWords = lower.split(/\s+/).filter(word => word.length > 1);
             let bestMatch = null;
 
@@ -846,12 +880,20 @@
             }
 
             if (bestMatch) {
-                appendAiMessage(bestMatch.exTapong || bestMatch.tapong);
+                appendAiMessage(bestMatch);
                 return;
             }
 
-            // 4. Default 100% Pure Tapong Response (Fallback)
-            appendAiMessage("Tapong uan in ai in. Na suan ang.");
+            // 4. Default Fallback (Pure Tapong structure)
+            appendAiMessage({
+                id: 0,
+                tapong: "Tapong uan in ai in.",
+                english: "Speak in the Tapong language.",
+                myanmar: "တပေါင်ဘာသာစကားဖြင့်ပြောပါ",
+                exTapong: "Tapong uan in ai in. Na suan ang.",
+                exEng: "Speak in the Tapong language. Try again.",
+                exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ။ ထပ်စမ်းပါ။"
+            });
         }
 
         clearBtn.addEventListener('click', () => {

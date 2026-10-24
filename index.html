@@ -754,7 +754,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Tapong uan in ai in. Ask or chat with me anytime!</p>
+                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. I respond strictly in 100% Pure Tapong when you chat!</p>
                     </div>
                 </div>
             `;
@@ -807,19 +807,19 @@
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. App Creator Info (English Response)
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
+            // 1. Exception 1: App Creator Info (English Response)
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်')) {
                 appendAiMessage("Tapong AI Translator was created by Isaiah Cung (Lati / Bualthang) and Rising Star Music Studio.");
                 return;
             }
 
-            // 2. What is Tapong (English Response)
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ')) {
+            // 2. Exception 2: What is Tapong (English Response)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ ဘာလဲ')) {
                 appendAiMessage("Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.");
                 return;
             }
 
-            // 3. Automated Smart Dictionary Matching & Pattern Engine
+            // 3. Automated Smart Dictionary Matching & Pattern Engine (Tapong Pure Response)
             // Alcohol Rule
             if (lower.includes('zu in') && (lower.includes('pha') || lower.includes('maw') || lower.includes('tha'))) {
                 appendAiMessage("Zu in ah pha tawh. (or) Zu in a pha ngua. (or) Zu in ah pha ngua si.");
@@ -868,15 +868,7 @@
             );
 
             if (exactMatch) {
-                let response = `🛡️ **Tapong Verified Entry (#${exactMatch.id}):**\n\n`;
-                response += `• **Tapong:** ${exactMatch.tapong}\n`;
-                response += `• **English:** ${exactMatch.english}\n`;
-                response += `• **Myanmar:** ${exactMatch.myanmar}\n\n`;
-                response += `📝 **Example Sentences (3 Languages):**\n`;
-                response += `• *Tapong:* ${exactMatch.exTapong}\n`;
-                response += `• *English:* ${exactMatch.exEng}\n`;
-                response += `• *Myanmar:* ${exactMatch.exMyo}`;
-                appendAiMessage(response);
+                appendAiMessage(exactMatch.exTapong || exactMatch.tapong);
                 return;
             }
 
@@ -888,12 +880,7 @@
             );
 
             if (keywordMatch) {
-                let response = `💡 **Smart Dictionary Match (#${keywordMatch.id}):**\n\n`;
-                response += `• **Tapong:** ${keywordMatch.tapong}\n`;
-                response += `• **English:** ${keywordMatch.english}\n`;
-                response += `• **Myanmar:** ${keywordMatch.myanmar}\n\n`;
-                response += `📝 *Tapong Example:* ${keywordMatch.exTapong}`;
-                appendAiMessage(response);
+                appendAiMessage(keywordMatch.exTapong || keywordMatch.tapong);
                 return;
             }
 

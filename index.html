@@ -37,7 +37,7 @@
       "@context": "https://schema.org",
       "@type": "DefinedTermSet",
       "name": "Tapong Language Dictionary & AI Assistant",
-      "description": "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.",
+      "description": "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Bualkhua, as well as in plains areas.",
       "image": "https://tapong-ai-translator.vercel.app/IMG_6152.jpeg",
       "inLanguage": ["en", "my"]
     }
@@ -79,29 +79,47 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between p-3 md:p-6">
 
+    <!-- Google Bot SEO Fallback Content (Invisible to regular users, read by search engines) -->
+    <noscript>
+        <div style="display:none;">
+            <h1>Tapong AI Translator & Dictionary</h1>
+            <p>Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Bualkhua, as well as in plains areas.</p>
+            <ul>
+                <li>Tapong: Ai - English: Speak - Myanmar: စကားပြောသည်</li>
+                <li>Tapong: Ang ki - English: Shirt - Myanmar: ရှပ်အင်္ကျီ</li>
+                <li>Tapong: Ar - English: Chicken - Myanmar: ကြက်</li>
+                <li>Tapong: Ar sa - English: Chicken curry - Myanmar: ကြက်သား</li>
+                <li>Tapong: Na ann ing - English: Thank You - Myanmar: ကျေးဇူးတင်ပါသည်</li>
+                <li>Tapong: Uan - English: Language - Myanmar: ဘာသာစကား</li>
+            </ul>
+        </div>
+    </noscript>
+
     <!-- Header Section -->
     <header class="max-w-5xl mx-auto w-full mb-4">
         <div class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
+                <!-- Header Logo -->
                 <div class="w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-blue-500/25 border border-slate-700/50 shrink-0">
                     <img src="IMG_6152.jpeg" alt="Tapong AI Translator Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.9 (AI Assistant)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v4.8 (270 Total)</span>
                     </h1>
-                    <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span> @ Rising Star Music Studio</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
             </div>
             
+            <!-- Mode Switcher Tabs -->
             <div class="flex items-center gap-2 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 text-xs w-full md:w-auto">
-                <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
+                <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
                     <span>Dictionary</span>
-                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">282</span>
+                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">270</span>
                 </button>
-                <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-indigo-600 text-white shadow-md flex items-center justify-center gap-2">
+                <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-robot text-indigo-400"></i>
                     <span>AI Q&A Assistant</span>
                 </button>
@@ -113,7 +131,8 @@
     <main class="max-w-5xl mx-auto w-full flex-grow">
         
         <!-- SECTION 1: DICTIONARY VIEW -->
-        <div id="dictionarySection" class="hidden space-y-4">
+        <div id="dictionarySection" class="space-y-4">
+            <!-- Search Box -->
             <div class="custom-glass rounded-2xl p-4 md:p-5 shadow-xl">
                 <div class="relative mb-2">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -128,6 +147,7 @@
                 </p>
             </div>
 
+            <!-- Dictionary Table -->
             <div class="custom-glass rounded-2xl overflow-hidden shadow-2xl border border-slate-800/80">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -141,6 +161,7 @@
                             </tr>
                         </thead>
                         <tbody id="dictionaryBody" class="divide-y divide-slate-800/60 text-sm text-slate-200 font-normal">
+                            <!-- Data rows injected by JS -->
                         </tbody>
                     </table>
                 </div>
@@ -157,7 +178,8 @@
         </div>
 
         <!-- SECTION 2: AI Q&A ASSISTANT VIEW -->
-        <div id="aiSection" class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col h-[600px]">
+        <div id="aiSection" class="hidden custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col h-[600px]">
+            <!-- AI Header -->
             <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-indigo-600/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
@@ -171,7 +193,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Pure Tapong Uan AI Assistant Engine</p>
+                        <p class="text-xs text-slate-400">100% Pure Tapong Grammar (270 Total Items)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -179,32 +201,36 @@
                 </button>
             </div>
 
+            <!-- Suggestion Chips -->
             <div class="flex flex-wrap gap-2 mb-4">
                 <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Who created this app?
                 </button>
-                <button onclick="sendQuickPrompt('How to say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                <button onclick="sendQuickPrompt('How do you say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     💡 How to say "Thank You"?
                 </button>
-                <button onclick="sendQuickPrompt('make sentence banana')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    🍌 Make sentence banana
+                <button onclick="sendQuickPrompt('Explain Tapong numbers 1 to 10')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    🔢 Count 1 to 10
                 </button>
             </div>
 
+            <!-- Chat Messages Container -->
             <div id="chatMessages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4 text-sm">
+                <!-- AI Welcome Message -->
                 <div class="flex gap-3">
                     <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Tapong uan in ai in. Tapong AI Assistant nih na bia hal mi cu tapong uan lawngin ka leh lai.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All 270 entries are fully aligned, verified, and strict.</p>
                     </div>
                 </div>
             </div>
 
+            <!-- Chat Input Box -->
             <div class="relative">
-                <input type="text" id="chatInput" placeholder="Tapong uan in bia hal in (e.g. make sentence banana)..." onkeydown="if(event.key==='Enter') sendMessage()"
+                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything..." onkeydown="if(event.key==='Enter') sendMessage()"
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                 <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -232,12 +258,14 @@
                     </div>
                 </div>
                 
+                <!-- Web Speech Audio Engine -->
                 <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
                 </button>
             </div>
 
+            <!-- 3 Languages Reading Card -->
             <div class="space-y-4 bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs">
                 <div>
                     <p class="text-blue-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Tapong Language</p>
@@ -266,7 +294,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with @Rising Star Music Studio -->
     <footer class="max-w-5xl mx-auto w-full mt-8 mb-2 text-center text-xs text-slate-500 space-y-1">
         <p>© TAPONG AI TRANSLATOR — Developed by @Rising Star Music Studio</p>
         <p class="text-slate-600">Dedicated to Tapong Language Preservation</p>
@@ -275,7 +303,7 @@
     <!-- JavaScript Logic -->
     <script>
         const dictionaryData = [
-            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", exTapong: "Tapong uan in ai in.", exEng: "Speak in the Tapong language.", exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ" },
+            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", exTapong: "Uan ai in.", exEng: "Speak the language.", exMyo: "စကားပြောပါ။" },
             { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ", exTapong: "Ang ki thair ka nei.", exEng: "I have a new shirt.", exMyo: "ငါ့မှာ အင်္ကျီသစ် ရှိတယ်။" },
             { id: 3, tapong: "Ar", english: "Chicken", myanmar: "ကြက်", exTapong: "Ar sa ka ei.", exEng: "I eat chicken meat.", exMyo: "ငါ ကြက်သား စားတယ်။" },
             { id: 4, tapong: "Ar sa", english: "Chicken curry", myanmar: "ကြက်သား", exTapong: "Ar sa hmeh suang in.", exEng: "Cook chicken curry.", exMyo: "ကြက်သားဟင်း ချက်ပါ။" },
@@ -305,7 +333,7 @@
             { id: 28, tapong: "Hau dun, tuang dun", english: "Fight", myanmar: "ရန်ဖြစ်", exTapong: "Hau dun mah un.", exEng: "Do not fight.", exMyo: "ရန်မဖြစ်ကြနဲ့။" },
             { id: 29, tapong: "Hawh", english: "Go", myanmar: "သွားသည်", exTapong: "Khua ah na hawh?", exEng: "Are you going to the village?", exMyo: "ရွာကို သွားမလို့လား။" },
             { id: 30, tapong: "Hla", english: "Month", myanmar: "လ", exTapong: "Hla khat a liam.", exEng: "One month has passed.", exMyo: "တစ်လ ကုန်သွားပြီ။" },
-            { id: 31, tapong: "Hla pui, Hla de", english: "Moon, Moonlight", myanmar: "လမင်းကြီး, လရောင်ထိန်လင်းသည်", exTapong: "Zan ah hla pui, hla de a var ngai.", exEng: "The moon shines at night, and the moonlight is very bright.", exMyo: "ညဘက်မှာ လမင်းကြီး ထွက်ပြီး လရောင် ထိန်ထိန်လင်းတယ်။" },
+            { id: 31, tapong: "Hla pui", english: "Moon", myanmar: "လမင်းကြီး", exTapong: "Zan ah hla pui a lang.", exEng: "The moon shines at night.", exMyo: "ညဘက်မှာ လမင်းကြီး ထွက်တယ်။" },
             { id: 32, tapong: "Hlai", english: "Food", myanmar: "ထမင်း", exTapong: "Hlai suang in.", exEng: "Cook food.", exMyo: "ထမင်း ချက်ပါ။" },
             { id: 33, tapong: "Hlai suang, hmeh suang", english: "Cook", myanmar: "ထမင်းချက်, ဟင်းချက်", exTapong: "Nu nu nih hlai a suang.", exEng: "Mother is cooking food.", exMyo: "အမေ ထမင်းချက်နေတယ်။" },
             { id: 34, tapong: "Hli vua", english: "Air", myanmar: "လေ", exTapong: "Hli vua a lum.", exEng: "The air is warm.", exMyo: "လေ နွေးတယ်။" },
@@ -344,7 +372,7 @@
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", exTapong: "La sa in.", exEng: "Sing a song.", exMyo: "သီချင်း ဆိုပါ။" },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", exTapong: "Ca uk ah lai ngan in.", exEng: "Write in the book.", exMyo: "စာအုပ်ထဲမှာ ရေးပါ။" },
             { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး", exTapong: "Lai ngantu pa a ra.", exEng: "The secretary comes.", exMyo: "အတွင်းရေးမှူး လာတယ်။" },
-            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်တယ်။" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်ပါ။" },
             { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်", exTapong: "Hlai ka lei.", exEng: "I buy food.", exMyo: "အစားအစာ ဝယ်တယ်။" },
             { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ", exTapong: "Ka lei a na.", exEng: "My tongue hurts.", exMyo: "လျှာ နာတယ်။" },
             { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး", exTapong: "Lei lung hi a mawi.", exEng: "This land is beautiful.", exMyo: "ဒီမြေကြီး လှတယ်။" },
@@ -377,12 +405,12 @@
             { id: 100, tapong: "Nazi", english: "Clock, Time", myanmar: "နာရီ", exTapong: "Nazi 10 a si.", exEng: "It is 10 o'clock.", exMyo: "နာရီ ၁၀ ထိုးပြီ။" },
             { id: 101, tapong: "Ngai", english: "Listen, Miss", myanmar: "နားထောင်သည်, လွမ်းသည်", exTapong: "Ngai in.", exEng: "Listen.", exMyo: "နားထောင်ပါ။" },
             { id: 102, tapong: "Ngan", english: "Write", myanmar: "ရေးသည်", exTapong: "Ca ngan in.", exEng: "Write a letter.", exMyo: "စာ ရေးပါ။" },
-            { id: 103, tapong: "Ni", english: "Day", myanmar: "နေ့ရက်", exTapong: "Ni pha ngai.", exEng: "It is a good day.", exMyo: "နေ့ကောင်း ဖြစ်တယ်။" },
+            { id: 103, tapong: "Ni", english: "Day", myanmar: "နေ့ရက်", exTapong: "Ni tha a si.", exEng: "It is a good day.", exMyo: "နေ့ကောင်း ဖြစ်တယ်။" },
             { id: 104, tapong: "Ni", english: "Sun", myanmar: "နေ", exTapong: "Ni a sa.", exEng: "Sun is hot.", exMyo: "နေ ပူတယ်။" },
             { id: 105, tapong: "Ni hla", english: "Calendar", myanmar: "ပြက္ခဒိန်", exTapong: "Ni hla pan in.", exEng: "Look at calendar.", exMyo: "ပြက္ခဒိန် ကြည့်ပါ။" },
             { id: 106, tapong: "Ni hnih ni", english: "Tuesday", myanmar: "အင်္ဂါနေ့", exTapong: "Ni hnih ni ah ka per.", exEng: "I work on Tuesday.", exMyo: "အင်္ဂါနေ့မှာ အလုပ်လုပ်တယ်။" },
             { id: 107, tapong: "Ni khat ni", english: "Monday", myanmar: "တနင်္လာနေ့", exTapong: "Ni khat ni ah ka ra.", exEng: "I come on Monday.", exMyo: "တနင်္လာနေ့မှာ လာမယ်။" },
-            { id: 108, tapong: "Ni li ni", english: "Thursday", myanmar: "ကြာသပတေးနေ့", exTapong: "Ni li ni pha ngai.", exEng: "It is Thursday.", exMyo: "ကြာသပတေးနေ့ ဖြစ်တယ်။" },
+            { id: 108, tapong: "Ni li ni", english: "Thursday", myanmar: "ကြာသပတေးနေ့", exTapong: "Ni li ni a si.", exEng: "It is Thursday.", exMyo: "ကြာသပတေးနေ့ ဖြစ်တယ်။" },
             { id: 109, tapong: "Ni nga ni", english: "Friday", myanmar: "သောကြာနေ့", exTapong: "Ni nga ni ah ka hawh.", exEng: "I go on Friday.", exMyo: "သောကြာနေ့ သွားမယ်။" },
             { id: 110, tapong: "Ni ruk ni, ca ni ni", english: "Saturday", myanmar: "စနေနေ့", exTapong: "Ni ruk ni ah it in.", exEng: "Rest on Saturday.", exMyo: "စနေနေ့ အနားယူပါ။" },
             { id: 111, tapong: "Ni sarih ni, ni pui ni", english: "Sunday", myanmar: "တနင်္ဂနွေနေ့", exTapong: "Ni pui ni ah biak in hawh in.", exEng: "Go to church on Sunday.", exMyo: "တနင်္ဂနွေနေ့မှာ ဘုရားကျောင်း သွားပါ။" },
@@ -395,18 +423,18 @@
             { id: 118, tapong: "Pa Hra", english: "Ten", myanmar: "တစ်ဆယ်", exTapong: "Pa hra ka nei.", exEng: "I have ten.", exMyo: "၁၀ ခု ရှိတယ်။" },
             { id: 119, tapong: "Pa Khat", english: "One", myanmar: "တစ်", exTapong: "Pa khat lawng.", exEng: "Only one.", exMyo: "တစ်ယောက်တည်း / တစ်ခုတည်း။" },
             { id: 120, tapong: "Pa Khat ta, rang", english: "Uncle", myanmar: "ဦးလေး", exTapong: "Pu pa khat a ra.", exEng: "An uncle comes.", exMyo: "ဦးလေး တစ်ယောက် လာတယ်။" },
-            { id: 121, tapong: "Pa Kua", english: "Nine", myanmar: "ကိုး", exTapong: "Pa kua pha ngai.", exEng: "It is nine.", exMyo: "ကိုးခု ဖြစ်တယ်။" },
+            { id: 121, tapong: "Pa Kua", english: "Nine", myanmar: "ကိုး", exTapong: "Pa kua a si.", exEng: "It is nine.", exMyo: "ကိုးခု ဖြစ်တယ်။" },
             { id: 122, tapong: "Pa Li", english: "Four", myanmar: "လေး", exTapong: "Pa li ka nei.", exEng: "I have four.", exMyo: "၄ ခု ရှိတယ်။" },
             { id: 123, tapong: "Pa Nga", english: "Five", myanmar: "ငါး", exTapong: "Pa nga a tawk.", exEng: "Five is enough.", exMyo: "၅ ခု လောက်တယ်။" },
             { id: 124, tapong: "Pa Nih", english: "Two", myanmar: "နှစ်", exTapong: "Pa nih an ra.", exEng: "Two come.", exMyo: "နှစ်ယောက် လာတယ်။" },
-            { id: 125, tapong: "Pa Riat", english: "Eight", myanmar: "ရှစ်", exTapong: "Pa riat pha ngai.", exEng: "It is eight.", exMyo: "၈ ခု ဖြစ်တယ်။" },
+            { id: 125, tapong: "Pa Riat", english: "Eight", myanmar: "ရှစ်", exTapong: "Pa riat a si.", exEng: "It is eight.", exMyo: "၈ ခု ဖြစ်တယ်။" },
             { id: 126, tapong: "Pa Ruk", english: "Six", myanmar: "ခြောက်", exTapong: "Pa ruk a tawk.", exEng: "Six is enough.", exMyo: "၆ ခု လောက်တယ်။" },
-            { id: 127, tapong: "Pa Sarih", english: "Seven", myanmar: "ခုနှစ်ခု", exTapong: "Pa sarih pha ngai.", exEng: "It is seven.", exMyo: "၇ ခု ဖြစ်တယ်။" },
+            { id: 127, tapong: "Pa Sarih", english: "Seven", myanmar: "ခုနှစ်ခု", exTapong: "Pa sarih a si.", exEng: "It is seven.", exMyo: "၇ ခု ဖြစ်တယ်။" },
             { id: 128, tapong: "Pa Thum", english: "Three", myanmar: "သုံး", exTapong: "Pa thum an om.", exEng: "There are three.", exMyo: "၃ ခု ရှိတယ်။" },
             { id: 129, tapong: "Pa, pa pa", english: "Father, Daddy", myanmar: "အဖေ, ဖခင်", exTapong: "Pa pa ka it hnak.", exEng: "I love father.", exMyo: "အဖေ့ကို ချစ်တယ်။" },
             { id: 130, tapong: "Pan", english: "Look at", myanmar: "ကြည့်သည်", exTapong: "Ka pan in.", exEng: "Look at me.", exMyo: "ငါ့ကို ကြည့်ပါ။" },
-            { id: 131, tapong: "Pasal", english: "Husband", myanmar: "လိင်ယောကျ်ား", exTapong: "Ka pasal pha ngai.", exEng: "He is my husband.", exMyo: "သူ ငါ့ခင်ပွန်း ဖြစ်တယ်။" },
-            { id: 132, tapong: "Pathian", english: "God", myanmar: "ဘုရား", exTapong: "Pathian pha ngai.", exEng: "God is good.", exMyo: "ဘုရားသခင် ကောင်းမြတ်တယ်။" },
+            { id: 131, tapong: "Pasal", english: "Husband", myanmar: "လိင်ယောကျ်ား", exTapong: "Ka pasal a si.", exEng: "He is my husband.", exMyo: "သူ ငါ့ခင်ပွန်း ဖြစ်တယ်။" },
+            { id: 132, tapong: "Pathian", english: "God", myanmar: "ဘုရား", exTapong: "Pathian a tha.", exEng: "God is good.", exMyo: "ဘုရားသခင် ကောင်းမြတ်တယ်။" },
             { id: 133, tapong: "Peng", english: "Township, mile", myanmar: "မြို့နယ်, မိုင်တိုင်", exTapong: "Peng ah ka om.", exEng: "I am at the township.", exMyo: "မြို့နယ်မှာ နေတယ်။" },
             { id: 134, tapong: "Pi, pi pi", english: "Auntie, Grandmother", myanmar: "အဒေါ်, အဘွား", exTapong: "Pi pi a om.", exEng: "Grandmother is here.", exMyo: "အဘွား ရှိတယ်။" },
             { id: 135, tapong: "Poisa kiltu", english: "Treasurer", myanmar: "ဘဏ္ဍာရေးမှူး", exTapong: "Poisa kiltu a ra.", exEng: "Treasurer comes.", exMyo: "ဘဏ္ဍာရေးမှူး လာတယ်။" },
@@ -420,15 +448,15 @@
             { id: 143, tapong: "Ram", english: "Country", myanmar: "နိုင်ငံ", exTapong: "Ka ram ka it.", exEng: "I love my country.", exMyo: "ငါ့နိုင်ငံကို ချစ်တယ်။" },
             { id: 144, tapong: "Ram uk tu", english: "President", myanmar: "သမ္မတ", exTapong: "Ram uk tu a ra.", exEng: "President comes.", exMyo: "သမ္မတ လာတယ်။" },
             { id: 145, tapong: "Rem", english: "Repair", myanmar: "ပြုပြင်သည်", exTapong: "Inn rem in.", exEng: "Repair the house.", exMyo: "အိမ် ပြုပြင်ပါ။" },
-            { id: 146, tapong: "Rem dun", english: "Peaceful", myanmar: "ငြိမ်းချမ်းသော", exTapong: "Ram rem dun pha ngai.", exEng: "The country is peaceful.", exMyo: "နိုင်ငံ ငြိမ်းချမ်းတယ်။" },
+            { id: 146, tapong: "Rem dun", english: "Peaceful", myanmar: "ငြိမ်းချမ်းသော", exTapong: "Ram rem dun a si.", exEng: "The country is peaceful.", exMyo: "နိုင်ငံ ငြိမ်းချမ်းတယ်။" },
             { id: 147, tapong: "Riah sia", english: "Sad", myanmar: "ဝမ်းနည်းသည်", exTapong: "Riah sia mah in.", exEng: "Do not be sad.", exMyo: "ဝမ်းမနည်းပါနဲ့။" },
             { id: 148, tapong: "Ruah, ruah zu", english: "Rain", myanmar: "မိုး, မိုးရွာသည်", exTapong: "Ruah a zu.", exEng: "It is raining.", exMyo: "မိုးရွာနေတယ်။" },
-            { id: 149, tapong: "Rual pui", english: "Friend", myanmar: "သူငယ်ချင်း", exTapong: "Ka rual pui pha ngai.", exEng: "He is my friend.", exMyo: "သူ ငါ့သူငယ်ချင်း ဖြစ်တယ်။" },
+            { id: 149, tapong: "Rual pui", english: "Friend", myanmar: "သူငယ်ချင်း", exTapong: "Ka rual pui a si.", exEng: "He is my friend.", exMyo: "သူ ငါ့သူငယ်ချင်း ဖြစ်တယ်။" },
             { id: 150, tapong: "Rual sia", english: "Stingy", myanmar: "ကပ်စေးနည်းသော", exTapong: "Rual sia mah in.", exEng: "Do not be stingy.", exMyo: "ကပ်စေးမနည်းနဲ့။" },
             { id: 151, tapong: "Sa", english: "Hot", myanmar: "ပူသည်", exTapong: "Ti a sa.", exEng: "Water is hot.", exMyo: "ရေ ပူတယ်။" },
             { id: 152, tapong: "Sa", english: "Meat dish", myanmar: "အသားဟင်း", exTapong: "Sa ka ei.", exEng: "I eat meat.", exMyo: "အသား စားတယ်။" },
             { id: 153, tapong: "Sah nung", english: "Happy", myanmar: "ပျော်သည်", exTapong: "Sah nung in ka om.", exEng: "I am happy.", exMyo: "ပျော်နေတယ်။" },
-            { id: 154, tapong: "Sam", english: "Hair", myanmar: "ဆံပင်", exTapong: "Sam pha ngai.", exEng: "Hair is beautiful.", exMyo: "ဆံပင် လှတယ်။" },
+            { id: 154, tapong: "Sam", english: "Hair", myanmar: "ဆံပင်", exTapong: "Sam a mawi.", exEng: "Hair is beautiful.", exMyo: "ဆံပင် လှတယ်။" },
             { id: 155, tapong: "Saw ngian", english: "Pray", myanmar: "ဆုတောင်းသည်", exTapong: "Saw ngian in.", exEng: "Pray.", exMyo: "ဆုတောင်းပါ။" },
             { id: 156, tapong: "Sekan", english: "Second", myanmar: "စက္ကန့်", exTapong: "Sekan khat hngak in.", exEng: "Wait a second.", exMyo: "တစ်စက္ကန့် စောင့်ပါ။" },
             { id: 157, tapong: "Si zung", english: "Hospital", myanmar: "ဆေးရုံ", exTapong: "Si zung ah ka hawh.", exEng: "I go to the hospital.", exMyo: "ဆေးရုံ သွားတယ်။" },
@@ -436,7 +464,7 @@
             { id: 159, tapong: "Si rori", english: "Definitely, Absolutely", myanmar: "သေချာပေါက်", exTapong: "Si rori.", exEng: "Definitely.", exMyo: "သေချာပေါက် ဖြစ်ပါတယ်။" },
             { id: 160, tapong: "Si tawh, aih", english: "No", myanmar: "မဟုတ်ဘူး, မဟုတ်ပါ", exTapong: "Si tawh.", exEng: "No.", exMyo: "မဟုတ်ဘူး။" },
             { id: 161, tapong: "Siangphahrang", english: "King", myanmar: "ဘုရင်", exTapong: "Siangphahrang a om.", exEng: "King is here.", exMyo: "ဘုရင် ရှိတယ်။" },
-            { id: 162, tapong: "Siangpharang nu", english: "Queen", myanmar: "ဘုရင်မ", exTapong: "Siangpharang nu pha ngai.", exEng: "Queen is beautiful.", exMyo: "ဘုရင်မ လှတယ်။" },
+            { id: 162, tapong: "Siangpharang nu", english: "Queen", myanmar: "ဘုရင်မ", exTapong: "Siangpharang nu a mawi.", exEng: "Queen is beautiful.", exMyo: "ဘုရင်မ လှတယ်။" },
             { id: 163, tapong: "Sian", english: "Small", myanmar: "သေးငယ်သော", exTapong: "Inn sian ka nei.", exEng: "I have a small house.", exMyo: "အိမ်သေးလေး ရှိတယ်။" },
             { id: 164, tapong: "Sii", english: "Medicine", myanmar: "ဆေးဝါး", exTapong: "Sii in in.", exEng: "Take medicine.", exMyo: "ဆေး သောက်ပါ။" },
             { id: 165, tapong: "Suak", english: "To leave, To go out, To emerge", myanmar: "ထွက်သည်", exTapong: "Inn ah suak in.", exEng: "Go out of the house.", exMyo: "အိမ်ပြင် ထွက်ပါ။" },
@@ -445,7 +473,7 @@
             { id: 168, tapong: "Thim", english: "Dark", myanmar: "မှောင်သော", exTapong: "Zan a thim.", exEng: "Night is dark.", exMyo: "ည မှောင်တယ်။" },
             { id: 169, tapong: "Thin thip", english: "Worry", myanmar: "ပူဆွေးသောက", exTapong: "Thin thip mah in.", exEng: "Do not worry.", exMyo: "မပူပန်ပါနဲ့။" },
             { id: 170, tapong: "Thing", english: "Wood", myanmar: "သစ်သား", exTapong: "Thing ka phur.", exEng: "I carry wood.", exMyo: "သစ်သား သယ်တယ်။" },
-            { id: 171, tapong: "Thing kung", english: "Tree", myanmar: "သစ်ပင်", exTapong: "Thing kung pha ngai.", exEng: "Tree is big.", exMyo: "သစ်ပင် ကြီးတယ်။" },
+            { id: 171, tapong: "Thing kung", english: "Tree", myanmar: "သစ်ပင်", exTapong: "Thing kung a lian.", exEng: "Tree is big.", exMyo: "သစ်ပင် ကြီးတယ်။" },
             { id: 172, tapong: "Thuang khat", english: "One thousand", myanmar: "တစ်ထောင်", exTapong: "Poisa thuang khat ka nei.", exEng: "I have one thousand money.", exMyo: "ငွေ တစ်ထောင် ရှိတယ်။" },
             { id: 173, tapong: "Thun", english: "Add to, plug in", myanmar: "ထည့်သွင်းသည်", exTapong: "Thun in.", exEng: "Plug in / Add.", exMyo: "ထည့်ပါ။" },
             { id: 174, tapong: "Ti", english: "Water", myanmar: "ရေ", exTapong: "Ti in in.", exEng: "Drink water.", exMyo: "ရေ သောက်ပါ။" },
@@ -456,8 +484,8 @@
             { id: 179, tapong: "To", english: "Sit Down", myanmar: "ထိုင်သည်", exTapong: "To in.", exEng: "Sit down.", exMyo: "ထိုင်ပါ။" },
             { id: 180, tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ", exTapong: "Toh kham ah to in.", exEng: "Sit on the chair.", exMyo: "ထိုင်ခုံမှာ ထိုင်ပါ။" },
             { id: 181, tapong: "Tum", english: "Play", myanmar: "တီးသည်", exTapong: "La tum in.", exEng: "Play music.", exMyo: "တီးခတ်ပါ။" },
-            { id: 182, tapong: "U ham", english: "Adult", myanmar: "အရွယ်ရောက်, ဆယ်ကျော်သက်", exTapong: "U ham pha ngai.", exEng: "He is an adult.", exMyo: "သူ အရွယ်ရောက်ပြီ။" },
-            { id: 183, tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား", exTapong: "Tapong uan ai in.", exEng: "Speak Tapong language.", exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ" },
+            { id: 182, tapong: "U ham", english: "Adult", myanmar: "အရွယ်ရောက်, ဆယ်ကျော်သက်", exTapong: "U ham a si.", exEng: "He is an adult.", exMyo: "သူ အရွယ်ရောက်ပြီ။" },
+            { id: 183, tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား", exTapong: "Tapong uan ai in.", exEng: "Speak Tapong language.", exMyo: "တပိုစကား ပြောပါ။" },
             { id: 184, tapong: "Ui co", english: "Dog", myanmar: "ခွေး", exTapong: "Ui co a tlan.", exEng: "Dog is running.", exMyo: "ခွေး ပြေးနေတယ်။" },
             { id: 185, tapong: "Um hmun", english: "Camp, place", myanmar: "စခန်း, နေရာဒေသ", exTapong: "Um hmun ah ka om.", exEng: "I am at the camp / place.", exMyo: "စခန်းမှာ ရှိတယ်။" },
             { id: 186, tapong: "Upa", english: "Older", myanmar: "ကြီးသော, အိုသော", exTapong: "A mah a upa.", exEng: "He is older.", exMyo: "သူ အသက်ကြီးတယ်။" },
@@ -467,12 +495,12 @@
             { id: 190, tapong: "Vok", english: "Pig", myanmar: "ဝက်", exTapong: "Vok sa ka ei.", exEng: "I eat pork.", exMyo: "ဝက်သား စားတယ်။" },
             { id: 191, tapong: "Vuah", english: "Do, make", myanmar: "လုပ်သည်", exTapong: "Vuah in.", exEng: "Do it.", exMyo: "လုပ်ပါ။" },
             { id: 192, tapong: "Za", english: "One hundred", myanmar: "တစ်ရာ", exTapong: "Za khat ka nei.", exEng: "I have one hundred.", exMyo: "တစ်ရာ ရှိတယ်။" },
-            { id: 193, tapong: "Zak nung", english: "Shameful", myanmar: "ရှက်စရာကောင်းသော", exTapong: "Zak nung pha ngai.", exEng: "It is shameful.", exMyo: "ရှက်စရာ ကောင်းတယ်။" },
+            { id: 193, tapong: "Zak nung", english: "Shameful", myanmar: "ရှက်စရာကောင်းသော", exTapong: "Zak nung a si.", exEng: "It is shameful.", exMyo: "ရှက်စရာ ကောင်းတယ်။" },
             { id: 194, tapong: "Zak tiar", english: "Humiliate", myanmar: "အရှက်ရစေသည်", exTapong: "Zak tiar mah in.", exEng: "Do not humiliate.", exMyo: "အရှက်မခွဲနဲ့။" },
             { id: 195, tapong: "Zan", english: "Night", myanmar: "ည", exTapong: "Zan ah ka it.", exEng: "I sleep at night.", exMyo: "ညဘက် အိပ်တယ်။" },
             { id: 196, tapong: "Zan pha", english: "Good night", myanmar: "ကောင်းသောည", exTapong: "Zan pha in.", exEng: "Good night.", exMyo: "ကောင်းသောညပါ။" },
             { id: 197, tapong: "Zei si khaw, zei ha, zei maw", english: "What", myanmar: "ဘာလဲ", exTapong: "Zei si khaw na duh?", exEng: "What do you want?", exMyo: "ဘာ လိုချင်လဲ။" },
-            { id: 198, tapong: "Zi", english: "Wife", myanmar: "လိင်မိန်းမ", exTapong: "Ka zi pha ngai.", exEng: "She is my wife.", exMyo: "သူ ငါ့ဇနီး ဖြစ်တယ်။" },
+            { id: 198, tapong: "Zi", english: "Wife", myanmar: "လိင်မိန်းမ", exTapong: "Ka zi a si.", exEng: "She is my wife.", exMyo: "သူ ငါ့ဇနီး ဖြစ်တယ်။" },
             { id: 199, tapong: "Zing pha", english: "Good morning", myanmar: "မင်္ဂလာမနက်ခင်းပါ", exTapong: "Zing pha in.", exEng: "Good morning.", exMyo: "မင်္ဂလာမနက်ခင်းပါ။" },
             { id: 200, tapong: "Zu", english: "Alcohol", myanmar: "အရက်", exTapong: "Zu in mah in.", exEng: "Do not drink alcohol.", exMyo: "အရက် မသောက်နဲ့။" },
             { id: 201, tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်", exTapong: "Zuar in.", exEng: "Sell it.", exMyo: "ရောင်းပါ။" },
@@ -484,7 +512,7 @@
             { id: 207, tapong: "Nap tawh, nap tuang, awt tawh, awt tuang, deih tawh, deih tuang", english: "Don't want to, don't like", myanmar: "မလိုချင်, မလိုအပ်, မတောင့်တ", exTapong: "Ka awt tawh.", exEng: "I don't want it.", exMyo: "မလိုချင်ဘူး။" },
             { id: 208, tapong: "Phu", english: "Deserve, worthy", myanmar: "ထိုက်တန်သည်", exTapong: "Na phu.", exEng: "You deserve it.", exMyo: "မင်းနဲ့ ထိုက်တန်တယ်။" },
             { id: 209, tapong: "Na phu si, ka phu si", english: "You deserve it, I deserve it", myanmar: "မင်းနဲ့ထိုက်တန်သည်, ငါနဲ့ထိုက်တန်သည်", exTapong: "Na phu si.", exEng: "You deserve it.", exMyo: "မင်းနဲ့ ထိုက်တန်ပါတယ်။" },
-            { id: 210, tapong: "Kei ma", english: "Mine", myanmar: "ငါ့ဟာ, ငါ့ဥစ္စာ", exTapong: "Kei ma pha ngai.", exEng: "It is mine.", exMyo: "ငါ့ဟာ ဖြစ်တယ်။" },
+            { id: 210, tapong: "Kei ma", english: "Mine", myanmar: "ငါ့ဟာ, ငါ့ဥစ္စာ", exTapong: "Kei ma a si.", exEng: "It is mine.", exMyo: "ငါ့ဟာ ဖြစ်တယ်။" },
             { id: 211, tapong: "Kaa", english: "Mouth", myanmar: "ပါးစပ်", exTapong: "Ka kaa a na.", exEng: "My mouth hurts.", exMyo: "ပါးစပ် နာတယ်။" },
             { id: 212, tapong: "Kei, kei mah", english: "Me, I am, I", myanmar: "ငါ, ကျွန်တော်", exTapong: "Kei mah ka si.", exEng: "It is me.", exMyo: "ငါ ဖြစ်တယ်။" },
             { id: 213, tapong: "Nang, nang mah", english: "You, you are, you're", myanmar: "မင်း", exTapong: "Nang mah na si.", exEng: "It is you.", exMyo: "မင်း ဖြစ်တယ်။" },
@@ -506,7 +534,7 @@
             { id: 229, tapong: "Ar ti", english: "Egg", myanmar: "ကြက်ဥ", exTapong: "Ar ti ka lei.", exEng: "I buy eggs.", exMyo: "ကြက်ဥ ဝယ်တယ်။" },
             { id: 230, tapong: "Tuak dun tlang", english: "Meet", myanmar: "တွေ့ဆုံသည်", exTapong: "Tuak dun tlang in.", exEng: "Meet together.", exMyo: "တွေ့ဆုံကြမယ်။" },
             { id: 231, tapong: "Zei fang, zei fang maw, zei hnun, zei hnun maw", english: "When", myanmar: "ဘယ်တော့လဲ, ဘယ်ချိန်လဲ", exTapong: "Zei fang na ra?", exEng: "When are you coming?", exMyo: "ဘယ်တော့ လာမလဲ။" },
-            { id: 232, tapong: "Thu", english: "Subject", myanmar: "အကြောင်းအရာ", exTapong: "Thu pha ngai.", exEng: "It is the matter / subject.", exMyo: "အကြောင်းအရာ ဖြစ်တယ်။" },
+            { id: 232, tapong: "Thu", english: "Subject", myanmar: "အကြောင်းအရာ", exTapong: "Thu a si.", exEng: "It is the matter / subject.", exMyo: "အကြောင်းအရာ ဖြစ်တယ်။" },
             { id: 233, tapong: "Thu rial", english: "Sermon", myanmar: "တရားဟော်သည်", exTapong: "Thu rial in.", exEng: "Preach sermon.", exMyo: "တရား ဟောပါ။" },
             { id: 234, tapong: "Thu khen, thu khen sak", english: "Decision, makes a decision", myanmar: "ဆုံးဖြတ်ချက်, ဆုံးဖြတ်ချက်ချသည်", exTapong: "Thu khen in.", exEng: "Make a decision.", exMyo: "ဆုံးဖြတ်ချက် ချပါ။" },
             { id: 235, tapong: "Hngak", english: "Wait", myanmar: "စောင့်သည်", exTapong: "Hngak in.", exEng: "Wait.", exMyo: "စောင့်ပါ။" },
@@ -544,19 +572,7 @@
             { id: 267, tapong: "Phiat", english: "Clean, wash", myanmar: "ဆေးကြောသည်, သစ်သည်", exTapong: "Na hmai phiat in.", exEng: "Wash your face.", exMyo: "မင်းရဲ့ မျက်နှာကို သစ်ပါ။" },
             { id: 268, tapong: "Hei tah", english: "Here, here is", myanmar: "ဒီမှာ", exTapong: "Hei tah ka om.", exEng: "Here I am.", exMyo: "ငါ ဒီမှာ ရှိတယ်။" },
             { id: 269, tapong: "Na suak hmun khua", english: "Native Land", myanmar: "မွေးရပ်မြေ", exTapong: "Na suak hmun khua kuai si?", exEng: "Where is your native land?", exMyo: "မင်းရဲ့ မွေးရပ်မြေ ဘယ်မှာလဲ။" },
-            { id: 270, tapong: "In ah ka tlung", english: "I am go home", myanmar: "အိမ်ပြန်သည်", exTapong: "In ah ka tlung.", exEng: "I am going home.", exMyo: "ငါ အိမ်ပြန်နေတယ်။" },
-            { id: 271, tapong: "Kual hai", english: "Mango", myanmar: "သရက်သီး", exTapong: "Kual hai ka ei.", exEng: "I eat mango.", exMyo: "သရက်သီး စားတယ်။" },
-            { id: 272, tapong: "Ben hla", english: "Banana", myanmar: "ငှက်ပျောသီး", exTapong: "Ben hla ka lei.", exEng: "I buy bananas.", exMyo: "ငှက်ပျောသီး ဝယ်တယ်။" },
-            { id: 273, tapong: "Ma kiang", english: "Tamarind fruit", myanmar: "မန်ကျည်းသီး", exTapong: "Ma kiang a thlum.", exEng: "Tamarind is sweet.", exMyo: "မန်ကျည်းသီး ချိုတယ်။" },
-            { id: 274, tapong: "An taw", english: "Hog plum", myanmar: "ဂွေးသီး", exTapong: "An taw a thur.", exEng: "Hog plum is sour.", exMyo: "ဂွေးသီး ချဉ်တယ်။" },
-            { id: 275, tapong: "Vaw no", english: "Bird", myanmar: "ငှက်", exTapong: "Vaw no a zuang.", exEng: "The bird flies.", exMyo: "ငှက် ပျံနေတယ်။" },
-            { id: 276, tapong: "Van", english: "Sky", myanmar: "ကောင်းကင်", exTapong: "Van pha ngai.", exEng: "The sky is beautiful.", exMyo: "ကောင်းကင် လှတယ်။" },
-            { id: 277, tapong: "Van Cung Mi", english: "Angel", myanmar: "ကောင်းကင်တမန်", exTapong: "Van Cung Mi a ra.", exEng: "An angel comes.", exMyo: "ကောင်းကင်တမန် လာတယ်။" },
-            { id: 278, tapong: "Van vum", english: "Heaven", myanmar: "ကောင်းကင်ဘုံ", exTapong: "Van vum ah ka hawh.", exEng: "I go to heaven.", exMyo: "ကောင်းကင်ဘုံ သွားတယ်။" },
-            { id: 279, tapong: "An cang kha", english: "Bitter gourd", myanmar: "ကြက်ဟင်းခါးသီး", exTapong: "An cang kha pha ngai.", exEng: "Bitter gourd is bitter.", exMyo: "ကြက်ဟင်းခါးသီး ခါးတယ်။" },
-            { id: 280, tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး", exTapong: "Pihuam ka suang.", exEng: "I cook chayote.", exMyo: "ဂေါ်ရခါးသီး ချက်တယ်။" },
-            { id: 281, tapong: "Tawh", english: "No, Not, Don't (Negative Particle)", myanmar: "မ, မဟုတ်, မပါ (ငြင်းပယ်ပြ စကားလုံး)", exTapong: "A tawh.", exEng: "No / Not.", exMyo: "မပါ / မဟုတ်ပါ။" },
-            { id: 282, tapong: "Pha", english: "Good", myanmar: "ကောင်းသည်", exTapong: "Ni pha ngai.", exEng: "It is a very good day.", exMyo: "နေ့ကောင်းတစ်နေ့ ဖြစ်တယ်။" }
+            { id: 270, tapong: "In ah ka tlung", english: "I am go home", myanmar: "အိမ်ပြန်သည်", exTapong: "In ah ka tlung.", exEng: "I am going home.", exMyo: "ငါ အိမ်ပြန်နေတယ်။" }
         ];
 
         let selectedWord = null;
@@ -590,16 +606,22 @@
             entryCount.textContent = data.length;
         }
 
+        // Search Bar Event Listener
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
-            if (query.length > 0) clearBtn.classList.remove('hidden');
-            else clearBtn.classList.add('hidden');
+            
+            if (query.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
 
             const filteredData = dictionaryData.filter(item => 
                 item.tapong.toLowerCase().includes(query) ||
                 item.english.toLowerCase().includes(query) ||
                 item.myanmar.toLowerCase().includes(query)
             );
+
             renderTable(filteredData);
         });
 
@@ -639,23 +661,57 @@
             document.getElementById('detailModal').classList.add('hidden');
         }
 
+        // Web Speech API Sequencer
         function speakWord() {
             if (!selectedWord) return;
+
             const btnText = document.getElementById('listenText');
             const btnIcon = document.getElementById('listenIcon');
+
             btnText.textContent = "Playing...";
             btnIcon.className = "fa-solid fa-volume-high animate-bounce";
 
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const msg = new SpeechSynthesisUtterance(selectedWord.tapong);
-                msg.lang = 'en-US';
-                msg.rate = 0.85;
-                msg.onend = () => { btnText.textContent = "Listen"; btnIcon.className = "fa-solid fa-volume-high"; };
-                msg.onerror = () => { btnText.textContent = "Listen"; btnIcon.className = "fa-solid fa-volume-high"; };
-                window.speechSynthesis.speak(msg);
+
+                const itemsToSpeak = [
+                    { text: selectedWord.tapong, lang: 'en-US' },
+                    { text: selectedWord.english, lang: 'en-US' },
+                    { text: selectedWord.myanmar, lang: 'my-MM' }
+                ];
+
+                let currentIndex = 0;
+
+                function speakNext() {
+                    if (currentIndex < itemsToSpeak.length) {
+                        const currentItem = itemsToSpeak[currentIndex];
+                        const msg = new SpeechSynthesisUtterance(currentItem.text);
+                        msg.lang = currentItem.lang;
+                        msg.rate = 0.85;
+
+                        msg.onend = function() {
+                            currentIndex++;
+                            speakNext();
+                        };
+
+                        msg.onerror = function() {
+                            currentIndex++;
+                            speakNext();
+                        };
+
+                        window.speechSynthesis.speak(msg);
+                    } else {
+                        resetListenBtn();
+                    }
+                }
+
+                speakNext();
             } else {
                 alert('Your browser does not support speech synthesis.');
+                resetListenBtn();
+            }
+
+            function resetListenBtn() {
                 btnText.textContent = "Listen";
                 btnIcon.className = "fa-solid fa-volume-high";
             }
@@ -663,7 +719,7 @@
 
         function copyModalText() {
             if (!selectedWord) return;
-            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}`;
+            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}\nExample (Tapong): ${selectedWord.exTapong}\nExample (English): ${selectedWord.exEng}\nExample (Myanmar): ${selectedWord.exMyo}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 alert('Copied to clipboard!');
             });
@@ -674,13 +730,13 @@
             const word = selectedWord.tapong;
             closeModal();
             switchTab('ai');
-            sendQuickPrompt(`[BREAKDOWN] ${word}`);
+            sendQuickPrompt(`Give me example sentences for ${word}`);
         }
 
         function askAiFromSearch() {
             const query = searchInput.value;
             switchTab('ai');
-            sendQuickPrompt(`${query}`);
+            sendQuickPrompt(`How do I say "${query}" in Tapong?`);
         }
 
         function sendQuickPrompt(promptText) {
@@ -693,13 +749,12 @@
             const query = input.value.trim();
             if (!query) return;
 
-            const displayPrompt = query.replace('[BREAKDOWN] ', '');
-            appendUserMessage(displayPrompt);
+            appendUserMessage(query);
             input.value = '';
 
             setTimeout(() => {
                 generateAiResponse(query);
-            }, 300);
+            }, 500);
         }
 
         function appendUserMessage(text) {
@@ -723,8 +778,8 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm whitespace-pre-line font-medium">${text}</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (100% Pure Tapong)</p>
+                        <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
             `;
@@ -732,63 +787,111 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        function clearChat() {
-            const container = document.getElementById('chatMessages');
-            container.innerHTML = `
-                <div class="flex gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-400 flex items-center justify-center shrink-0 text-xs">
-                        <i class="fa-solid fa-robot"></i>
-                    </div>
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Tapong uan in ai in. Tapong AI Assistant nih na bia hal mi cu tapong uan lawngin ka leh lai.</p>
-                    </div>
-                </div>
-            `;
-        }
-
+        // SMART AI LOGIC - CREATOR, WHAT IS TAPONG & EXACT MATCH FIRST
         function generateAiResponse(query) {
-            let cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
+            const lower = query.toLowerCase().trim();
 
-            const ansWhatIsTapong = "Tapong uan hi Myanmar ram um Tapong mi pawl hman mi minung un hlonh mi nunphung uan a si. Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam le hmun dangdang ah an um.";
-            const ansWhoMadeThis = "Tapong AI Translator hi Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio nih a tuah mi a si.";
-
-            const isCreatorQuery = (cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('who developer') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်တာလဲ'));
-
-            if (isCreatorQuery) {
-                appendAiMessage(ansWhoMadeThis);
+            // 1. Creator & Developer Information Check
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('who creat') || 
+                lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || 
+                lower.includes('ဘယ်သူပြုလုပ်') || lower.includes('ဘယ်သူဖန်တီး')) {
+                
+                let resp = `👨‍💻 **Tapong AI Translator App Information:**\n\n`;
+                resp += `• **Creator:** Isaiah Cung (Lati / Bualthang)\n`;
+                resp += `• **Developed By:** Rising Star Music Studio\n`;
+                resp += `• **Purpose:** Dedicated to Tapong Language Preservation.\n\n`;
+                resp += `This application and its AI Q&A Assistant were designed and created to help preserve, translate, and learn the Tapong ethnic language!`;
+                
+                appendAiMessage(resp);
                 return;
             }
 
-            if (cleanQuery.includes('tapong') && (cleanQuery.includes('what') || cleanQuery.includes('ဘာလဲ'))) {
-                appendAiMessage(ansWhatIsTapong);
+            // 2. What is Tapong Check
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('tapong')) {
+                let resp = `**What is Tapong?**\n\n`;
+                resp += `Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Bualkhua, as well as in plains areas.`;
+                appendAiMessage(resp);
                 return;
             }
 
-            let targetWordObj = null;
-            for (let item of dictionaryData) {
-                if (cleanQuery.includes(item.english.toLowerCase()) || cleanQuery.includes(item.tapong.toLowerCase()) || cleanQuery.includes(item.myanmar.toLowerCase())) {
-                    targetWordObj = item;
-                    break;
-                }
-            }
-
-            if (targetWordObj) {
-                let pureTapongSentence = `🤖 Tapong AI Assistant:\n\n"${targetWordObj.exTapong}"`;
-                appendAiMessage(pureTapongSentence);
+            if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
+                const match = dictionaryData.find(i => i.id === 96);
+                let resp = `**Authentic Tapong Translation:**\n\n`;
+                resp += `• **Tapong:** ${match.tapong}\n`;
+                resp += `• **English:** ${match.english}\n`;
+                resp += `• **Myanmar:** ${match.myanmar}\n\n`;
+                resp += `📝 **Example Sentences (3 Languages):**\n`;
+                resp += `• *Tapong:* ${match.exTapong}\n`;
+                resp += `• *English:* ${match.exEng}\n`;
+                resp += `• *Myanmar:* ${match.exMyo}`;
+                appendAiMessage(resp);
                 return;
             }
 
-            let bestMatch = dictionaryData.find(item => 
-                item.tapong.toLowerCase() === cleanQuery || 
-                item.english.toLowerCase() === cleanQuery || 
-                item.myanmar.toLowerCase() === cleanQuery
-            );
+            if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း')) {
+                let response = `**Tapong Numbers 1 to 10 (Strictly Verified):**\n\n` +
+                    `1. Pa Khat (တစ်) - *Pa khat lawng*\n` +
+                    `2. Pa Nih (နှစ်) - *Pa nih an ra*\n` +
+                    `3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n` +
+                    `6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (koး)\n10. Pa Hra (တစ်ဆယ်)`;
+                appendAiMessage(response);
+                return;
+            }
 
-            if (bestMatch) {
-                appendAiMessage(`🤖 Tapong AI Assistant:\n\n"${bestMatch.exTapong}"`);
+            let candidateMatches = [];
+            dictionaryData.forEach(item => {
+                const terms = item.tapong.toLowerCase().split(/,\s*/);
+                terms.forEach(term => {
+                    const regex = new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i');
+                    if (regex.test(lower)) {
+                        candidateMatches.push({ item, matchedTerm: term, length: term.length });
+                    }
+                });
+            });
+
+            candidateMatches.sort((a, b) => b.length - a.length);
+
+            let matchedItem = candidateMatches.length > 0 ? candidateMatches[0].item : null;
+
+            if (!matchedItem) {
+                matchedItem = dictionaryData.find(item => 
+                    item.tapong.toLowerCase() === lower || 
+                    item.english.toLowerCase() === lower ||
+                    item.myanmar.toLowerCase() === lower
+                );
+            }
+
+            if (matchedItem) {
+                let response = `🛡️ **Tapong Verified Entry (#${matchedItem.id}):**\n\n`;
+                response += `• **Tapong:** ${matchedItem.tapong}\n`;
+                response += `• **English:** ${matchedItem.english}\n`;
+                response += `• **Myanmar:** ${matchedItem.myanmar}\n\n`;
+                response += `📝 **Example Sentences (3 Languages):**\n`;
+                response += `• *Tapong:* ${matchedItem.exTapong}\n`;
+                response += `• *English:* ${matchedItem.exEng}\n`;
+                response += `• *Myanmar:* ${matchedItem.exMyo}`;
+                appendAiMessage(response);
+                return;
+            }
+
+            const queryWords = lower.split(/\s+/).filter(w => w.length > 2 && !['give', 'example', 'sentences', 'for', 'show', 'tell', 'about', 'what', 'is', 'the', 'meaning', 'of'].includes(w));
+            
+            let matches = dictionaryData.filter(item => {
+                const itemWords = item.tapong.toLowerCase().split(/[\s,]+/);
+                return queryWords.some(qw => itemWords.includes(qw) || item.english.toLowerCase().includes(qw) || item.myanmar.toLowerCase().includes(qw));
+            });
+
+            if (matches.length > 0) {
+                let response = `🔍 **Found ${matches.length} Authentic Tapong Match(es):**\n\n`;
+                matches.slice(0, 3).forEach(m => {
+                    response += `• **Tapong:** ${m.tapong} (${m.english} / ${m.myanmar})\n`;
+                    response += `  📝 *Tapong:* ${m.exTapong}\n`;
+                    response += `  📝 *English:* ${m.exEng}\n`;
+                    response += `  📝 *Myanmar:* ${m.exMyo}\n\n`;
+                });
+                appendAiMessage(response.trim());
             } else {
-                appendAiMessage(`Tapong uan in bia hal in. Tapong AI Assistant nih purh tawk in a leh lai.`);
+                appendAiMessage(`I could not find an exact verified Tapong match for "${escapeHtml(query)}". Only verified entries with strict pure Tapong sentences are provided.`);
             }
         }
 

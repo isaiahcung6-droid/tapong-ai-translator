@@ -89,9 +89,9 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.6 (AI Assistant)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.0 (AI Assistant)</span>
                     </h1>
-                    <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
+                    <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span> @ Rising Star Music Studio</p>
                 </div>
             </div>
             
@@ -186,8 +186,8 @@
                 <button onclick="sendQuickPrompt('How to say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     💡 How to say "Thank You"?
                 </button>
-                <button onclick="sendQuickPrompt('how to made a sentence banana')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    🍌 Make sentence with banana
+                <button onclick="sendQuickPrompt('make sentence banana')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    🍌 Make sentence banana
                 </button>
             </div>
 
@@ -198,13 +198,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me to make sentences, translate, or explain any Tapong grammar!</p>
+                        <p class="text-xs md:text-sm">Tapong uan in ai in. Tapong AI Assistant nih na bia hal mi cu tapong uan lawngin ka leh lai.</p>
                     </div>
                 </div>
             </div>
 
             <div class="relative">
-                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything (e.g. how to made a sentence banana)..." onkeydown="if(event.key==='Enter') sendMessage()"
+                <input type="text" id="chatInput" placeholder="Tapong uan in bia hal in (e.g. make sentence banana)..." onkeydown="if(event.key==='Enter') sendMessage()"
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                 <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -648,28 +648,12 @@
 
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const itemsToSpeak = [
-                    { text: selectedWord.tapong, lang: 'en-US' },
-                    { text: selectedWord.english, lang: 'en-US' },
-                    { text: selectedWord.myanmar, lang: 'my-MM' }
-                ];
-                let currentIndex = 0;
-
-                function speakNext() {
-                    if (currentIndex < itemsToSpeak.length) {
-                        const currentItem = itemsToSpeak[currentIndex];
-                        const msg = new SpeechSynthesisUtterance(currentItem.text);
-                        msg.lang = currentItem.lang;
-                        msg.rate = 0.85;
-                        msg.onend = () => { currentIndex++; speakNext(); };
-                        msg.onerror = () => { currentIndex++; speakNext(); };
-                        window.speechSynthesis.speak(msg);
-                    } else {
-                        btnText.textContent = "Listen";
-                        btnIcon.className = "fa-solid fa-volume-high";
-                    }
-                }
-                speakNext();
+                const msg = new SpeechSynthesisUtterance(selectedWord.tapong);
+                msg.lang = 'en-US';
+                msg.rate = 0.85;
+                msg.onend = () => { btnText.textContent = "Listen"; btnIcon.className = "fa-solid fa-volume-high"; };
+                msg.onerror = () => { btnText.textContent = "Listen"; btnIcon.className = "fa-solid fa-volume-high"; };
+                window.speechSynthesis.speak(msg);
             } else {
                 alert('Your browser does not support speech synthesis.');
                 btnText.textContent = "Listen";
@@ -757,25 +741,18 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me to make sentences, translate, or explain any Tapong grammar!</p>
+                        <p class="text-xs md:text-sm">Tapong uan in ai in. Tapong AI Assistant nih na bia hal mi cu tapong uan lawngin ka leh lai.</p>
                     </div>
                 </div>
             `;
         }
 
-        function capitalizeFirstLetter(val) {
-            if (!val) return '';
-            return val.charAt(0).toUpperCase() + val.slice(1);
-        }
-
         function generateAiResponse(query) {
-            const isBreakdown = query.startsWith('[BREAKDOWN]');
             let cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
 
-            const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
-            const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
+            const ansWhatIsTapong = "Tapong uan hi Myanmar ram um Tapong mi pawl hman mi minung un hlonh mi nunphung uan a si. Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam le hmun dangdang ah an um.";
+            const ansWhoMadeThis = "Tapong AI Translator hi Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio nih a tuah mi a si.";
 
-            // --- STRICT INTENT ROUTING ---
             const isCreatorQuery = (cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('who developer') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်တာလဲ'));
 
             if (isCreatorQuery) {
@@ -788,70 +765,30 @@
                 return;
             }
 
-            // --- AI SENTENCE GENERATION ENGINE (Smart AI Capabilities) ---
-            if (cleanQuery.includes('sentence') || cleanQuery.includes('made') || cleanQuery.includes('make') || cleanQuery.includes('how to')) {
-                // Extract keyword from user query (e.g. "banana", "chicken", "water")
-                let targetWordObj = null;
-                for (let item of dictionaryData) {
-                    if (cleanQuery.includes(item.english.toLowerCase()) || cleanQuery.includes(item.tapong.toLowerCase()) || cleanQuery.includes(item.myanmar.toLowerCase())) {
-                        targetWordObj = item;
-                        break;
-                    }
-                }
-
-                if (targetWordObj) {
-                    let aiResponseText = `🤖 AI Sentence Generation for "${targetWordObj.english}":\n\n`;
-                    aiResponseText += `• Tapong Sentence: "${targetWordObj.exTapong}"\n`;
-                    aiResponseText += `• English Translation: "${targetWordObj.exEng}"\n`;
-                    aiResponseText += `• Myanmar Translation: "${targetWordObj.exMyo}"\n\n`;
-                    aiResponseText += `💡 Grammar Note: Constructed using pure Tapong grammar structure for "${targetWordObj.tapong}" (${targetWordObj.myanmar}).`;
-                    appendAiMessage(aiResponseText);
-                    return;
+            let targetWordObj = null;
+            for (let item of dictionaryData) {
+                if (cleanQuery.includes(item.english.toLowerCase()) || cleanQuery.includes(item.tapong.toLowerCase()) || cleanQuery.includes(item.myanmar.toLowerCase())) {
+                    targetWordObj = item;
+                    break;
                 }
             }
 
-            // --- SMART DICTIONARY MATCHING FALLBACK ---
-            let bestMatch = null;
-            bestMatch = dictionaryData.find(item => 
+            if (targetWordObj) {
+                let pureTapongSentence = `"${targetWordObj.exTapong}"`;
+                appendAiMessage(pureTapongSentence);
+                return;
+            }
+
+            let bestMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === cleanQuery || 
                 item.english.toLowerCase() === cleanQuery || 
                 item.myanmar.toLowerCase() === cleanQuery
             );
 
-            if (!bestMatch) {
-                const stopWords = ['how', 'to', 'say', 'in', 'tapong', 'the', 'a', 'is', 'what', 'count', 'from', 'made', 'sentence'];
-                const words = cleanQuery.split(/[\s,?.!]+/).filter(w => w.length > 1 && !stopWords.includes(w));
-                
-                let highestMatches = 0;
-                for (let item of dictionaryData) {
-                    let matches = 0;
-                    const tapText = item.tapong.toLowerCase();
-                    const engText = item.english.toLowerCase();
-                    const myoText = item.myanmar.toLowerCase();
-
-                    words.forEach(w => {
-                        if (tapText.includes(w) || engText.includes(w) || myoText.includes(w)) {
-                            matches++;
-                        }
-                    });
-
-                    if (matches > highestMatches) {
-                        highestMatches = matches;
-                        bestMatch = item;
-                    }
-                }
-            }
-
             if (bestMatch) {
-                if (isBreakdown) {
-                    let breakdownText = `📌 AI Word & Sentence Breakdown:\n• Word: ${capitalizeFirstLetter(bestMatch.tapong)} (${bestMatch.myanmar})\n• Example: "${bestMatch.exTapong}"\n• Meaning: "${bestMatch.exEng}"`;
-                    appendAiMessage(breakdownText);
-                } else {
-                    let aiGeneratedOutput = `🤖 AI Generated Sentence:\n\n• Tapong: "${bestMatch.exTapong}"\n• English: "${bestMatch.exEng}"\n• Myanmar: "${bestMatch.exMyo}"`;
-                    appendAiMessage(aiGeneratedOutput);
-                }
+                appendAiMessage(`"${bestMatch.exTapong}"`);
             } else {
-                appendAiMessage(`Tapong AI Assistant: I can help you generate sentences, translate words, or explain grammar. Please try asking about a specific word!`);
+                appendAiMessage(`Tapong uan in bia hal in. Tapong AI Assistant nih purh tawk in a leh lai.`);
             }
         }
 

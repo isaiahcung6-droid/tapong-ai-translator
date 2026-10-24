@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.6 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.1 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -198,7 +198,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong sentences.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
             </div>
@@ -344,7 +344,7 @@
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", exTapong: "La sa in.", exEng: "Sing a song.", exMyo: "သီချင်း ဆိုပါ။" },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", exTapong: "Ca uk ah lai ngan in.", exEng: "Write in the book.", exMyo: "စာအုပ်ထဲမှာ ရေးပါ။" },
             { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး", exTapong: "Lai ngantu pa a ra.", exEng: "The secretary comes.", exMyo: "အတွင်းရေးမှူး လာတယ်။" },
-            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်ပါ။" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်တယ်။" },
             { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်", exTapong: "Hlai ka lei.", exEng: "I buy food.", exMyo: "အစားအစာ ဝယ်တယ်။" },
             { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ", exTapong: "Ka lei a na.", exEng: "My tongue hurts.", exMyo: "လျှာ နာတယ်။" },
             { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး", exTapong: "Lei lung hi a mawi.", exEng: "This land is beautiful.", exMyo: "ဒီမြေကြီး လှတယ်။" },
@@ -757,31 +757,10 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong sentences.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
             `;
-        }
-
-        function levenshteinDistance(a, b) {
-            const matrix = [];
-            for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-            for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-
-            for (let i = 1; i <= b.length; i++) {
-                for (let j = 1; j <= a.length; j++) {
-                    if (b.charAt(i - 1) === a.charAt(j - 1)) {
-                        matrix[i][j] = matrix[i - 1][j - 1];
-                    } else {
-                        matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1] + 1,
-                            matrix[i][j - 1] + 1,
-                            matrix[i - 1][j] + 1
-                        );
-                    }
-                }
-            }
-            return matrix[b.length][a.length];
         }
 
         function capitalizeFirstLetter(val) {
@@ -796,108 +775,57 @@
             const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
             const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
 
-            // --- STRICT INTENT MATCHING FOR FIXED ANSWERS ---
-            const exactTapongAsks = [
-                'what is tapong', 'what is tapong language', 'what is tapong?', 
-                'တပေါင်ဆိုတာဘာလဲ', 'တပေါင်ဆိုတာဘာလည်း', 'tapong ti hak ah zei ha', 'tapong'
-            ];
-            const exactCreatorAsks = [
-                'who created this app?', 'who created this app', 'who created tapong translator',
-                'who made this app', 'who is the creator', 'who created', 'who made',
-                'ဘယ်သူဖန်တီးတာလဲ', 'ဘယ်သူလုပ်တာလဲ', 'a vuah tu ah tu ha'
-            ];
-
-            const isStrictTapongAsk = exactTapongAsks.includes(cleanQuery);
-            const isStrictCreatorAsk = exactCreatorAsks.includes(cleanQuery);
-
-            if (isStrictTapongAsk && isStrictCreatorAsk) {
-                appendAiMessage(`${ansWhoMadeThis}\n\n${ansWhatIsTapong}`);
-                return;
-            }
-
-            if (isStrictTapongAsk) {
-                appendAiMessage(ansWhatIsTapong);
-                return;
-            }
-
-            if (isStrictCreatorAsk) {
+            // --- STRICT INTENT ROUTING ---
+            if (cleanQuery.includes('vuah') || cleanQuery.includes('created') || cleanQuery.includes('made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဖန်တီး') || cleanQuery.includes('လုပ်တာ')) {
                 appendAiMessage(ansWhoMadeThis);
                 return;
             }
 
-            // --- COMPREHENSIVE QUESTION WRAPPER STRIPPER ---
-            cleanQuery = cleanQuery
-                .replace(/^how to (made|make) a (sentence|sentance)\s+/g, '')
-                .replace(/^make a (sentence|sentance) (with|using)?\s+/g, '')
-                .replace(/^sentence (of|for|with)\s+/g, '')
-                .replace(/^what the meaning is\s+/g, '')
-                .replace(/^what is the meaning of\s+/g, '')
-                .replace(/^what is the meaning\s+/g, '')
-                .replace(/^what does\s+/g, '')
-                .replace(/\s+mean\??$/g, '')
-                .replace(/^how to say\s+/g, '')
-                .replace(/^what is\s+/g, '')
-                .replace(/^how do you say\s+/g, '')
-                .replace(/^translate\s+/g, '')
-                .replace(/\s+in tapong\??$/g, '')
-                .replace(/\s+tapong uan in\??$/g, '')
-                .replace(/\s+in tapong language\??$/g, '')
-                .trim();
+            if (cleanQuery.includes('tapong') && (cleanQuery.includes('what') || cleanQuery.includes('ဘာလဲ'))) {
+                appendAiMessage(ansWhatIsTapong);
+                return;
+            }
 
+            // --- DIRECT MATCHING FOR TRANSLATION & SENTENCES ---
             let bestMatch = null;
 
-            // Step A: Direct Exact Match
+            // 1. Exact match check
             bestMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === cleanQuery || 
                 item.english.toLowerCase() === cleanQuery || 
-                item.myanmar.toLowerCase() === cleanQuery ||
-                item.tapong.toLowerCase().split(/[\s,]+/).includes(cleanQuery)
+                item.myanmar.toLowerCase() === cleanQuery
             );
 
-            // Step B: Smart Partial Keyword Match
+            // 2. Keyword/Sentence matching check
             if (!bestMatch) {
-                const words = cleanQuery.split(/[\s,?.!]+/);
+                const words = cleanQuery.split(/[\s,?.!]+/).filter(w => w.length > 1);
+                let highestMatches = 0;
+
                 for (let item of dictionaryData) {
-                    const myoText = item.myanmar.toLowerCase();
-                    const engText = item.english.toLowerCase();
+                    let matches = 0;
                     const tapText = item.tapong.toLowerCase();
+                    const engText = item.english.toLowerCase();
+                    const myoText = item.myanmar.toLowerCase();
 
-                    const matched = words.some(w => w.length > 1 && (myoText.includes(w) || engText.includes(w) || tapText.includes(w)));
-                    if (matched) {
+                    words.forEach(w => {
+                        if (tapText.includes(w) || engText.includes(w) || myoText.includes(w)) {
+                            matches++;
+                        }
+                    });
+
+                    if (matches > highestMatches) {
+                        highestMatches = matches;
                         bestMatch = item;
-                        break;
                     }
                 }
             }
 
-            // Step C: FUZZY SEARCH
-            if (!bestMatch) {
-                let lowestDistance = 999;
-                let candidate = null;
-
-                for (let item of dictionaryData) {
-                    const tapongDist = levenshteinDistance(cleanQuery, item.tapong.toLowerCase());
-                    const engDist = levenshteinDistance(cleanQuery, item.english.toLowerCase());
-                    
-                    const minForThisItem = Math.min(tapongDist, engDist);
-                    if (minForThisItem < lowestDistance) {
-                        lowestDistance = minForThisItem;
-                        candidate = item;
-                    }
-                }
-
-                if (candidate && lowestDistance <= 2) {
-                    bestMatch = candidate;
-                }
-            }
-
-            // Step D: ALWAYS DIRECT TAPONG SENTENCE ONLY OUTPUT (NO DICTIONARY FORMAT)
-            if (bestMatch) {
+            // --- OUTPUT FINAL RESULT ---
+            if (bestMatch && (cleanQuery.length < 3 || highestMatches > 0 || dictionaryData.some(i => i.tapong.toLowerCase() === cleanQuery))) {
                 if (isBreakdown) {
-                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.myanmar)}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
+                    let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    // Always show ONLY pure Tapong sentence
                     let pureSentence = bestMatch.exTapong ? capitalizeFirstLetter(bestMatch.exTapong) : `${capitalizeFirstLetter(bestMatch.tapong)} pha ngai.`;
                     appendAiMessage(pureSentence);
                 }

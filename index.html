@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.8 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.9 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Pure Tapong & Unified English Info Mode</p>
+                        <p class="text-xs text-slate-400">Smart Dictionary Synthesis & Translation Mode</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -787,7 +787,7 @@
                         </div>
                         <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Tapong Only & 3 Languages Example)</p>
+                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Dictionary Synthesis)</p>
                                 <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">#${item.id}</span>
                             </div>
                             
@@ -826,11 +826,11 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // UNIFIED MULTI-LANGUAGE MATCHING ENGINE FOR 2 SPECIAL QUESTIONS
+        // ENHANCED AI ENGINE: SMART SYNTHESIS & MULTI-LANGUAGE MATCHING
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. Who created / Who made this app (Matches English, Myanmar, or any variation to identical English response)
+            // 1. Special Question: Who created / Who made this app (Identical English response regardless of prompt language)
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || 
                 lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဘယ်သူကတီးတွန်') || 
                 lower.includes('ဖန်တီးသူ') || lower.includes('လုပ်တဲ့သူ')) {
@@ -838,13 +838,13 @@
                 return;
             }
 
-            // 2. What is Tapong (Matches English, Myanmar, or any variation to identical English response)
+            // 2. Special Question: What is Tapong (Identical English response regardless of prompt language)
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ') || lower.includes('တပေါင်ဆိုတာ') || lower.includes('တပေါင်ဘာလဲ') || lower.includes('tapong ဆိုတာဘာလဲ')) {
                 appendAiMessage("Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.");
                 return;
             }
 
-            // 3. All other questions search dictionary and return accurate Tapong dictionary data/results
+            // 3. Exact Match Search across Tapong, English, or Myanmar
             const exactMatch = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower || 
                 item.english.toLowerCase() === lower || 
@@ -856,24 +856,34 @@
                 return;
             }
 
-            const queryWords = lower.split(/\s+/).filter(word => word.length > 1);
+            // 4. SMART SYNTHESIS ENGINE: Search dictionary entries by keywords contained in query (Myanmar, English, or Tapong)
+            const queryWords = lower.split(/[\s,?.!]+/).filter(word => word.length > 1);
             let bestMatch = null;
+            let maxMatches = 0;
 
-            for (const word of queryWords) {
-                bestMatch = dictionaryData.find(item => 
-                    item.tapong.toLowerCase().includes(word) || 
-                    item.english.toLowerCase().includes(word) || 
-                    item.myanmar.toLowerCase().includes(word)
-                );
-                if (bestMatch) break;
+            for (const item of dictionaryData) {
+                let matchScore = 0;
+                const itemText = (item.tapong + " " + item.english + " " + item.myanmar).toLowerCase();
+                
+                for (const word of queryWords) {
+                    if (itemText.includes(word)) {
+                        matchScore++;
+                    }
+                }
+
+                if (matchScore > maxMatches) {
+                    maxMatches = matchScore;
+                    bestMatch = item;
+                }
             }
 
-            if (bestMatch) {
+            // If keywords match dictionary terms, return the best synthesized dictionary match
+            if (bestMatch && maxMatches > 0) {
                 appendAiMessage(bestMatch);
                 return;
             }
 
-            // 4. Default Fallback
+            // 5. TRUE UNKNOWN FALLBACK: Only trigger when query has zero matches in the dictionary
             appendAiMessage({
                 id: 0,
                 tapong: "Tapong uan in ai in.",

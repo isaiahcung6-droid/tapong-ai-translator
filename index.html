@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.6 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v5.8 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">100% Pure Tapong Response Mode</p>
+                        <p class="text-xs text-slate-400">Pure Tapong & Unified English Info Mode</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -207,7 +207,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. I respond strictly in 100% Pure Tapong when you chat!</p>
+                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. Ask me anything!</p>
                     </div>
                 </div>
             </div>
@@ -224,7 +224,7 @@
 
     </main>
 
-    <!-- Detail Drawer Modal (Only 3 Meanings, No Example Sentences Here) -->
+    <!-- Detail Drawer Modal -->
     <div id="detailModal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-[9999] hidden flex items-center justify-center p-4">
         <div class="custom-glass rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-slate-700/80 space-y-5">
             <button onclick="closeModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-2 z-20">
@@ -243,13 +243,13 @@
                 </div>
                 
                 <!-- Web Speech Audio Engine -->
-                <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-30 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
+                <button type="button" id="listenBtn" onclick="speakWord()" class="relative z-35 cursor-pointer flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white border border-blue-400/40 text-xs font-semibold shadow-lg transition active:scale-95">
                     <i class="fa-solid fa-volume-high" id="listenIcon"></i>
                     <span id="listenText">Listen</span>
                 </button>
             </div>
 
-            <!-- 3 Languages Reading Card (Only Meanings, No Examples) -->
+            <!-- 3 Languages Reading Card -->
             <div class="space-y-4 bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs">
                 <div>
                     <p class="text-blue-400 mb-1 uppercase tracking-wider text-[10px] font-semibold">Tapong Language</p>
@@ -744,7 +744,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. I respond strictly in 100% Pure Tapong when you chat!</p>
+                        <p class="text-xs md:text-sm">Hello! Tapong uan in ai in. Ask me anything!</p>
                     </div>
                 </div>
             `;
@@ -826,18 +826,20 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // UPDATED ENGINE: 2 SPECIFIC QUESTIONS REMAIN ENGLISH, ALL OTHER QUERIES RETURN DICTIONARY-BASED TAPONG RESPONSES
+        // UNIFIED MULTI-LANGUAGE MATCHING ENGINE FOR 2 SPECIAL QUESTIONS
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. Who created this app? (Kept strict English as originally requested)
-            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဘယ်သူကတီးတွန်')) {
+            // 1. Who created / Who made this app (Matches English, Myanmar, or any variation to identical English response)
+            if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || 
+                lower.includes('ဘယ်သူလုပ်') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ပြုလုပ်') || lower.includes('ဘယ်သူကတီးတွန်') || 
+                lower.includes('ဖန်တီးသူ') || lower.includes('လုပ်တဲ့သူ')) {
                 appendAiMessage("Tapong AI Translator was created by Isaiah Cung (Lati / Bualthang) and Rising Star Music Studio.");
                 return;
             }
 
-            // 2. What is Tapong? (Kept strict English as originally requested)
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာကဘာလည်း')) {
+            // 2. What is Tapong (Matches English, Myanmar, or any variation to identical English response)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ') || lower.includes('တပေါင်ဆိုတာ') || lower.includes('တပေါင်ဘာလဲ') || lower.includes('tapong ဆိုတာဘာလဲ')) {
                 appendAiMessage("Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.");
                 return;
             }

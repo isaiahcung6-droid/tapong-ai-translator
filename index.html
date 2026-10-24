@@ -683,13 +683,13 @@
             });
         }
 
-        // Ask AI Breakdown Button (From Modal)
+        // Ask AI Breakdown Button (From Modal) - Exact Trigger
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const word = selectedWord.tapong;
             closeModal();
             switchTab('ai');
-            // Add Special Prefix so AI knows it came from Ask AI Breakdown button
+            // Send exact prompt with [BREAKDOWN] tag
             sendQuickPrompt(`[BREAKDOWN] ${word}`);
         }
 
@@ -709,7 +709,7 @@
             const query = input.value.trim();
             if (!query) return;
 
-            // Display user prompt cleanly (remove prefix if present)
+            // Display user message in UI cleanly without showing tag
             const displayPrompt = query.replace('[BREAKDOWN] ', '');
             appendUserMessage(displayPrompt);
             input.value = '';
@@ -764,7 +764,7 @@
             `;
         }
 
-        // ACCURATE & DISTINCT AI RESPONSE LOGIC
+        // ACCURATE & STRICT RESPONSE LOGIC
         function generateAiResponse(query) {
             const isBreakdown = query.startsWith('[BREAKDOWN]');
             const cleanQuery = query.replace('[BREAKDOWN] ', '').toLowerCase().trim();
@@ -780,7 +780,7 @@
 
             let bestMatch = null;
 
-            // Step A: Exact word match
+            // Step A: Exact word match in Dictionary
             for (let item of dictionaryData) {
                 const engList = item.english.toLowerCase().split(/,\s*/);
                 const myoList = item.myanmar.toLowerCase().split(/,\s*/);
@@ -796,7 +796,7 @@
                 }
             }
 
-            // Step B: Partial match
+            // Step B: Partial match if no exact match found
             if (!bestMatch && tokens.length > 0) {
                 for (let item of dictionaryData) {
                     const eng = item.english.toLowerCase();
@@ -811,14 +811,14 @@
                 }
             }
 
-            // RESPONSE LOGIC BASED ON SOURCE (MODAL BREAKDOWN vs DIRECT CHAT)
+            // DUAL-LOGIC ROUTING: BREAKDOWN vs CHATBOX
             if (bestMatch) {
                 if (isBreakdown) {
-                    // Scenario 1: Triggered via "Ask AI Breakdown" (Shows 3 Languages Examples)
-                    let breakdownText = `📌 Breakdown: ${bestMatch.tapong}\n• English: ${bestMatch.english}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Examples:\n• Tapong: ${bestMatch.exTapong || bestMatch.tapong}\n• English: ${bestMatch.exEng || bestMatch.english}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
+                    // MODE 1: Triggered via "Ask AI Breakdown" (Shows 3 Languages & Full Example Sentences)
+                    let breakdownText = `📌 Breakdown: ${bestMatch.tapong}\n• English: ${bestMatch.english}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${bestMatch.exTapong || bestMatch.tapong}\n• English: ${bestMatch.exEng || bestMatch.english}\n• Myanmar: ${bestMatch.exMyo || bestMatch.myanmar}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    // Scenario 2: Direct Chat Box Query (100% Pure Tapong Sentence ONLY)
+                    // MODE 2: Direct Chatbox Query (100% Pure Tapong Sentence ONLY)
                     let pureTapongText = `${bestMatch.tapong} a si.`;
                     if (bestMatch.exTapong) {
                         pureTapongText += ` (${bestMatch.exTapong})`;
@@ -826,7 +826,7 @@
                     appendAiMessage(pureTapongText);
                 }
             } else {
-                // Dictionary မရှိသည့် စကားလုံးဖြစ်ပါက Pure Tapong ဖြင့်သာ တုံ့ပြန်မည်
+                // Return Pure Tapong response for unknown words
                 appendAiMessage(`Tapong uan ah om lo.`);
             }
         }

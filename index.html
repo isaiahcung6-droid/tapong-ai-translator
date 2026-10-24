@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.3 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.4 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -457,7 +457,7 @@
             { id: 180, tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ", exTapong: "Toh kham ah to in.", exEng: "Sit on the chair.", exMyo: "ထိုင်ခုံမှာ ထိုင်ပါ။" },
             { id: 181, tapong: "Tum", english: "Play", myanmar: "တီးသည်", exTapong: "La tum in.", exEng: "Play music.", exMyo: "တီးခတ်ပါ။" },
             { id: 182, tapong: "U ham", english: "Adult", myanmar: "အရွယ်ရောက်, ဆယ်ကျော်သက်", exTapong: "U ham pha ngai.", exEng: "He is an adult.", exMyo: "သူ အရွယ်ရောက်ပြီ။" },
-            { id: 183, tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား", exTapong: "Tapong uan ai in.", exEng: "Speak Tapong language.", exMyo: "တပိုစကား ပြောပါ။" },
+            { id: 183, tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား", exTapong: "Tapong uan ai in.", exEng: "Speak Tapong language.", exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ" },
             { id: 184, tapong: "Ui co", english: "Dog", myanmar: "ခွေး", exTapong: "Ui co a tlan.", exEng: "Dog is running.", exMyo: "ခွေး ပြေးနေတယ်။" },
             { id: 185, tapong: "Um hmun", english: "Camp, place", myanmar: "စခန်း, နေရာဒေသ", exTapong: "Um hmun ah ka om.", exEng: "I am at the camp / place.", exMyo: "စခန်းမှာ ရှိတယ်။" },
             { id: 186, tapong: "Upa", english: "Older", myanmar: "ကြီးသော, အိုသော", exTapong: "A mah a upa.", exEng: "He is older.", exMyo: "သူ အသက်ကြီးတယ်။" },
@@ -788,7 +788,7 @@
                 return;
             }
 
-            // --- DIRECT MATCHING FOR PURE TAPONG SENTENCES (NO EXTRA SYNTHETIC SENTENCE BUILDING) ---
+            // --- ROBUST SMART EXACT & SUBSTRING MATCHING ---
             let bestMatch = null;
 
             // 1. Exact match check
@@ -798,9 +798,12 @@
                 item.myanmar.toLowerCase() === cleanQuery
             );
 
-            // 2. Keyword/Sentence matching check across 3 languages
+            // 2. Substring / Keyword matching check across 3 languages
             if (!bestMatch) {
-                const words = cleanQuery.split(/[\s,?.!]+/).filter(w => w.length > 1);
+                // Filter out common stop words to focus on core query terms (e.g., "how to say thank you in tapong" -> "thank", "you")
+                const stopWords = ['how', 'to', 'say', 'in', 'tapong', 'the', 'a', 'is', 'what', 'count', 'from'];
+                const words = cleanQuery.split(/[\s,?.!]+/).filter(w => w.length > 1 && !stopWords.includes(w));
+                
                 let highestMatches = 0;
 
                 for (let item of dictionaryData) {
@@ -809,6 +812,7 @@
                     const engText = item.english.toLowerCase();
                     const myoText = item.myanmar.toLowerCase();
 
+                    // If user searched specific terms like "thank" matching "Thank You" entry (#96)
                     words.forEach(w => {
                         if (tapText.includes(w) || engText.includes(w) || myoText.includes(w)) {
                             matches++;
@@ -820,15 +824,37 @@
                         bestMatch = item;
                     }
                 }
+
+                // Fallback: if no stop-word filtered match, try matching any word including common terms
+                if (!bestMatch) {
+                    const allWords = cleanQuery.split(/[\s,?.!]+/).filter(w => w.length > 1);
+                    for (let item of dictionaryData) {
+                        let matches = 0;
+                        const tapText = item.tapong.toLowerCase();
+                        const engText = item.english.toLowerCase();
+                        const myoText = item.myanmar.toLowerCase();
+
+                        allWords.forEach(w => {
+                            if (tapText.includes(w) || engText.includes(w) || myoText.includes(w)) {
+                                matches++;
+                            }
+                        });
+
+                        if (matches > highestMatches) {
+                            highestMatches = matches;
+                            bestMatch = item;
+                        }
+                    }
+                }
             }
 
             // --- OUTPUT PURE TAPONG RESULT ONLY ---
-            if (bestMatch && (cleanQuery.length < 3 || highestMatches > 0 || dictionaryData.some(i => i.tapong.toLowerCase() === cleanQuery))) {
+            if (bestMatch) {
                 if (isBreakdown) {
                     let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    // Output ONLY the pure Tapong dictionary word / sentence (no artificial sentences)
+                    // Output ONLY the pure Tapong dictionary word/sentence directly
                     let pureTapongOutput = capitalizeFirstLetter(bestMatch.tapong);
                     appendAiMessage(pureTapongOutput);
                 }

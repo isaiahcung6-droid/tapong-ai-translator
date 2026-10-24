@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.5 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.6 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -826,7 +826,6 @@
             }
 
             // --- COMPREHENSIVE QUESTION WRAPPER STRIPPER ---
-            // Fixes "how to made a sentance mango", "make sentence using biak", etc.
             cleanQuery = cleanQuery
                 .replace(/^how to (made|make) a (sentence|sentance)\s+/g, '')
                 .replace(/^make a (sentence|sentance) (with|using)?\s+/g, '')
@@ -871,7 +870,7 @@
                 }
             }
 
-            // Step C: FUZZY SEARCH (Strict Limit to Prevent Wrong Output)
+            // Step C: FUZZY SEARCH
             if (!bestMatch) {
                 let lowestDistance = 999;
                 let candidate = null;
@@ -887,24 +886,19 @@
                     }
                 }
 
-                // Strictly allow distance <= 2 to avoid matching unrelated words
                 if (candidate && lowestDistance <= 2) {
                     bestMatch = candidate;
                 }
             }
 
-            // Step D: ROUTING RESULT OR FALLBACK
+            // Step D: DIRECT TAPONG SENTENCE ONLY OUTPUT
             if (bestMatch) {
                 if (isBreakdown) {
                     let breakdownText = `📌 Breakdown: ${capitalizeFirstLetter(bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.english)}\n• Myanmar: ${bestMatch.myanmar}\n\n📝 Example Sentences:\n• Tapong: ${capitalizeFirstLetter(bestMatch.exTapong || bestMatch.tapong)}\n• English: ${capitalizeFirstLetter(bestMatch.exEng || bestMatch.english)}\n• Myanmar: ${capitalizeFirstLetter(bestMatch.exMyo || bestMatch.myanmar)}`;
                     appendAiMessage(breakdownText);
                 } else {
-                    let formattedTap = capitalizeFirstLetter(bestMatch.tapong);
-                    let pureTapongText = `${formattedTap} (${capitalizeFirstLetter(bestMatch.english)} / ${bestMatch.myanmar})`;
-                    if (bestMatch.exTapong) {
-                        pureTapongText += `\nExample: ${capitalizeFirstLetter(bestMatch.exTapong)}`;
-                    }
-                    appendAiMessage(pureTapongText);
+                    let pureSentence = bestMatch.exTapong ? capitalizeFirstLetter(bestMatch.exTapong) : `${capitalizeFirstLetter(bestMatch.tapong)} pha ngai.`;
+                    appendAiMessage(pureSentence);
                 }
             } else {
                 appendAiMessage(`Tapong uan dictionary tah ngan lai ngua si.`);

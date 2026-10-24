@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.1 (282 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.2 (282 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -775,8 +775,10 @@
             const ansWhatIsTapong = "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.";
             const ansWhoMadeThis = "Tapong AI Translator was developed and created by Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio.";
 
-            // --- STRICT INTENT ROUTING ---
-            if (cleanQuery.includes('vuah') || cleanQuery.includes('created') || cleanQuery.includes('made') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဖန်တီး') || cleanQuery.includes('လုပ်တာ')) {
+            // --- STRICT INTENT ROUTING (Fixed for Creator vs Translation) ---
+            const isCreatorQuery = (cleanQuery.includes('who created') || cleanQuery.includes('who made') || cleanQuery.includes('who developer') || cleanQuery.includes('creator') || cleanQuery.includes('developer') || cleanQuery.includes('ဖန်တီး') || cleanQuery.includes('ဘယ်သူလုပ်တာလဲ'));
+
+            if (isCreatorQuery) {
                 appendAiMessage(ansWhoMadeThis);
                 return;
             }

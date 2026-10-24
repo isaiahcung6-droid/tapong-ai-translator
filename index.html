@@ -198,13 +198,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me anything in Tapong, English, or Myanmar!</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong language.</p>
                     </div>
                 </div>
             </div>
 
             <div class="relative">
-                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything in Tapong, English, or Myanmar..." onkeydown="if(event.key==='Enter') sendMessage()"
+                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything..." onkeydown="if(event.key==='Enter') sendMessage()"
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                 <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -694,7 +694,7 @@
         function askAiFromSearch() {
             const query = searchInput.value;
             switchTab('ai');
-            sendQuickPrompt(`How do I say "${query}" in Tapong?`);
+            sendQuickPrompt(`${query}`);
         }
 
         function sendQuickPrompt(promptText) {
@@ -737,7 +737,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
+                        <p class="text-xs md:text-sm whitespace-pre-line font-medium">${text}</p>
                     </div>
                 </div>
             `;
@@ -754,87 +754,82 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Ask me anything in Tapong, English, or Myanmar!</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything, and I will answer directly in pure Tapong language.</p>
                     </div>
                 </div>
             `;
         }
 
-        // DYNAMIC AI GENERATION LOGIC (NATURAL AI SYNTHESIS FROM DICTIONARY DATA)
+        // DYNAMIC SINGLE-MATCH TAPONG-ONLY AI LOGIC
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // 1. App Creator & Developer Information Check
+            // 1. App Creator Check
             if (lower.includes('who created') || lower.includes('who made') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူဖန်တီး') || lower.includes('ဘယ်သူလုပ်') || lower.includes('ဖန်တီးသူ')) {
-                appendAiMessage(`**Tapong AI Translator** was created by **Isaiah Cung (Lati / Bualthang)** and developed by **@Rising Star Music Studio**. It is created to preserve and promote the Tapong ethnic language!`);
+                appendAiMessage(`Isaiah Cung (Lati / Bualthang) @ Rising Star Music Studio`);
                 return;
             }
 
             // 2. What is Tapong Check
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ') || (lower.includes('tapong') && !lower.includes('sentence') && !lower.includes('mean') && !lower.includes('say'))) {
-                appendAiMessage(`Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.`);
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာ ဘာလဲ') || lower.includes('တပေါင်ဆိုတာ')) {
+                appendAiMessage(`Tapong uan si.`);
                 return;
             }
 
-            // 3. Greeting / Thank You Check
+            // 3. Thank You Check
             if (lower.includes('thank you') || lower.includes('thanks') || lower.includes('ကျေးဇူး')) {
-                appendAiMessage(`In Tapong, "Thank You" is expressed as **"Na ann ing"**. \n\n*Example:* Tapong: "Na ann ing." | English: "Thank you very much." | Myanmar: "ကျေးဇူးတင်ပါတယ်။"`);
+                appendAiMessage(`Na ann ing.`);
                 return;
             }
 
-            // 4. Numbers / Counting Check
-            if (lower.includes('count') || lower.includes('number') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း') || lower.includes('၁ မှ ၁၀')) {
-                appendAiMessage(`Here is how you count 1 to 10 in Tapong:\n\n1. Pa Khat (တစ်)\n2. Pa Nih (နှစ်)\n3. Pa Thum (သုံး)\n4. Pa Li (လေး)\n5. Pa Nga (ငါး)\n6. Pa Ruk (ခြောက်)\n7. Pa Sarih (ခုနှစ်)\n8. Pa Riat (ရှစ်)\n9. Pa Kua (ကိုး)\n10. Pa Hra (တစ်ဆယ်)`);
+            // 4. Numbers Check
+            if (lower.includes('count') || lower.includes('1 to 10') || lower.includes('ကိန်းဂဏန်း') || lower.includes('၁ မှ ၁၀')) {
+                appendAiMessage(`Pa Khat, Pa Nih, Pa Thum, Pa Li, Pa Nga, Pa Ruk, Pa Sarih, Pa Riat, Pa Kua, Pa Hra`);
                 return;
             }
 
-            // 5. Smart Dictionary Query Search & Natural AI Synthesis
-            let matchedItems = [];
+            // 5. Smart Single Match & Sentence Synthesizer Logic
+            let matchedWords = [];
 
             dictionaryData.forEach(item => {
-                const tapongLower = item.tapong.toLowerCase();
-                const engLower = item.english.toLowerCase();
-                const myoLower = item.myanmar.toLowerCase();
+                const tapong = item.tapong.toLowerCase();
+                const english = item.english.toLowerCase();
+                const myanmar = item.myanmar.toLowerCase();
 
-                // Direct or partial match with Query
-                if (lower.includes(tapongLower) || lower.includes(engLower) || lower.includes(myoLower) ||
-                    tapongLower.includes(lower) || engLower.includes(lower) || myoLower.includes(lower)) {
-                    matchedItems.push(item);
-                } else {
-                    // Check individual keywords
-                    const tokens = lower.split(/[\s,?.!]+/).filter(t => t.length > 1 && !['give', 'me', 'example', 'sentences', 'for', 'show', 'how', 'to', 'say', 'in', 'tapong', 'meaning', 'what', 'is', 'the', 'လို', 'ကို', 'ပါ', 'ဆိုတာ', 'အဓိပ္ပာယ်'].includes(t));
-                    const isMatched = tokens.some(t => tapongLower.includes(t) || engLower.includes(t) || myoLower.includes(t));
-                    if (isMatched) {
-                        matchedItems.push(item);
-                    }
+                // Check if query matches myanmar, english, or tapong
+                if (lower.includes(myanmar) || myanmar.includes(lower) ||
+                    lower.includes(english) || english.includes(lower) ||
+                    lower.includes(tapong) || tapong.includes(lower)) {
+                    matchedWords.push(item);
                 }
             });
 
-            // Remove duplicate entries
-            matchedItems = Array.from(new Set(matchedItems.map(a => a.id))).map(id => matchedItems.find(a => a.id === id));
-
-            if (matchedItems.length > 0) {
-                let naturalResponse = "";
-
-                if (matchedItems.length === 1) {
-                    const item = matchedItems[0];
-                    naturalResponse = `In Tapong, **"${item.tapong}"** means **"${item.english}"** in English and **"${item.myanmar}"** in Myanmar.\n\n`;
-                    naturalResponse += `💡 **Sentence Example:**\n`;
-                    naturalResponse += `• **Tapong:** ${item.exTapong}\n`;
-                    naturalResponse += `• **English:** ${item.exEng}\n`;
-                    naturalResponse += `• **Myanmar:** ${item.exMyo}`;
-                } else {
-                    naturalResponse = `Here are the relevant Tapong translations and examples found in the dictionary:\n\n`;
-                    matchedItems.slice(0, 3).forEach((item, index) => {
-                        naturalResponse += `${index + 1}. **${item.tapong}** (${item.english} / ${item.myanmar})\n`;
-                        naturalResponse += `   🗣️ *Tapong Sentence:* "${item.exTapong}"\n`;
-                        naturalResponse += `   🇬🇧 *English:* "${item.exEng}"\n`;
-                        naturalResponse += `   🇲🇲 *Myanmar:* "${item.exMyo}"\n\n`;
+            // If multiple sub-words match in a phrase (e.g. "သရက်သီး" + "အခွံခွာ"), synthesize them into a single Tapong phrase
+            if (matchedWords.length > 0) {
+                // Find most accurate matching item based on best fit
+                let bestMatch = matchedWords[0];
+                
+                // If the user query has multiple words (e.g. "သရက်သီး အခွံခွာတာ"), join matched Tapong words together
+                let combinedTapongWords = [];
+                dictionaryData.forEach(item => {
+                    const myanmarTerms = item.myanmar.toLowerCase().split(/,\s*/);
+                    myanmarTerms.forEach(term => {
+                        if (term.length > 1 && lower.includes(term)) {
+                            combinedTapongWords.push(item.tapong.split(',')[0].trim());
+                        }
                     });
+                });
+
+                if (combinedTapongWords.length > 1) {
+                    // Combine into single concise Tapong answer (e.g. Kual hai vel)
+                    const uniqueTapong = Array.from(new Set(combinedTapongWords)).join(' ');
+                    appendAiMessage(`${uniqueTapong}`);
+                } else {
+                    // Output ONLY the single best Tapong translation/phrase
+                    appendAiMessage(`${bestMatch.tapong}`);
                 }
-                appendAiMessage(naturalResponse.trim());
             } else {
-                appendAiMessage(`I couldn't find an exact match for "${escapeHtml(query)}" in the Tapong dictionary. Please try asking with specific words in Tapong, English, or Myanmar!`);
+                appendAiMessage(`Tapong uan ah om lo.`);
             }
         }
 

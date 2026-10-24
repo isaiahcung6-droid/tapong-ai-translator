@@ -90,7 +90,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.0 (280 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.1 (280 Total)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -177,7 +177,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Advanced Smart Synthesis Mode</p>
+                        <p class="text-xs text-slate-400">Precision Smart Synthesis Engine</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -543,7 +543,7 @@
             { id: 254, tapong: "Fa nei ha cim?", english: "Do you have children?", myanmar: "သင့်မှာ သားသမီး ရှိပါသလား။", exTapong: "Fa nei ha cim?", exEng: "Do you have children?", exMyo: "သင့်မှာ သားသမီး ရှိပါသလား။" },
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa fanu pazei na nei?", exEng: "How many sons and daughters do you have?", exMyo: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
-            { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
+            { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka ne.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
             { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလညျး, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
             { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
@@ -787,7 +787,7 @@
                         </div>
                         <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-4 max-w-[88%] text-slate-200 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Smart Synthesis)</p>
+                                <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Precision Synthesis)</p>
                                 <span class="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">#${item.id}</span>
                             </div>
                             
@@ -826,7 +826,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // BULLETPROOF ULTRA-MATCHING ENGINE: SMART PARTIAL & SUBSTRING SYNTHESIS
+        // PRECISION SYNTHESIS ENGINE: EXACT WORD & RELEVANCE MATCHING
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -856,10 +856,12 @@
                 return;
             }
 
-            // 4. ADVANCED SUBSTRING & TOKEN SYNTHESIS ENGINE
-            // Checks if any significant word or part of the query matches dictionary entries (Tapong, English, or Myanmar)
+            // 4. PRECISE KEYWORD MATCHING ENGINE (Prioritizes multi-character meaningful words & cooking/food terms)
             let bestMatch = null;
-            let maxScore = 0;
+            let highestScore = 0;
+
+            // Clean query to extract significant words (ignoring short particles like "ကို", "မှာ", "နဲ့", "တာ")
+            const queryWords = lower.split(/[\s,?.!ကကိုစသည့်နဲ့နဲ့မှာတို့နဲ့၏လည်းန်း]+/0).filter(w => w.length > 2);
 
             for (const item of dictionaryData) {
                 let score = 0;
@@ -867,33 +869,31 @@
                 const e = item.english.toLowerCase();
                 const m = item.myanmar.toLowerCase();
 
-                // Direct substring checks on full strings
-                if (lower.includes(t) || t.includes(lower)) score += 5;
-                if (lower.includes(e) || e.includes(lower)) score += 5;
-                if (lower.includes(m) || m.includes(lower)) score += 5;
+                // Direct phrase inclusion check
+                if (lower.includes(m)) score += 10;
+                if (lower.includes(e)) score += 10;
+                if (lower.includes(t)) score += 10;
 
-                // Token/Word level checks
-                const queryWords = lower.split(/[\s,?.!ကကိုစသည့်နဲ့နဲ့မှာတို့]+/);
+                // Word-by-word token matching
                 for (const qw of queryWords) {
-                    if (qw.length > 1) {
-                        if (t.includes(qw)) score += 2;
-                        if (e.includes(qw)) score += 2;
-                        if (m.includes(qw)) score += 2;
-                    }
+                    if (m.includes(qw)) score += 5;
+                    if (e.includes(qw)) score += 5;
+                    if (t.includes(qw)) score += 5;
                 }
 
-                if (score > maxScore) {
-                    maxScore = score;
+                if (score > highestScore) {
+                    highestScore = score;
                     bestMatch = item;
                 }
             }
 
-            if (bestMatch && maxScore > 0) {
+            // If a valid high-confidence match is found, return it
+            if (bestMatch && highestScore >= 5) {
                 appendAiMessage(bestMatch);
                 return;
             }
 
-            // 5. GENUINE UNKNOWN FALLBACK: Only triggers if zero dictionary correlation exists
+            // 5. TRUE UNKNOWN FALLBACK: Only triggers when no meaningful dictionary match exists
             appendAiMessage({
                 id: 0,
                 tapong: "Tapong uan in ai in.",

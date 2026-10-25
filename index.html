@@ -738,12 +738,26 @@
             });
         }
 
+        // ASK AI BREAKDOWN: RETAINS EXACT 3-LANGUAGE FORMAT AS BEFORE
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
-            const word = selectedWord.tapong;
+            const item = selectedWord;
             closeModal();
             switchTab('ai');
-            sendQuickPrompt(`Give me example sentences for ${word}`);
+            
+            let resp = `🛡️ **Tapong Verified Entry (#${item.id}):**\n\n`;
+            resp += `• **Tapong:** ${item.tapong}\n`;
+            resp += `• **English:** ${item.english}\n`;
+            resp += `• **Myanmar:** ${item.myanmar}\n\n`;
+            resp += `📝 **Example Sentences (3 Languages):**\n`;
+            resp += `• *Tapong:* ${item.exTapong}\n`;
+            resp += `• *English:* ${item.exEng}\n`;
+            resp += `• *Myanmar:* ${item.exMyo}`;
+            
+            appendUserMessage(`Give me example sentences for ${item.tapong}`);
+            setTimeout(() => {
+                appendAiMessage(resp);
+            }, 300);
         }
 
         function askAiFromSearch() {
@@ -815,26 +829,9 @@
             `;
         }
 
-        // STRICT PURE TAPONG AI GENERATOR
+        // STRICT CONTEXTUAL PURE TAPONG AI GENERATOR FROM CHAT BOX
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
-
-            // Match words/entries from the dictionary
-            let matchedItems = [];
-            
-            dictionaryData.forEach(item => {
-                const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
-                const engTerms = item.english.toLowerCase().split(/,\s*/);
-                const myanTerms = item.myanmar.toLowerCase().split(/,\s*/);
-
-                const isTapongMatch = tapongTerms.some(term => lower.includes(term));
-                const isEngMatch = engTerms.some(term => lower.includes(term));
-                const isMyanMatch = myanTerms.some(term => lower.includes(term));
-
-                if (isTapongMatch || isEngMatch || isMyanMatch) {
-                    matchedItems.push(item);
-                }
-            });
 
             // Special Case for App Information or Creator
             if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ')) {
@@ -842,16 +839,20 @@
                 return;
             }
 
-            if (matchedItems.length > 0) {
-                // Build long pure Tapong sentence based on dictionary words
-                let tapongSentences = matchedItems.map(m => m.exTapong).filter(s => s).join(" ");
-                let combinedWords = matchedItems.map(m => m.tapong).join(", ");
+            // Find matching dictionary entry strictly based on query words
+            let matchedItem = dictionaryData.find(item => {
+                const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
+                const engTerms = item.english.toLowerCase().split(/,\s*/);
+                const myanTerms = item.myanmar.toLowerCase().split(/,\s*/);
 
-                if (tapongSentences.trim().length > 0) {
-                    appendAiMessage(`${tapongSentences}`);
-                } else {
-                    appendAiMessage(`Tapong uan in: ${combinedWords} a si.`);
-                }
+                return tapongTerms.some(t => lower.includes(t)) || 
+                       engTerms.some(e => lower.includes(e)) || 
+                       myanTerms.some(m => lower.includes(m));
+            });
+
+            if (matchedItem) {
+                // Return ONLY the specific example sentence corresponding to that matched word (e.g., Biak in -> Ni pui ni ah biak in ah ka hawh)
+                appendAiMessage(matchedItem.exTapong);
             } else {
                 // FALLBACK COMMAND: Strict Pure Tapong Dictionary message when no match is found
                 appendAiMessage("Tapong Ai Dictionary tah ngan hak om lai ngua si");

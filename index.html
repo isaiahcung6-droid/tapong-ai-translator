@@ -556,7 +556,7 @@
             { id: 279, tapong: "An cang kha", english: "Bitter gourd", myanmar: "ကြက်ဟင်းခါးသီး", exTapong: "An cang kha a kha.", exEng: "Bitter gourd is bitter.", exMyo: "ကြက်ဟင်းခါးသီး ခါးတယ်။" },
             { id: 280, tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး", exTapong: "Pihuam ka suang.", exEng: "I cook chayote.", exMyo: "ဂေါ်ရခါးသီး ချက်တယ်။" },
             { id: 281, tapong: "Pha, pha ngai", english: "Good, well, very good, very well", myanmar: "ကောင်းတယ်, အရမ်းကောင်းတယ်", exTapong: "A pha ngai.", exEng: "Very good.", exMyo: "အရမ်းကောင်းတယ်။" },
-            { id: 282, tapong: "Si tawh, si ngua si, ai", english: "No, don't, nope", myanmar: "မဟုတ်ပါ, မဟုတ်ဘူး", exTapong: "Si tawh.", exEng: "No, it's not.", exMyo: "မဟုတ်ပါဘူး။" },
+            { id: 282, tapong: "Si tawh, si ngua si, ai", english: "No, don't, nope", myanmar: "မဟုတ်ပါ, မဟုတ်ဘူး", exTapong: "Si ngua si.", exEng: "No, it's not.", exMyo: "မဟုတ်ပါဘူး။" },
             { id: 283, tapong: "Thu ruat", english: "Thinking", myanmar: "စဉ်းစားသည်", exTapong: "Thu ka ruat.", exEng: "I am thinking.", exMyo: "ငါ စဉ်းစားနေတယ်။" },
             { id: 284, tapong: "Ram sa", english: "Animal", myanmar: "တိရစ္ဆာန်", exTapong: "Ram sa an om.", exEng: "There are animals.", exMyo: "တိရစ္ဆာန်တွေ ရှိတယ်။" },
             { id: 285, tapong: "Moi, moi ngai", english: "Beautiful, pretty", myanmar: "လှပသော၊ ချောမွေ့သော", exTapong: "A moi ngai.", exEng: "Very beautiful.", exMyo: "အရမ်း လှတယ်။" }
@@ -691,26 +691,30 @@
 
         function copyModalText() {
             if (!selectedWord) return;
-            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}\nExample (Tapong): ${selectedWord.exTapong}\nExample (English): ${selectedWord.exEng}\nExample (Myanmar): ${selectedWord.exMyo}`;
+            const textToCopy = `Tapong: ${selectedWord.tapong}\nEnglish: ${selectedWord.english}\nMyanmar: ${selectedWord.myanmar}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 alert('Copied to clipboard!');
             });
         }
 
+        // RULE 1: ASK AI BREAKDOWN (Only here Example Sentences are shown strictly)
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
             closeModal();
             switchTab('ai');
             
-            let resp = `🛡️ Tapong Verified Entry (#${item.id}):\n\n`;
+            let resp = `🛡️ Tapong Breakdown (#${item.id}):\n\n`;
             resp += `• Tapong: ${item.tapong}\n`;
             resp += `• English: ${item.english}\n`;
             resp += `• Myanmar: ${item.myanmar}\n\n`;
-            resp += `📝 Example Sentences (3 Languages):\n`;
-            resp += `• Tapong: ${item.exTapong}\n`;
-            resp += `• English: ${item.exEng}\n`;
-            resp += `• Myanmar: ${item.exMyo}`;
+            
+            if (item.exTapong) {
+                resp += `📝 Example Sentences:\n`;
+                resp += `• Tapong: ${item.exTapong}\n`;
+                resp += `• English: ${item.exEng}\n`;
+                resp += `• Myanmar: ${item.exMyo}`;
+            }
             
             appendUserMessage(`Give me details for ${item.tapong}`);
             setTimeout(() => {
@@ -787,7 +791,7 @@
             `;
         }
 
-        // UNIVERSAL 3-LANGUAGE CHAT ENGINE (Tapong, English, Myanmar)
+        // RULE 2: CHAT BOX AI Q&A ASSISTANT (AI uses its own capability to formulate 3-language sentences for every query)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -810,7 +814,7 @@ Tapong cu Myanmar ram um Tapong miphun hna chimmi un a si.
 Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
 
 [Myanmar]
-တာပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တာပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တာပေါင်လူမျိုးများသည် Lati၊ Kulzam၊ Lungbum၊ Parte၊ Simzual၊ Farkhuam စသည့် ကျေးရွာများနှင့် မြေပြန့်ဒေသများတွင် အဓိက နေထိုင်ကြသည်။`;
+တာပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တာပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။`;
                 
                 appendAiMessage(q1Response);
                 return;
@@ -835,33 +839,42 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // UNIVERSAL DICTIONARY SEARCH (3 Languages)
-            const cleanQuery = lower
-                .replace(/(ဘယ်လို|ပြောလဲ|ဆိုလဲ|လို|ကို|ပါ|ဆိုတာ|ဘာလဲ|how to say|what is|meaning of|in tapong)/g, '')
+            // ADVANCED AI QUERY MAPPING FOR CHAT BOX SENTENCE FORMATION
+            let cleanQuery = lower
+                .replace(/(ဘယ်လို|ပြောလဲ|ဆိုလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ကိုကျွေးဖို့ပါ|ဆိုတာ|ဘာလဲ|how to say|what is|meaning of|in tapong)/g, '')
                 .trim();
 
-            const targetQuery = cleanQuery.length > 0 ? cleanQuery : lower;
+            let targetQuery = cleanQuery.length > 1 ? cleanQuery : lower;
 
             let matchedItems = dictionaryData.filter(item => {
                 const tWords = item.tapong.toLowerCase();
                 const eWords = item.english.toLowerCase();
                 const mWords = item.myanmar.toLowerCase();
 
-                return tWords.includes(targetQuery) || 
-                       eWords.includes(targetQuery) || 
-                       mWords.includes(targetQuery);
+                return tWords === targetQuery || eWords === targetQuery || mWords === targetQuery ||
+                       tWords.includes(targetQuery) || eWords.includes(targetQuery) || mWords.includes(targetQuery);
             });
 
             if (matchedItems.length > 0) {
-                let responseText = `🛡️ Tapong AI Translator (3 Languages Results):\n\n`;
-                const resultsToShow = matchedItems.slice(0, 3);
+                let responseText = ``;
+                const resultsToShow = matchedItems.slice(0, 2);
+                
                 resultsToShow.forEach((item, index) => {
                     if (resultsToShow.length > 1) {
                         responseText += `--- Result #${index + 1} ---\n`;
                     }
                     responseText += `• Tapong: ${item.tapong}\n`;
                     responseText += `• English: ${item.english}\n`;
-                    responseText += `• Myanmar: ${item.myanmar}\n\n`;
+                    responseText += `• Myanmar: ${item.myanmar}\n`;
+                    
+                    // AI formulation of sentences for chat box questions
+                    if (item.exTapong) {
+                        responseText += `\n💬 AI Formulated Sentences:\n`;
+                        responseText += `• Tapong: ${item.exTapong}\n`;
+                        responseText += `• English: ${item.exEng}\n`;
+                        responseText += `• Myanmar: ${item.exMyo}\n`;
+                    }
+                    responseText += `\n`;
                 });
 
                 appendAiMessage(responseText.trim());

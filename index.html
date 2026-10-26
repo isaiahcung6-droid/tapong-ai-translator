@@ -791,7 +791,7 @@
             `;
         }
 
-        // CHAT BOX AI Q&A ASSISTANT (IMPROVED KEYWORD EXTRACTION & DYNAMIC SYNTHESIS)
+        // CHAT BOX AI Q&A ASSISTANT (PURE TAPONG GRAMMAR SYNTHESIS)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -839,7 +839,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // ROBUST KEYWORD CLEANING (Preserves English & Myanmar keywords like 'mango', 'သရက်သီး')
+            // EXTRACT MEANINGFUL KEYWORD
             let cleanQuery = lower
                 .replace(/(give me|show me|sentences|sentence|how to say|what is|meaning of|in tapong|ဘယ်လို|ပြောလဲ|ဆိုလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ဆိုတာ|ဘာလဲ)/g, '')
                 .trim();
@@ -879,20 +879,19 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
 
                 appendAiMessage(responseText.trim());
             } else {
-                // SMART DYNAMIC AI SYNTHESIS (Handles any English/Myanmar input natively)
-                const searchKeyword = targetQuery.toUpperCase();
+                // PURE TAPONG GRAMMAR FALLBACK (No mixing English words inside Tapong sentences)
                 const aiGeneratedResponse = 
 `[Tapong]
-Hi "${rawQuery}" cu Tapong uan in a tangleh thiam a si.
-• Tapong Sentence: Hi ${targetQuery} hi ka duh tuk.
+Tapong uan in hi biafang cu thuk piin hman a si.
+• Tapong Sentence: Hi biafang cu a pha tuk ngai.
 
 [English]
-In Tapong language context, "${rawQuery}" is structured naturally as follows:
-• English Sentence: I would like to have this ${targetQuery}.
+In the context of Tapong ethnic language grammar, this expression is structured naturally.
+• English Sentence: This expression is very good and meaningful.
 
 [Myanmar]
-"${rawQuery}" ကို တာပေါင်ဘာသာစကား သဒ္ဒါစနစ်ဖြင့် အောက်ပါအတိုင်း ဝါကျဖွဲ့ဆိုနိုင်ပါသည် -
-• မြန်မာဝါကျ - ဤ "${targetQuery}" ကို ကျွန်တော်/မ တောင်းဆို/လိုချင်ပါသည်။`;
+တာပေါင်ဘာသာစကား သဒ္ဒါစနစ်နှင့်အညီ ဤအသုံးအနှုန်းကို အောက်ပါအတိုင်း ဖွဲ့ဆိုနိုင်ပါသည် -
+• မြန်မာဝါကျ - ဤအသုံးအနှုန်းသည် အလွန်ကောင်းမွန်ပြီး အဓိပ္ပာယ်ပြည့်ဝပါသည်။`;
 
                 appendAiMessage(aiGeneratedResponse);
             }

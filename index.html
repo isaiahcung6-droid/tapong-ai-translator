@@ -18,7 +18,7 @@
     <!-- Social Media & Google Preview Meta Tags -->
     <meta property="og:title" content="Tapong AI Translator Dictionary">
     <meta property="og:description" content="Tapong AI Translator created by Isaiah Cung. Free online translation and AI Q&A assistant for Tapong, English, and Myanmar languages.">
-    <meta property="og:image" content="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
+    <meta property="og:image" href="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
     <meta property="og:url" content="https://tapong-ai-translator.vercel.app/">
     <meta property="og:type" content="website">
     
@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v6.0 (285 Total)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.0 (Permanent Locked)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -171,7 +171,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Advanced AI Engine & 285 Dictionary Core</p>
+                        <p class="text-xs text-slate-400">Permanent Strict Q&A Guard Engine (English & Myanmar)</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -186,9 +186,6 @@
                 <button onclick="sendQuickPrompt('Who created this?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Who created this?
                 </button>
-                <button onclick="sendQuickPrompt('How do you say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    💡 How to say "Thank You"?
-                </button>
             </div>
 
             <div id="chatMessages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4 text-sm">
@@ -198,7 +195,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. Ask me anything in Tapong, English, or Myanmar!</p>
+                        <p class="text-xs md:text-sm">Hello! Permanent Q&A system active. (English & Myanmar)</p>
                     </div>
                 </div>
             </div>
@@ -765,7 +762,7 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Smart Q&A)</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Locked Permanent Engine)</p>
                         <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
@@ -783,13 +780,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. Ask me anything in Tapong, English, or Myanmar!</p>
+                        <p class="text-xs md:text-sm">Hello! Permanent Q&A system active. (English & Myanmar)</p>
                     </div>
                 </div>
             `;
         }
 
-        // UNIVERSAL SMART MATCHING ENGINE (285 ALL ITEMS AUTOMATICALLY SUPPORTED)
+        // STRICT PERMANENT Q&A GUARD SYSTEM (LOCKED - ENGLISH & MYANMAR ONLY)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -818,7 +815,7 @@ Tapong is a traditional ethnic language spoken by the Tapong community in Myanma
                 return;
             }
 
-            // PERMANENT QUESTION 2: Who created this app?
+            // PERMANENT QUESTION 2: Who created this?
             const isQ2 = lower.includes('created') || lower.includes('creator') || lower.includes('developer') || 
                          lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who') || lower.includes('a tuah tu');
 
@@ -837,69 +834,8 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // ADVANCED TEXT CLEANING FOR ACCURATE SEARCH ACROSS ALL 285 ITEMS
-            let cleanQuery = lower
-                .replace(/(how to say|how do you say|how do i say|what is the meaning of|meaning of|what is|in tapong|give me|show me|sentences|sentence| details for| details| breakdown|ဆိုတာဘာလဲ|အဓိပ္ပာယ်|ဘယ်လိုပြောလဲ|ဘယ်လိုဆိုလဲ|ပြောလဲ|ဆိုလဲ|အဓိပ္ပါယ်|ဘာလဲ|လို့|ဆိုတာ|တာ|ဘာလဲ|ကို|ပါ|အတွက်|လို)/g, '')
-                .replace(/["'?!.,]/g, '')
-                .trim();
-
-            let target = cleanQuery.length > 0 ? cleanQuery : lower;
-
-            let match = null;
-
-            // 1. Exact Match across Tapong / English / Myanmar
-            match = dictionaryData.find(item => 
-                item.tapong.toLowerCase() === target ||
-                item.english.toLowerCase() === target ||
-                item.myanmar.toLowerCase() === target
-            );
-
-            // 2. Substring Match if Exact Match not found
-            if (!match) {
-                match = dictionaryData.find(item => 
-                    item.tapong.toLowerCase().includes(target) ||
-                    item.english.toLowerCase().includes(target) ||
-                    item.myanmar.toLowerCase().includes(target)
-                );
-            }
-
-            // OUTPUT FOUND MATCH
-            if (match) {
-                let resp = `• Tapong: ${match.tapong}\n`;
-                resp += `• English: ${match.english}\n`;
-                resp += `• Myanmar: ${match.myanmar}\n`;
-
-                if (match.exTapong) {
-                    resp += `\n💬 Tapong Grammar Sentence:\n`;
-                    resp += `• Tapong: ${match.exTapong}\n`;
-                    resp += `• English: ${match.exEng}\n`;
-                    resp += `• Myanmar: ${match.exMyo}`;
-                }
-
-                appendAiMessage(resp.trim());
-                return;
-            }
-
-            // AI CAPABILITY & FALLBACK HANDLING (OTHERWISE UNABLE / OUT OF BOUNDS)
-            // If the query contains unrecognized foreign/external languages (like Falam, Hakha, Mizo or completely invalid data)
-            const isExternalLanguage = /falam|hakha|mizo/i.test(lower);
-
-            if (isExternalLanguage || cleanQuery.length > 25) {
-                // FALLBACK SPECIFIED BY USER WHEN OUT OF OPTIONS
-                appendAiMessage("Tapong Ai Translator Dictionary tah ngan hak om lai ngua si");
-                return;
-            }
-
-            // AI CREATIVE CAPABILITY: GENERATING DYNAMIC GRAMMAR BREAKDOWN FOR VALID UNLISTED QUERIES
-            const aiCreativeResponse = 
-`[Tapong AI Assistant Analysis]
-• Query Term: "${escapeHtml(query)}"
-• Grammar Status: Valid structure within Tapong language parameters.
-• Tapong Interpretation: Hi biafang cu tပေါင်ဘာသာစကား သဒ္ဒါစနစ်အတိုင်း ဖွဲ့စည်းထားပါသည်။
-• English Translation: Analyzed and structured according to standard Tapong-English equivalence.
-• Myanmar Translation: ဤစကားစုသည် တာပေါင်ဘာသာစကား၏ သဒ္ဒါစည်းမျဉ်းများနှင့် ကိုက်ညီမှုရှိပါသည်။`;
-
-            appendAiMessage(aiCreativeResponse);
+            // RESTRICT ALL OTHER OUT-OF-BOUNDS QUERIES TO MANDATORY FALLBACK (ENGLISH & MYANMAR ONLY)
+            appendAiMessage("Tapong Ai Translator Dictionary tah ngan hak om lai ngua si");
         }
 
         clearBtn.addEventListener('click', () => {

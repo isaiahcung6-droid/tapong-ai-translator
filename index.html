@@ -201,16 +201,16 @@
                 </button>
             </div>
 
-            <!-- Suggestion Chips -->
+            <!-- Suggestion Chips (Permanent Q1 & Q2) -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="sendQuickPrompt('Who created this app?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    👨‍💻 Who created this app?
+                <button onclick="sendQuickPrompt('What is Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    📖 What is Tapong?
+                </button>
+                <button onclick="sendQuickPrompt('Who created this?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
+                    👨‍💻 Who created this?
                 </button>
                 <button onclick="sendQuickPrompt('How do you say Thank You in Tapong?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     💡 How to say "Thank You"?
-                </button>
-                <button onclick="sendQuickPrompt('Explain Tapong numbers 1 to 10')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    🔢 Count 1 to 10
                 </button>
             </div>
 
@@ -829,13 +829,33 @@
             `;
         }
 
-        // STRICT CONTEXTUAL PURE TAPONG AI GENERATOR FROM CHAT BOX
+        // STRICT PERMANENT Q&A (ENGLISH / MYANMAR 2 ဘာသာသီးသန့်)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // Special Case for App Information or Creator
-            if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ')) {
-                appendAiMessage("Tapong AI Translator ah Isaiah Cung (Lati / Bualthang) nih a vuah si. Rising Star Music Studio nih a per si.");
+            // Permanent Q1: What is Tapong? (English / Myanmar ၂ ဘာသာဖြင့်သာ အမြဲအတည် ဖြေဆိုမည်)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာဘာလဲ') || lower.includes('tapong cu')) {
+                const q1Response = 
+`[English]
+Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
+
+[Myanmar]
+တာပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တာပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တာပေါင်လူမျိုးများသည် လာတီ၊ ကူဇမ်၊ လུང་ဘွန်၊ ပါတေး၊ ဆင်ဇူဝါ၊ ဖားခွမ် စသည့် ကျေးရွာများနှင့် မြေပြန့်ဒေသများတွင် အဓိက နေထိုင်ကြသည်။`;
+                
+                appendAiMessage(q1Response);
+                return;
+            }
+
+            // Permanent Q2: Who created this app? (English / Myanmar ၂ ဘာသာဖြင့်သာ အမြဲအတည် ဖြေဆိုမည်)
+            if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ') || lower.includes('who')) {
+                const q2Response = 
+`[English]
+This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio.
+
+[Myanmar]
+ဤအက်ပ်ကို Rising Star Music Studio မှ အိုက်ဇေယျာကျူံး (လာတီ / ဗိုလ်ထန်) မှ ဖန်တီးတည်ဆောက်ခဲ့ခြင်း ဖြစ်သည်။`;
+
+                appendAiMessage(q2Response);
                 return;
             }
 

@@ -344,7 +344,7 @@
             { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်", exTapong: "La sa in.", exEng: "Sing a song.", exMyo: "သီချင်း ဆိုပါ။" },
             { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်", exTapong: "Ca uk ah lai ngan in.", exEng: "Write in the book.", exMyo: "စာအုပ်ထဲမှာ ရေးပါ။" },
             { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး", exTapong: "Lai ngantu pa a ra.", exEng: "The secretary comes.", exMyo: "အတွင်းရေးမှူး လာတယ်။" },
-            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်ပါ။" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်", exTapong: "Ca siar in.", exEng: "Read the book.", exMyo: "စာ ဖတ်တယ်။" },
             { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်", exTapong: "Hlai ka lei.", exEng: "I buy food.", exMyo: "အစားအစာ ဝယ်တယ်။" },
             { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ", exTapong: "Ka lei a na.", exEng: "My tongue hurts.", exMyo: "လျှာ နာတယ်။" },
             { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး", exTapong: "Lei lung hi a moi.", exEng: "This land is beautiful.", exMyo: "ဒီမြေကြီး လှတယ်။" },
@@ -791,7 +791,7 @@
             `;
         }
 
-        // CHAT BOX AI Q&A ASSISTANT (PURE TAPONG GRAMMAR SYNTHESIS)
+        // CHAT BOX AI Q&A ASSISTANT (EXACT PHRASE MATCHING & STRICT GRAMMAR)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -839,13 +839,14 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // EXTRACT MEANINGFUL KEYWORD
+            // CLEAN QUERY FOR EXACT ENTRY MATCHING (PREVENTS FRAGMENT MIXING)
             let cleanQuery = lower
-                .replace(/(give me|show me|sentences|sentence|how to say|what is|meaning of|in tapong|ဘယ်လို|ပြောလဲ|ဆိုလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ဆိုတာ|ဘာလဲ)/g, '')
+                .replace(/(give me|show me|sentences|sentence|how to say|what is|meaning of|in tapong|ဘယ်လို|ပြောလဲ|ဆိုလဲ|သွားမလို့လား|သွားမလို့လည်း|ဘယ်သွားမလဲ|သွားမှာလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ဆိုတာ|ဘာလဲ)/g, '')
                 .trim();
 
             let targetQuery = cleanQuery.length > 0 ? cleanQuery : lower;
 
+            // FIRST: Check exact or full phrase match in dictionary
             let matchedItems = dictionaryData.filter(item => {
                 const tWords = item.tapong.toLowerCase();
                 const eWords = item.english.toLowerCase();
@@ -856,30 +857,36 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                        targetQuery.includes(tWords) || targetQuery.includes(eWords) || targetQuery.includes(mWords);
             });
 
+            // SPECIAL INTENT HANDLING FOR "WHERE ARE YOU GOING" / "ဘယ်သွားမလို့လည်း"
+            const isWhereGoingIntent = lower.includes('ဘယ်သွားမလို့') || lower.includes('ဘယ်သွား') || lower.includes('kuai na hawh') || lower.includes('where are you going');
+
+            if (isWhereGoingIntent) {
+                const specificMatch = dictionaryData.find(item => item.id === 258);
+                if (specificMatch) {
+                    matchedItems = [specificMatch];
+                }
+            }
+
             if (matchedItems.length > 0) {
                 let responseText = ``;
-                const resultsToShow = matchedItems.slice(0, 2);
+                const resultsToShow = matchedItems.slice(0, 1); // Show single best matching entry cleanly
                 
-                resultsToShow.forEach((item, index) => {
-                    if (resultsToShow.length > 1) {
-                        responseText += `--- Result #${index + 1} ---\n`;
-                    }
+                resultsToShow.forEach((item) => {
                     responseText += `• Tapong: ${item.tapong}\n`;
                     responseText += `• English: ${item.english}\n`;
                     responseText += `• Myanmar: ${item.myanmar}\n`;
                     
                     if (item.exTapong) {
-                        responseText += `\n💬 AI Formulated Sentences:\n`;
+                        responseText += `\n💬 Tapong Grammar Sentence:\n`;
                         responseText += `• Tapong: ${item.exTapong}\n`;
                         responseText += `• English: ${item.exEng}\n`;
                         responseText += `• Myanmar: ${item.exMyo}\n`;
                     }
-                    responseText += `\n`;
                 });
 
                 appendAiMessage(responseText.trim());
             } else {
-                // PURE TAPONG GRAMMAR FALLBACK (No mixing English words inside Tapong sentences)
+                // PURE TAPONG GRAMMAR FALLBACK
                 const aiGeneratedResponse = 
 `[Tapong]
 Tapong uan in hi biafang cu thuk piin hman a si.

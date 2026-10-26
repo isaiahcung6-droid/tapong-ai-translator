@@ -829,24 +829,24 @@
             `;
         }
 
-        // STRICT PERMANENT Q&A (ENGLISH / MYANMAR 2 ဘာသာသီးသန့်)
+        // STRICT PERMANENT Q&A (ENGLISH / MYANMAR 2 ဘာသာသီးသန့် - ရွာနာမည်များ အင်္ဂလိပ်စာလုံးပေါင်းဖြင့်)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // Permanent Q1: What is Tapong? (English / Myanmar ၂ ဘာသာဖြင့်သာ အမြဲအတည် ဖြေဆိုမည်)
+            // Permanent Q1: What is Tapong?
             if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာဘာလဲ') || lower.includes('tapong cu')) {
                 const q1Response = 
 `[English]
 Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
 
 [Myanmar]
-တာပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တာပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တာပေါင်လူမျိုးများသည် လာတီ၊ ကူဇမ်၊ လུང་ဘွန်၊ ပါတေး၊ ဆင်ဇူဝါ၊ ဖားခွမ် စသည့် ကျေးရွာများနှင့် မြေပြန့်ဒေသများတွင် အဓိက နေထိုင်ကြသည်။`;
+တာပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တာပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တာပေါင်လူမျိုးများသည် Lati၊ Kulzam၊ Lungbum၊ Parte၊ Simzual၊ Farkhuam စသည့် ကျေးရွာများနှင့် မြေပြန့်ဒေသများတွင် အဓိက နေထိုင်ကြသည်။`;
                 
                 appendAiMessage(q1Response);
                 return;
             }
 
-            // Permanent Q2: Who created this app? (English / Myanmar ၂ ဘာသာဖြင့်သာ အမြဲအတည် ဖြေဆိုမည်)
+            // Permanent Q2: Who created this app?
             if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ') || lower.includes('who')) {
                 const q2Response = 
 `[English]

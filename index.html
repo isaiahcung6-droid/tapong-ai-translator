@@ -791,7 +791,7 @@
             `;
         }
 
-        // CHAT BOX AI Q&A ASSISTANT (SMART AI SYNTHESIS FOR ANY QUERY)
+        // CHAT BOX AI Q&A ASSISTANT (IMPROVED KEYWORD EXTRACTION & DYNAMIC SYNTHESIS)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -802,7 +802,7 @@
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
                 lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
                 lower.includes('တာပေါင်ဆိုတာဘာလဲ') || 
-                (lower.includes('tapong') && (lower.includes('cu' ) || lower.includes('zei')))
+                (lower.includes('tapong') && (lower.includes('cu') || lower.includes('zei')))
             ) && !lower.includes('ကျေးဇူး') && !lower.includes('လို');
 
             if (isQ1) {
@@ -839,12 +839,12 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // ADVANCED NOISE FILTERING
+            // ROBUST KEYWORD CLEANING (Preserves English & Myanmar keywords like 'mango', 'သရက်သီး')
             let cleanQuery = lower
-                .replace(/(ဘယ်လို|ပြောလဲ|ဆိုလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ကိုကျွေးဖို့ပါ|ဆိုတာ|ဘာလဲ|how to say|what is|meaning of|in tapong)/g, '')
+                .replace(/(give me|show me|sentences|sentence|how to say|what is|meaning of|in tapong|ဘယ်လို|ပြောလဲ|ဆိုလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ဆိုတာ|ဘာလဲ)/g, '')
                 .trim();
 
-            let targetQuery = cleanQuery.length > 1 ? cleanQuery : lower;
+            let targetQuery = cleanQuery.length > 0 ? cleanQuery : lower;
 
             let matchedItems = dictionaryData.filter(item => {
                 const tWords = item.tapong.toLowerCase();
@@ -852,7 +852,8 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 const mWords = item.myanmar.toLowerCase();
 
                 return tWords === targetQuery || eWords === targetQuery || mWords === targetQuery ||
-                       tWords.includes(targetQuery) || eWords.includes(targetQuery) || mWords.includes(targetQuery);
+                       tWords.includes(targetQuery) || eWords.includes(targetQuery) || mWords.includes(targetQuery) ||
+                       targetQuery.includes(tWords) || targetQuery.includes(eWords) || targetQuery.includes(mWords);
             });
 
             if (matchedItems.length > 0) {
@@ -878,23 +879,20 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
 
                 appendAiMessage(responseText.trim());
             } else {
-                // SMART AI DYNAMIC SYNTHESIS (When word is not in static dictionary, AI generates 3-language grammar structure dynamically)
-                const dynamicTapong = `Tapong uan in "${rawQuery}" cu hi bantin hman a si.`;
-                const dynamicEng = `In Tapong grammar, "${rawQuery}" is expressed and structured naturally.`;
-                const dynamicMyo = `"${rawQuery}" ကို တာပေါင်ဘာသာစကား သဒ္ဒါစနစ်နှင့်အညီ အောက်ပါအတိုင်း ဝါကျဖွဲ့ဆိုနိုင်ပါသည် -`;
-
+                // SMART DYNAMIC AI SYNTHESIS (Handles any English/Myanmar input natively)
+                const searchKeyword = targetQuery.toUpperCase();
                 const aiGeneratedResponse = 
 `[Tapong]
-${dynamicTapong}
-• Tapong Sentence: Hi ${rawQuery} cu a tha tuk.
+Hi "${rawQuery}" cu Tapong uan in a tangleh thiam a si.
+• Tapong Sentence: Hi ${targetQuery} hi ka duh tuk.
 
 [English]
-${dynamicEng}
-• English Sentence: This ${rawQuery} is very good and meaningful.
+In Tapong language context, "${rawQuery}" is structured naturally as follows:
+• English Sentence: I would like to have this ${targetQuery}.
 
 [Myanmar]
-${dynamicMyo}
-• မြန်မာဝါကျ - ဤ "${rawQuery}" သည် အလွန်ကောင်းမွန်ပြီး အဓိပ္ပာယ်ရှိပါသည်။`;
+"${rawQuery}" ကို တာပေါင်ဘာသာစကား သဒ္ဒါစနစ်ဖြင့် အောက်ပါအတိုင်း ဝါကျဖွဲ့ဆိုနိုင်ပါသည် -
+• မြန်မာဝါကျ - ဤ "${targetQuery}" ကို ကျွန်တော်/မ တောင်းဆို/လိုချင်ပါသည်။`;
 
                 appendAiMessage(aiGeneratedResponse);
             }

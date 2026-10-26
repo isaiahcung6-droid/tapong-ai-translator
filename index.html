@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.4 (Permanent Locked)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.5 (Smart Guard)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -171,7 +171,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Permanent Strict Guard (English & Myanmar Only)</p>
+                        <p class="text-xs text-slate-400">Smart Dictionary & Translation Assistant</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -195,7 +195,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Permanent Q&A system active (English & Myanmar).</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything about Tapong words or dictionary entries.</p>
                     </div>
                 </div>
             </div>
@@ -449,7 +449,7 @@
             { id: 175, tapong: "Ti in", english: "Drink water", myanmar: "ရေသောက်", exTapong: "Ti in in.", exEng: "Drink water.", exMyo: "ရေ သောက်ပါ။" },
             { id: 176, tapong: "Tlan", english: "Run", myanmar: "ပြေးသည်", exTapong: "Tlan in.", exEng: "Run.", exMyo: "ပြေးပါ။" },
             { id: 177, tapong: "Tuang in", english: "School", myanmar: "စာသင်ကျောင်း", exTapong: "Tuang in ah ka hawh.", exEng: "I go to school.", exMyo: "ကျောင်း သွားတယ်။" },
-            { id: 178, tapong: "Tlung", english: "Go back", myanmar: "ပြန်သွားသည်", exTapong: "Inn ah tlung in.", exEng: "Go back home.", exMyo: "အိမ် ပြန်သွားပါ။" },
+            { id: 178, tapong: "Tlung", english: "Go back", myanmar: "ပြန်သွားသည်", exTapong: "Inn ah tlung in.", exEng: "Go back home.", exMyo: "အိမ် ပြန်သွားတယ်။" },
             { id: 179, tapong: "To", english: "Sit Down", myanmar: "ထိုင်သည်", exTapong: "To in.", exEng: "Sit down.", exMyo: "ထိုင်ပါ။" },
             { id: 180, tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ", exTapong: "Toh kham ah to in.", exEng: "Sit on the chair.", exMyo: "ထိုင်ခုံမှာ ထိုင်ပါ။" },
             { id: 181, tapong: "Tum", english: "Play", myanmar: "တီးသည်", exTapong: "La tum in.", exEng: "Play music.", exMyo: "တီးခတ်ပါ။" },
@@ -762,7 +762,7 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (2-Lang Permanent Guard)</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Smart Guard)</p>
                         <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
@@ -780,18 +780,18 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! Permanent Q&A system active (English & Myanmar).</p>
+                        <p class="text-xs md:text-sm">Hello! Ask me anything about Tapong words or dictionary entries.</p>
                     </div>
                 </div>
             `;
         }
 
-        // STRICT 2-LANGUAGE PERMANENT Q&A GUARD SYSTEM (ENGLISH & MYANMAR ONLY)
+        // SMART Q&A GUARD & DICTIONARY SEARCH SYSTEM
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
 
-            // PERMANENT QUESTION 1: What is Tapong? (Full English/Myanmar with all village names and plains areas)
+            // 1. PERMANENT QUESTION: What is Tapong?
             const isQ1 = (
                 lower.includes('what is tapong') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
@@ -812,7 +812,7 @@ Tapong is a traditional ethnic language spoken by the Tapong community in Myanma
                 return;
             }
 
-            // PERMANENT QUESTION 2: Who created this?
+            // 2. PERMANENT QUESTION: Who created this?
             const isQ2 = lower.includes('created') || lower.includes('creator') || lower.includes('developer') || 
                          lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who') || lower.includes('a tuah tu');
 
@@ -828,8 +828,32 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // RESTRICT ALL OTHER OUT-OF-BOUNDS QUERIES TO MANDATORY FALLBACK (ENGLISH & MYANMAR ONLY)
-            appendAiMessage("Tapong Ai Translator Dictionary tah ngan hak om lai ngua si");
+            // 3. SMART SEARCH IN DICTIONARY FOR ANY TYPED WORD (e.g. Mango, ငှက်, etc.)
+            const matchedItems = dictionaryData.filter(item => 
+                item.tapong.toLowerCase().includes(lower) ||
+                item.english.toLowerCase().includes(lower) ||
+                item.myanmar.toLowerCase().includes(lower)
+            );
+
+            if (matchedItems.length > 0) {
+                let matchResp = `Found ${matchedItems.length} matching dictionary entry/entries:\n\n`;
+                matchedItems.slice(0, 3).forEach(item => {
+                    matchResp += `• Tapong: ${item.tapong}\n  English: ${item.english}\n  Myanmar: ${item.myanmar}\n`;
+                    if (item.exTapong) {
+                        matchResp += `  Example: ${item.exTapong} (${item.exEng} / ${item.exMyo})\n`;
+                    }
+                    matchResp += `\n`;
+                });
+                appendAiMessage(matchResp.trim());
+                return;
+            }
+
+            // 4. FALLBACK IF NOT FOUND
+            appendAiMessage(`[English]
+No matching word found in the Tapong dictionary for "${rawQuery}".
+
+[Myanmar]
+တပေါင်အဘိဓာန်တွင် "${rawQuery}" နှင့် ကိုက်ညီသော စကားလုံး မတွေ့ရှိပါ။`);
         }
 
         clearBtn.addEventListener('click', () => {

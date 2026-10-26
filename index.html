@@ -223,7 +223,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All 285 entries are fully aligned, verified, and strict.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. Ask me anything in Tapong, English, or Myanmar!</p>
                     </div>
                 </div>
             </div>
@@ -433,7 +433,7 @@
             { id: 128, tapong: "Pa Thum", english: "Three", myanmar: "သုံး", exTapong: "Pa thum an om.", exEng: "There are three.", exMyo: "၃ ခု ရှိတယ်။" },
             { id: 129, tapong: "Pa, pa pa", english: "Father, Daddy", myanmar: "အဖေ, ဖခင်", exTapong: "Pa pa ka it hnak.", exEng: "I love father.", exMyo: "အဖေ့ကို ချစ်တယ်။" },
             { id: 130, tapong: "Pan", english: "Look at", myanmar: "ကြည့်သည်", exTapong: "Ka pan in.", exEng: "Look at me.", exMyo: "ငါ့ကို ကြည့်ပါ။" },
-            { id: 131, tapong: "Pasal", english: "Husband", myanmar: "လိင်ယောကျ်ား", exTapong: "Ka pasal a si.", exEng: "He is my husband.", exMyo: "သူ ငါ့ခင်ပွန်း ဖြစ်တယ်။" },
+            { id: 131, tapong: "Pasal", english: "Husband", myanmar: "လိင်ယောကျ်ား", exTapong: "Ka pasal a si.", exEng: "He is her husband.", exMyo: "သူ ငါ့ခင်ပွန်း ဖြစ်တယ်။" },
             { id: 132, tapong: "Pathian", english: "God", myanmar: "ဘုရား", exTapong: "Pathian a tha.", exEng: "God is good.", exMyo: "ဘုရားသခင် ကောင်းမြတ်တယ်။" },
             { id: 133, tapong: "Peng", english: "Township, mile", myanmar: "မြို့နယ်, မိုင်တိုင်", exTapong: "Peng ah ka om.", exEng: "I am at the township.", exMyo: "မြို့နယ်မှာ နေတယ်။" },
             { id: 134, tapong: "Pi, pi pi", english: "Auntie, Grandmother", myanmar: "အဒေါ်, အဘွား", exTapong: "Pi pi a om.", exEng: "Grandmother is here.", exMyo: "အဘွား ရှိတယ်။" },
@@ -500,7 +500,7 @@
             { id: 195, tapong: "Zan", english: "Night", myanmar: "ည", exTapong: "Zan ah ka it.", exEng: "I sleep at night.", exMyo: "ညဘက် အိပ်တယ်။" },
             { id: 196, tapong: "Zan pha", english: "Good night", myanmar: "ကောင်းသောည", exTapong: "Zan pha in.", exEng: "Good night.", exMyo: "ကောင်းသောညပါ။" },
             { id: 197, tapong: "Zei si khaw, zei ha, zei maw", english: "What", myanmar: "ဘာလဲ", exTapong: "Zei si khaw na duh?", exEng: "What do you want?", exMyo: "ဘာ လိုချင်လဲ။" },
-            { id: 198, tapong: "Zi", english: "Wife", myanmar: "လိင်မိန်းမ", exTapong: "Ka zi a si.", exEng: "She is my wife.", exMyo: "သူ ငါ့ဇနီး ဖြစ်တယ်။" },
+            { id: 198, tapong: "Zi", english: "Wife", myanmar: "လိင်မိန်းမ", exTapong: "Ka zi a si.", exEng: "She is his wife.", exMyo: "သူ ငါ့ဇနီး ဖြစ်တယ်။" },
             { id: 199, tapong: "Zing pha", english: "Good morning", myanmar: "မင်္ဂလာမနက်ခင်းပါ", exTapong: "Zing pha in.", exEng: "Good morning.", exMyo: "မင်္ဂလာမနက်ခင်းပါ။" },
             { id: 200, tapong: "Zu", english: "Alcohol", myanmar: "အရက်", exTapong: "Zu in mah in.", exEng: "Do not drink alcohol.", exMyo: "အရက် မသောက်နဲ့။" },
             { id: 201, tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်", exTapong: "Zuar in.", exEng: "Sell it.", exMyo: "ရောင်းပါ။" },
@@ -738,7 +738,7 @@
             });
         }
 
-        // ASK AI BREAKDOWN: RETAINS CLEAN HTML FORMATTING WITHOUT MARKDOWN ARTIFACTS
+        // ASK AI BREAKDOWN: SHOWS FULL DETAILS & EXAMPLES ONLY WHEN CLICKED FROM MODAL
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -754,7 +754,7 @@
             resp += `• English: ${item.exEng}\n`;
             resp += `• Myanmar: ${item.exMyo}`;
             
-            appendUserMessage(`Give me example sentences for ${item.tapong}`);
+            appendUserMessage(`Give me details for ${item.tapong}`);
             setTimeout(() => {
                 appendAiMessage(resp);
             }, 300);
@@ -805,7 +805,7 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (100% Pure Tapong)</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant (Smart Q&A)</p>
                         <p class="text-xs md:text-sm whitespace-pre-line">${text}</p>
                     </div>
                 </div>
@@ -823,13 +823,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. All 285 entries are fully aligned, verified, and strict.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Translator. Ask me anything in Tapong, English, or Myanmar!</p>
                     </div>
                 </div>
             `;
         }
 
-        // STRICT PERMANENT Q&A (ENGLISH / MYANMAR 2 ဘာသာ - Isaiah Cung (Lati / Bualthang) ဖြင့်)
+        // AI Q&A ASSISTANT CHAT BOX LOGIC (3 LANGUAGES SMART RESPONSE & STRICT FALLBACK)
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -859,7 +859,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Find matching dictionary entry strictly based on query words
+            // Chat Box Smart AI Processing across Tapong / English / Myanmar
             let matchedItem = dictionaryData.find(item => {
                 const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
                 const engTerms = item.english.toLowerCase().split(/,\s*/);
@@ -871,10 +871,15 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
             });
 
             if (matchedItem) {
-                // Return ONLY the specific example sentence corresponding to that matched word
-                appendAiMessage(matchedItem.exTapong);
+                // Returns translation in all 3 languages (Tapong, English, Myanmar)
+                const smartResponse = 
+`• Tapong: ${matchedItem.tapong}
+• English: ${matchedItem.english}
+• Myanmar: ${matchedItem.myanmar}`;
+
+                appendAiMessage(smartResponse);
             } else {
-                // FALLBACK COMMAND: Strict Pure Tapong Dictionary message when no match is found
+                // Strict Fallback command when query cannot be resolved in dictionary
                 appendAiMessage("Tapong Ai Dictionary tah ngan hak om lai ngua si");
             }
         }

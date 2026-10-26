@@ -829,12 +829,12 @@
             `;
         }
 
-        // CHAT BOX LOGIC: STRICTLY KEEPS EXAMPLE SENTENCES OUT OF GENERAL CHAT, SHOWING ONLY DIRECT TRANSLATION OR FALLBACK
+        // ENHANCED CHAT LOGIC: SUPPORTS BOTH ENGLISH & MYANMAR GENERAL QUESTIONS + DICTIONARY LOOKUP + FALLBACK
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
-            // Permanent Q1: What is Tapong?
-            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာဘာလဲ') || lower.includes('tapong cu')) {
+            // Permanent Q1: What is Tapong? (Supports both English and Myanmar questions)
+            if (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာဘာလဲ') || lower.includes('တပေါင်ဆိုတာဘာလဲ') || lower.includes('တပေါင်') || lower.includes('tapong cu')) {
                 const q1Response = 
 `[English]
 Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
@@ -846,8 +846,8 @@ Tapong is a traditional ethnic language spoken by the Tapong community in Myanma
                 return;
             }
 
-            // Permanent Q2: Who created this app?
-            if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ') || lower.includes('who')) {
+            // Permanent Q2: Who created this app? (Supports both English and Myanmar questions)
+            if (lower.includes('created') || lower.includes('creator') || lower.includes('developer') || lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who')) {
                 const q2Response = 
 `[English]
 This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio.
@@ -859,7 +859,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Chat Box Smart AI Processing for Word/Definition Lookups (NO Example Sentences here as requested)
+            // Chat Box Smart AI Processing for Word/Definition Lookups (NO Example Sentences in chat, as requested)
             let matchedItem = dictionaryData.find(item => {
                 const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
                 const engTerms = item.english.toLowerCase().split(/,\s*/);

@@ -738,7 +738,7 @@
             });
         }
 
-        // ASK AI BREAKDOWN (MODAL): SHOWS FULL DETAILS & EXAMPLE SENTENCES ONLY WHEN CLICKED HERE
+        // ASK AI BREAKDOWN (MODAL): ONLY HERE EXAMPLE SENTENCES ARE SHOWN EXPLICITLY
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -829,7 +829,7 @@
             `;
         }
 
-        // CHAT BOX LOGIC: ANSWERS GENERAL Q&A IN 3 LANGUAGES WITHOUT FORCING EXAMPLE SENTENCES, WITH STRICT FALLBACK
+        // CHAT BOX LOGIC: STRICTLY KEEPS EXAMPLE SENTENCES OUT OF GENERAL CHAT, SHOWING ONLY DIRECT TRANSLATION OR FALLBACK
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -859,7 +859,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Chat Box Smart AI Processing for Dictionary Lookup (Shows 3-Language Terms, NOT forced example sentences)
+            // Chat Box Smart AI Processing for Word/Definition Lookups (NO Example Sentences here as requested)
             let matchedItem = dictionaryData.find(item => {
                 const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
                 const engTerms = item.english.toLowerCase().split(/,\s*/);
@@ -878,7 +878,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
 
                 appendAiMessage(directResponse);
             } else {
-                // Strict Fallback command when query cannot be resolved in dictionary or chat assistant
+                // Strict Fallback command when query cannot be resolved in dictionary or general Q&A
                 appendAiMessage("Tapong Ai Dictionary tah ngan hak om lai ngua si");
             }
         }

@@ -560,7 +560,7 @@
             { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။", exTapong: "Fa pali ka nei.", exEng: "I have four children.", exMyo: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
             { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။", exTapong: "Fapa fanu pazei na nei?", exEng: "How many sons and daughters do you have?", exMyo: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
             { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
-            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
+            { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည္း, သွားနေလည္း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
             { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
             { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah in.", exEng: "Don't do that.", exMyo: "မလုပ်ပါနဲ့။" },
@@ -738,7 +738,7 @@
             });
         }
 
-        // ASK AI BREAKDOWN: SHOWS FULL DETAILS & EXAMPLES ONLY WHEN CLICKED FROM MODAL
+        // ASK AI BREAKDOWN (MODAL): SHOWS FULL DETAILS & EXAMPLE SENTENCES ONLY WHEN CLICKED HERE
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -829,7 +829,7 @@
             `;
         }
 
-        // AI Q&A ASSISTANT CHAT BOX LOGIC (3 LANGUAGES SMART RESPONSE & STRICT FALLBACK)
+        // CHAT BOX LOGIC: ANSWERS GENERAL Q&A IN 3 LANGUAGES WITHOUT FORCING EXAMPLE SENTENCES, WITH STRICT FALLBACK
         function generateAiResponse(query) {
             const lower = query.toLowerCase().trim();
 
@@ -859,7 +859,7 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Chat Box Smart AI Processing across Tapong / English / Myanmar
+            // Chat Box Smart AI Processing for Dictionary Lookup (Shows 3-Language Terms, NOT forced example sentences)
             let matchedItem = dictionaryData.find(item => {
                 const tapongTerms = item.tapong.toLowerCase().split(/,\s*/);
                 const engTerms = item.english.toLowerCase().split(/,\s*/);
@@ -871,15 +871,14 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
             });
 
             if (matchedItem) {
-                // Returns translation in all 3 languages (Tapong, English, Myanmar)
-                const smartResponse = 
+                const directResponse = 
 `• Tapong: ${matchedItem.tapong}
 • English: ${matchedItem.english}
 • Myanmar: ${matchedItem.myanmar}`;
 
-                appendAiMessage(smartResponse);
+                appendAiMessage(directResponse);
             } else {
-                // Strict Fallback command when query cannot be resolved in dictionary
+                // Strict Fallback command when query cannot be resolved in dictionary or chat assistant
                 appendAiMessage("Tapong Ai Dictionary tah ngan hak om lai ngua si");
             }
         }

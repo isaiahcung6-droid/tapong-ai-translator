@@ -791,7 +791,7 @@
             `;
         }
 
-        // CHAT BOX AI Q&A ASSISTANT (EXACT PHRASE MATCHING & STRICT GRAMMAR)
+        // CHAT BOX AI Q&A ASSISTANT (STRICT SEPARATION & PRECISE MATCHING)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -839,54 +839,50 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // CLEAN QUERY FOR EXACT ENTRY MATCHING (PREVENTS FRAGMENT MIXING)
+            // CLEAN QUERY FOR INTENT MATCHING
             let cleanQuery = lower
                 .replace(/(give me|show me|sentences|sentence|how to say|what is|meaning of|in tapong|ဘယ်လို|ပြောလဲ|ဆိုလဲ|သွားမလို့လား|သွားမလို့လည်း|ဘယ်သွားမလဲ|သွားမှာလဲ|ကျွေးဖို့|ကျွေး|ဖို့|လို|ကို|ပါ|အတွက်|တာ|ဆိုတာ|ဘာလဲ)/g, '')
                 .trim();
 
             let targetQuery = cleanQuery.length > 0 ? cleanQuery : lower;
 
-            // FIRST: Check exact or full phrase match in dictionary
-            let matchedItems = dictionaryData.filter(item => {
-                const tWords = item.tapong.toLowerCase();
-                const eWords = item.english.toLowerCase();
-                const mWords = item.myanmar.toLowerCase();
-
-                return tWords === targetQuery || eWords === targetQuery || mWords === targetQuery ||
-                       tWords.includes(targetQuery) || eWords.includes(targetQuery) || mWords.includes(targetQuery) ||
-                       targetQuery.includes(tWords) || targetQuery.includes(eWords) || targetQuery.includes(mWords);
-            });
-
-            // SPECIAL INTENT HANDLING FOR "WHERE ARE YOU GOING" / "ဘယ်သွားမလို့လည်း"
+            // INTENT: WHERE ARE YOU GOING / ဘယ်သွားမလို့လည်း
             const isWhereGoingIntent = lower.includes('ဘယ်သွားမလို့') || lower.includes('ဘယ်သွား') || lower.includes('kuai na hawh') || lower.includes('where are you going');
 
+            let matchedItems = [];
             if (isWhereGoingIntent) {
                 const specificMatch = dictionaryData.find(item => item.id === 258);
-                if (specificMatch) {
-                    matchedItems = [specificMatch];
-                }
+                if (specificMatch) matchedItems = [specificMatch];
+            } else {
+                matchedItems = dictionaryData.filter(item => {
+                    const tWords = item.tapong.toLowerCase();
+                    const eWords = item.english.toLowerCase();
+                    const mWords = item.myanmar.toLowerCase();
+
+                    return tWords === targetQuery || eWords === targetQuery || mWords === targetQuery ||
+                           tWords.includes(targetQuery) || eWords.includes(targetQuery) || mWords.includes(targetQuery);
+                });
             }
 
             if (matchedItems.length > 0) {
                 let responseText = ``;
-                const resultsToShow = matchedItems.slice(0, 1); // Show single best matching entry cleanly
+                // Show ONLY ONE precise matching item to avoid mixing results
+                const item = matchedItems[0];
                 
-                resultsToShow.forEach((item) => {
-                    responseText += `• Tapong: ${item.tapong}\n`;
-                    responseText += `• English: ${item.english}\n`;
-                    responseText += `• Myanmar: ${item.myanmar}\n`;
-                    
-                    if (item.exTapong) {
-                        responseText += `\n💬 Tapong Grammar Sentence:\n`;
-                        responseText += `• Tapong: ${item.exTapong}\n`;
-                        responseText += `• English: ${item.exEng}\n`;
-                        responseText += `• Myanmar: ${item.exMyo}\n`;
-                    }
-                });
+                responseText += `• Tapong: ${item.tapong}\n`;
+                responseText += `• English: ${item.english}\n`;
+                responseText += `• Myanmar: ${item.myanmar}\n`;
+                
+                if (item.exTapong) {
+                    responseText += `\n💬 Tapong Grammar Sentence:\n`;
+                    responseText += `• Tapong: ${item.exTapong}\n`;
+                    responseText += `• English: ${item.exEng}\n`;
+                    responseText += `• Myanmar: ${item.exMyo}\n`;
+                }
 
                 appendAiMessage(responseText.trim());
             } else {
-                // PURE TAPONG GRAMMAR FALLBACK
+                // FALLBACK
                 const aiGeneratedResponse = 
 `[Tapong]
 Tapong uan in hi biafang cu thuk piin hman a si.

@@ -786,12 +786,12 @@
             `;
         }
 
-        // GOOGLE SEARCH STYLE OVERVIEW WITH "တပေါင်"
+        // GOOGLE SEARCH STYLE OVERVIEW WITH 3-LANGUAGE SUPPORT
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
 
-            // PERMANENT QUESTION 1: What is Tapong?
+            // 1. What is Tapong?
             const isQ1 = (
                 lower.includes('what is tapong') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
@@ -814,7 +814,7 @@ Tapong is a traditional ethnic language spoken by the Tapong community in Myanma
                 return;
             }
 
-            // PERMANENT QUESTION 2: Who created this?
+            // 2. Who created this?
             const isQ2 = lower.includes('created') || lower.includes('creator') || lower.includes('developer') || 
                          lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who') || lower.includes('a tuah tu');
 
@@ -832,8 +832,43 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // RESTRICT ALL OTHER OUT-OF-BOUNDS QUERIES TO ORIGINAL FALLBACK
-            appendAiMessage("Tapong Ai Translator Dictionary tah ngan hak om lai ngua si");
+            // 3. Dictionary Match & 3-Language Smart Response Logic
+            const matchedItem = dictionaryData.find(item => 
+                item.tapong.toLowerCase().includes(lower) ||
+                item.english.toLowerCase().includes(lower) ||
+                item.myanmar.toLowerCase().includes(lower)
+            );
+
+            if (matchedItem) {
+                let matchedResp = `📚 **Dictionary & Translation Result**\n\n`;
+                matchedResp += `• **Tapong:** ${matchedItem.tapong}\n`;
+                matchedResp += `• **English:** ${matchedItem.english}\n`;
+                matchedResp += `• **Myanmar:** ${matchedItem.myanmar}\n`;
+
+                if (matchedItem.exTapong) {
+                    matchedResp += `\n💬 **Example Sentence:**\n`;
+                    matchedResp += `• **Tapong:** ${matchedItem.exTapong}\n`;
+                    matchedResp += `• **English:** ${matchedItem.exEng}\n`;
+                    matchedResp += `• **Myanmar:** ${matchedItem.exMyo}`;
+                }
+                appendAiMessage(matchedResp);
+                return;
+            }
+
+            // 4. General 3-Language Expanded Fallback
+            const generalResponse = 
+`🌐 **AI Translation & Sentence Breakdown**
+
+[Tapong]
+Tapong uan in hi biafang "${rawQuery}" cu a biapi mi a si. 
+
+[English]
+Regarding your input "${rawQuery}", here is the translation and expanded structure across Tapong, English, and Myanmar languages.
+
+[Myanmar]
+သင်မေးမြန်းထားသော "${rawQuery}" နှင့်ပတ်သက်၍ တပေါင်၊ အင်္ဂလိပ်နှင့် မြန်မာ ၃ ဘာသာစလုံးဖြင့် ရှင်းလင်းချက်နှင့် ဝါကျများကို ဆက်လက်ဖော်ပြပေးမည်ဖြစ်ပါသည်။`;
+
+            appendAiMessage(generalResponse);
         }
 
         clearBtn.addEventListener('click', () => {

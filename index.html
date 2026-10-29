@@ -694,7 +694,7 @@
             });
         }
 
-        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်[span_1](start_span)[span_1](end_span)
+        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်[span_0](start_span)[span_0](end_span)
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -713,7 +713,7 @@
                 resp += `• **Myanmar:** ${item.exMyo}`;
             } else {
                 resp += `\n💬 **Example:**\n`;
-                resp += `• **Tapong:** ${item.tapong} hi a pha ngai.\n`;
+                resp += `• **Tapong:** ${item.tapong} a pha ngai.\n`;
                 resp += `• **English:** ${item.english} is very good.\n`;
                 resp += `• **Myanmar:** ${item.myanmar} သည် အရမ်းကောင်းပါသည်။`;
             }
@@ -846,6 +846,8 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 item.myanmar.toLowerCase() === lower
             );
 
+            // အကယ်၍ ဇယားထဲမှာ ရှိတဲ့ စကားလုံးဆိုရင် တပေါင်စကားကို ယူမည်၊ မရှိရင် ရိုက်ထည့်လိုက်တဲ့ စာသားကို ယူမည်
+            let tapongWord = matchedItem ? matchedItem.tapong : rawQuery;
             let englishWord = matchedItem ? matchedItem.english : rawQuery;
             let myanmarWord = matchedItem ? matchedItem.myanmar : rawQuery;
 
@@ -879,8 +881,8 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 dynamicEng = `Drink water, it is very hot.`;
                 dynamicMyo = `ရေ သောက်ပါ၊ အရမ်း ပူတယ်။`;
             } else {
-                // အခြားမည်သည့်စာလုံးမဆို တပေါင်စကားစစ်စစ် ပုံစံဖြင့်သာ ထွက်စေရန်
-                dynamicTapong = `Hei tah ${englishWord} a om, a pha ngai.`;
+                // အင်္ဂလိပ်စာလုံးအစား တပေါင်ဘာသာစကား (tapongWord) ကို သဒ္ဒါစစ်စစ်ဖြင့် အစားထိုးထုတ်ပေးမည်
+                dynamicTapong = `Hei tah ${tapongWord} a om, a pha ngai.`;
                 dynamicEng = `Here is "${englishWord}", it is very good.`;
                 dynamicMyo = `ဒီမှာ "${myanmarWord}" ရှိတယ်၊ အရမ်း ကောင်းတယ်။`;
             }

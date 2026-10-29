@@ -694,7 +694,7 @@
             });
         }
 
-        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်
+        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်[span_1](start_span)[span_1](end_span)
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -713,9 +713,9 @@
                 resp += `• **Myanmar:** ${item.exMyo}`;
             } else {
                 resp += `\n💬 **Example:**\n`;
-                resp += `• **Tapong:** ${item.tapong} hi a biapi ngai a si.\n`;
-                resp += `• **English:** ${item.english} is very important.\n`;
-                resp += `• **Myanmar:** ${item.myanmar} သည် အရမ်းအရေးကြီးပါသည်။`;
+                resp += `• **Tapong:** ${item.tapong} hi a pha ngai.\n`;
+                resp += `• **English:** ${item.english} is very good.\n`;
+                resp += `• **Myanmar:** ${item.myanmar} သည် အရမ်းကောင်းပါသည်။`;
             }
             
             appendUserMessage(`${item.tapong}`);
@@ -793,7 +793,7 @@
             `;
         }
 
-        // CHAT BOX / AI Q&A ASSISTANT: စကားလုံးရိုက်မေးသည့်အခါ ပုံသေဥပမာ မဟုတ်ဘဲ AI မှ မတူညီသော ဝါကျအသစ်များကို သဘာဝကျကျ ဖွဲ့ပေးမည်
+        // CHAT BOX / AI Q&A ASSISTANT: တပေါင်ဘာသာစကားစစ်စစ် (Pure Tapong Native Structure Only) ဖြင့်သာ ဖွဲ့ပေးမည်
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -846,43 +846,43 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 item.myanmar.toLowerCase() === lower
             );
 
-            let tapongWord = matchedItem ? matchedItem.tapong : rawQuery;
             let englishWord = matchedItem ? matchedItem.english : rawQuery;
             let myanmarWord = matchedItem ? matchedItem.myanmar : rawQuery;
 
-            // DYNAMIC AI SENTENCE GENERATOR (Chat Box အတွက် သီးသန့် မတူညီသော ဝါကျသစ်များ ဖွဲ့စည်းပေးခြင်း)
+            // တပေါင်စကားစစ်စစ် (Pure Tapong Native Words & Grammar Structure) သီးသန့်
             let dynamicTapong = "";
             let dynamicEng = "";
             let dynamicMyo = "";
 
             if (lower.includes('si zung') || lower.includes('hospital') || lower.includes('ဆေးရုံ')) {
-                dynamicTapong = `A mah tlei ngua a caah si zung ah a om.`;
-                dynamicEng = `He is in the hospital because he is sick.`;
-                dynamicMyo = `သူ နေမကောင်းလို့ ဆေးရုံမှာ ရှိနေတယ်။`;
+                dynamicTapong = `Si zung ah ka hawh, sii ka in.`;
+                dynamicEng = `I go to the hospital and take medicine.`;
+                dynamicMyo = `ဆေးရုံ သွားတယ်၊ ဆေး သောက်တယ်။`;
             } else if (lower.includes('hawh') || lower.includes('go') || lower.includes('သွား')) {
-                dynamicTapong = `Tukin ni ah khuapui ah kan hawh lai.`;
-                dynamicEng = `We will go to the city today.`;
-                dynamicMyo = `ဒီနေ့ ငါတို့ မြို့ကို သွားကြမယ်။`;
+                dynamicTapong = `Khua ah na hawh, inn ah ka tlung.`;
+                dynamicEng = `You are going to the village, I am going home.`;
+                dynamicMyo = `ရွာကို သွားတယ်၊ အိမ် ပြန်တယ်။`;
             } else if (lower.includes('to') || lower.includes('sit') || lower.includes('ထိုင်')) {
-                dynamicTapong = `Cabuai piah ah to in, hlai ei tlang un.`;
-                dynamicEng = `Sit near the table and let's eat together.`;
-                dynamicMyo = `စားပွဲနားမှာ ထိုင်ပြီး ထမင်း တူတူစားကြရအောင်။`;
+                dynamicTapong = `Toh kham ah to in, ca siar in.`;
+                dynamicEng = `Sit on the chair and read a book.`;
+                dynamicMyo = `ထိုင်ခုံမှာ ထိုင်ပြီး စာ ဖတ်တယ်။`;
             } else if (lower.includes('ei') || lower.includes('eat') || lower.includes('စား')) {
-                dynamicTapong = `Zan ah hlai ka ei celh ha.`;
-                dynamicEng = `I have already eaten dinner tonight.`;
-                dynamicMyo = `ငါ ညဘက် ထမင်း စားပြီးပြီ။`;
+                dynamicTapong = `Hlai ei in, ar sa ka ei.`;
+                dynamicEng = `Eat food, I eat chicken meat.`;
+                dynamicMyo = `ထမင်း စားပါ၊ ကြက်သား စားတယ်။`;
             } else if (lower.includes('ra') || lower.includes('come') || lower.includes('လာ')) {
-                dynamicTapong = `Khuapui pen ka rual pui a ra.`;
-                dynamicEng = `My friend came from the city.`;
-                dynamicMyo = `ငါ့သူငယ်ချင်း မြို့ကနေ လာတယ်။`;
+                dynamicTapong = `Inn ah ra in, hi lai ah om in.`;
+                dynamicEng = `Come home and stay here.`;
+                dynamicMyo = `အိမ်ကို လာပါ၊ ဒီမှာ နေပါ။`;
             } else if (lower.includes('in') || lower.includes('drink') || lower.includes('သောက်')) {
-                dynamicTapong = `Ti cop in in, a pha ngai si.`;
-                dynamicEng = `Drink cold water, it feels very good.`;
-                dynamicMyo = `ရေအေး သောက်ပါ၊ အရမ်း ကောင်းပါတယ်။`;
+                dynamicTapong = `Ti in in, a sa ngai.`;
+                dynamicEng = `Drink water, it is very hot.`;
+                dynamicMyo = `ရေ သောက်ပါ၊ အရမ်း ပူတယ်။`;
             } else {
-                dynamicTapong = `Tukin ah ${tapongWord} kong hi kan ruat un lai.`;
-                dynamicEng = `Today we will discuss about "${englishWord}".`;
-                dynamicMyo = `ဒီနေ့ ငါတို့ "${myanmarWord}" အကြောင်း ဆွေးနွေးကြမယ်။`;
+                // အခြားမည်သည့်စာလုံးမဆို တပေါင်စကားစစ်စစ် ပုံစံဖြင့်သာ ထွက်စေရန်
+                dynamicTapong = `Hei tah ${englishWord} a om, a pha ngai.`;
+                dynamicEng = `Here is "${englishWord}", it is very good.`;
+                dynamicMyo = `ဒီမှာ "${myanmarWord}" ရှိတယ်၊ အရမ်း ကောင်းတယ်။`;
             }
 
             const aiChatResponse = 

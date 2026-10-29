@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tapong AI Translator Dictionary</title>
+    <title>Tapong Ai Translator Dictionary</title>
     <meta name="description" content="Tapong AI Translator created by Isaiah Cung. Free online translation and AI Q&A assistant for Tapong, English, and Myanmar languages.">
     <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English, Tapong ethnic">
     <meta name="author" content="Isaiah Cung">
@@ -16,14 +16,14 @@
     <link rel="apple-touch-icon" href="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
     
     <!-- Social Media & Google Preview Meta Tags -->
-    <meta property="og:title" content="Tapong AI Translator Dictionary">
+    <meta property="og:title" content="Tapong Ai Translator Dictionary">
     <meta property="og:description" content="Tapong AI Translator created by Isaiah Cung. Free online translation and AI Q&A assistant for Tapong, English, and Myanmar languages.">
     <meta property="og:image" href="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
     <meta property="og:url" content="https://tapong-ai-translator.vercel.app/">
     <meta property="og:type" content="website">
     
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tapong AI Translator Dictionary">
+    <meta name="twitter:title" content="Tapong Ai Translator Dictionary">
     <meta name="twitter:description" content="Tapong AI Translator created by Isaiah Cung.">
     <meta name="twitter:image" content="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
     
@@ -84,12 +84,12 @@
         <div class="custom-glass rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <div class="w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-lg shadow-blue-500/25 border border-slate-700/50 shrink-0">
-                    <img src="IMG_6152.jpeg" alt="Tapong AI Translator Logo" class="w-full h-full object-cover">
+                    <img src="IMG_6152.jpeg" alt="Tapong Ai Translator Logo" class="w-full h-full object-cover">
                 </div>
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.1 (Google Search Style)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.3 (Google Search Style)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -365,7 +365,7 @@
             { id: 91, tapong: "Mipa", english: "Boy", myanmar: "ယောကျ်ားလေး", exTapong: "Mipa pa khat a ra.", exEng: "A boy comes.", exMyo: "ယောကျ်ားလေး တစ်ယောက် လာတယ်။" },
             { id: 92, tapong: "Mit", english: "Eye", myanmar: "မျက်စိ", exTapong: "Mit in pan in.", exEng: "Look with eyes.", exMyo: "မျက်စိနဲ့ ကြည့်ပါ။" },
             { id: 93, tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်", exTapong: "Mit ha lang ka bun.", exEng: "I wear glasses.", exMyo: "မျက်မှန် တပ်တယ်။" },
-            { id: 94, tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်", exTapong: "Maw taw muang in.", exEng: "Drive the car.", exMyo: "ကား မောင်းပါ။" },
+            { id: 94, tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်", exTapong: "Maw taw muang in.", exEng: "Drive the car.", exMyo: "ကား မောင်းတယ်။" },
             { id: 95, tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ", exTapong: "Muang tu a ra.", exEng: "The driver comes.", exMyo: "ကားမောင်းသူ လာတယ်။" },
             { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်", exTapong: "Na ann ing.", exEng: "Thank you very much.", exMyo: "ကျေးဇူးတင်ပါတယ်။" },
             { id: 97, tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ", exTapong: "Nau u ka nei.", exEng: "I have siblings.", exMyo: "မောင်နှမ ရှိတယ်။" },
@@ -836,15 +836,18 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            const matchedItem = dictionaryData.find(item => 
-                item.tapong.toLowerCase() === lower ||
-                item.english.toLowerCase() === lower ||
-                item.myanmar.toLowerCase() === lower
-            );
+            const matchedItem = dictionaryData.find(item => {
+                const tapongLower = item.tapong.toLowerCase();
+                const engLower = item.english.toLowerCase();
+                const myoLower = item.myanmar.toLowerCase();
+                
+                return tapongLower === lower || engLower === lower || myoLower === lower ||
+                       tapongLower.includes(lower) || engLower.includes(lower) || myoLower.includes(lower);
+            });
 
             if (matchedItem) {
                 const exactMatchResponse = 
-`✨ **Tapong AI Exact Match**
+`✨ **Tapong AI Match Found**
 
 • **Tapong:** ${matchedItem.tapong}
 • **English:** ${matchedItem.english}
@@ -855,12 +858,11 @@ ${matchedItem.exTapong ? `\n💬 **Example:**\n• **Tapong:** ${matchedItem.exT
                 return;
             }
 
-            // Fallback for general unlisted queries (safe & structured)
             const fallbackResponse = 
 `✨ **Tapong AI Assistant**
 
 • **Query:** ${rawQuery}
-• **Status:** No exact match found in the dictionary dataset. Please search for specific Tapong words like "Ai", "Hawh", "In", or "Khua".`;
+• **Status:** No matching entry found in the dictionary dataset. Please search for specific words like "Ai", "Hawh", "In", "Khua", or "Tuang dun".`;
 
             appendAiMessage(fallbackResponse);
         }

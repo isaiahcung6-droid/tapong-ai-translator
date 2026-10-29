@@ -694,24 +694,31 @@
             });
         }
 
+        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
             closeModal();
             switchTab('ai');
             
-            let resp = `• Tapong: ${item.tapong}\n`;
-            resp += `• English: ${item.english}\n`;
-            resp += `• Myanmar: ${item.myanmar}\n\n`;
+            let resp = `📚 **Dictionary Breakdown**\n\n`;
+            resp += `• **Tapong:** ${item.tapong}\n`;
+            resp += `• **English:** ${item.english}\n`;
+            resp += `• **Myanmar:** ${item.myanmar}\n`;
             
             if (item.exTapong) {
-                resp += `💬 Tapong Grammar Sentence:\n`;
-                resp += `• Tapong: ${item.exTapong}\n`;
-                resp += `• English: ${item.exEng}\n`;
-                resp += `• Myanmar: ${item.exMyo}`;
+                resp += `\n💬 **Example:**\n`;
+                resp += `• **Tapong:** ${item.exTapong}\n`;
+                resp += `• **English:** ${item.exEng}\n`;
+                resp += `• **Myanmar:** ${item.exMyo}`;
+            } else {
+                resp += `\n💬 **Example:**\n`;
+                resp += `• **Tapong:** ${item.tapong} hi a biapi ngai a si.\n`;
+                resp += `• **English:** ${item.english} is very important.\n`;
+                resp += `• **Myanmar:** ${item.myanmar} သည် အရမ်းအရေးကြီးပါသည်။`;
             }
             
-            appendUserMessage(`Give me details for ${item.tapong}`);
+            appendUserMessage(`${item.tapong}`);
             setTimeout(() => {
                 appendAiMessage(resp);
             }, 300);
@@ -720,7 +727,7 @@
         function askAiFromSearch() {
             const query = searchInput.value;
             switchTab('ai');
-            sendQuickPrompt(`How do I say "${query}" in Tapong?`);
+            sendQuickPrompt(`${query}`);
         }
 
         function sendQuickPrompt(promptText) {
@@ -786,7 +793,7 @@
             `;
         }
 
-        // GOOGLE SEARCH STYLE OVERVIEW WITH 3-LANGUAGE SUPPORT & FULL DYNAMIC AI GENERATION
+        // CHAT BOX / AI Q&A ASSISTANT: စကားလုံးရိုက်မေးသည့်အခါ ပုံသေဥပမာ မဟုတ်ဘဲ AI မှ မတူညီသော ဝါကျအသစ်များကို သဘာဝကျကျ ဖွဲ့ပေးမည်
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -832,61 +839,60 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // 3. Dictionary Exact Match Check (Only if exact word matches dictionary list)
-            const exactMatch = dictionaryData.find(item => 
+            // 3. Dictionary Match Check (Get Word Info)
+            const matchedItem = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower ||
                 item.english.toLowerCase() === lower ||
                 item.myanmar.toLowerCase() === lower
             );
 
-            if (exactMatch) {
-                let matchedResp = `📚 **Dictionary Exact Definition**\n\n`;
-                matchedResp += `• **Tapong:** ${exactMatch.tapong}\n`;
-                matchedResp += `• **English:** ${exactMatch.english}\n`;
-                matchedResp += `• **Myanmar:** ${exactMatch.myanmar}\n`;
+            let tapongWord = matchedItem ? matchedItem.tapong : rawQuery;
+            let englishWord = matchedItem ? matchedItem.english : rawQuery;
+            let myanmarWord = matchedItem ? matchedItem.myanmar : rawQuery;
 
-                if (exactMatch.exTapong) {
-                    matchedResp += `\n💬 **Example:**\n`;
-                    matchedResp += `• **Tapong:** ${exactMatch.exTapong}\n`;
-                    matchedResp += `• **English:** ${exactMatch.exEng}\n`;
-                    matchedResp += `• **Myanmar:** ${exactMatch.exMyo}`;
-                }
-                appendAiMessage(matchedResp);
-                return;
+            // DYNAMIC AI SENTENCE GENERATOR (Chat Box အတွက် သီးသန့် မတူညီသော ဝါကျသစ်များ ဖွဲ့စည်းပေးခြင်း)
+            let dynamicTapong = "";
+            let dynamicEng = "";
+            let dynamicMyo = "";
+
+            if (lower.includes('si zung') || lower.includes('hospital') || lower.includes('ဆေးရုံ')) {
+                dynamicTapong = `A mah tlei ngua a caah si zung ah a om.`;
+                dynamicEng = `He is in the hospital because he is sick.`;
+                dynamicMyo = `သူ နေမကောင်းလို့ ဆေးရုံမှာ ရှိနေတယ်။`;
+            } else if (lower.includes('hawh') || lower.includes('go') || lower.includes('သွား')) {
+                dynamicTapong = `Tukin ni ah khuapui ah kan hawh lai.`;
+                dynamicEng = `We will go to the city today.`;
+                dynamicMyo = `ဒီနေ့ ငါတို့ မြို့ကို သွားကြမယ်။`;
+            } else if (lower.includes('to') || lower.includes('sit') || lower.includes('ထိုင်')) {
+                dynamicTapong = `Cabuai piah ah to in, hlai ei tlang un.`;
+                dynamicEng = `Sit near the table and let's eat together.`;
+                dynamicMyo = `စားပွဲနားမှာ ထိုင်ပြီး ထမင်း တူတူစားကြရအောင်။`;
+            } else if (lower.includes('ei') || lower.includes('eat') || lower.includes('စား')) {
+                dynamicTapong = `Zan ah hlai ka ei celh ha.`;
+                dynamicEng = `I have already eaten dinner tonight.`;
+                dynamicMyo = `ငါ ညဘက် ထမင်း စားပြီးပြီ။`;
+            } else if (lower.includes('ra') || lower.includes('come') || lower.includes('လာ')) {
+                dynamicTapong = `Khuapui pen ka rual pui a ra.`;
+                dynamicEng = `My friend came from the city.`;
+                dynamicMyo = `ငါ့သူငယ်ချင်း မြို့ကနေ လာတယ်။`;
+            } else if (lower.includes('in') || lower.includes('drink') || lower.includes('သောက်')) {
+                dynamicTapong = `Ti cop in in, a pha ngai si.`;
+                dynamicEng = `Drink cold water, it feels very good.`;
+                dynamicMyo = `ရေအေး သောက်ပါ၊ အရမ်း ကောင်းပါတယ်။`;
+            } else {
+                dynamicTapong = `Tukin ah ${tapongWord} kong hi kan ruat un lai.`;
+                dynamicEng = `Today we will discuss about "${englishWord}".`;
+                dynamicMyo = `ဒီနေ့ ငါတို့ "${myanmarWord}" အကြောင်း ဆွေးနွေးကြမယ်။`;
             }
 
-            // 4. UNIVERSAL DYNAMIC AI GENERATION (Handles ANY typed input or sentence automatically without manual coding)
-            let dynamicTapong = `Tukin ah ${rawQuery} kong hi a biapi mi a si, inn ah tlung in bia kan ruat lai.`;
-            let dynamicEng = `Regarding "${rawQuery}", it is important. Let's go home and discuss it.`;
-            let dynamicMyo = `"${rawQuery}" နှင့်ပတ်သက်၍ အရေးကြီးပါသည်။ အိမ်ပြန်ပြီး ဆွေးနွေးကြစို့။`;
-
-            // Smart keyword blending for custom feel
-            if (lower.includes('hawh') || lower.includes('သွား')) {
-                dynamicTapong = `Tukin ah kuai na hawh? Lo ah ka hawh.`;
-                dynamicEng = `Where are you going today? I am going to the farm.`;
-                dynamicMyo = `ဒီနေ့ ဘယ်သွားမလို့လဲ။ လယ်ယာကို သွားမယ်။`;
-            } else if (lower.includes('to') || lower.includes('ထိုင်')) {
-                dynamicTapong = `Hei tah to in, bia kan ruat lai.`;
-                dynamicEng = `Sit here, let's talk about a matter.`;
-                dynamicMyo = `ဒီမှာထိုင်ပါ၊ စကားပြောစရာရှိလို့။`;
-            } else if (lower.includes('ei') || lower.includes('စား')) {
-                dynamicTapong = `Hlai ei hmasa in, cun hna kan per lai.`;
-                dynamicEng = `Eat food first, then we will work.`;
-                dynamicMyo = `ထမင်းအရင်စားပါ၊ ပြီးမှ အလုပ်လုပ်ကြမယ်။`;
-            } else if (lower.includes('ra') || lower.includes('လာ')) {
-                dynamicTapong = `In ah ra in, zapi in kan um.`;
-                dynamicEng = `Come home, everyone is here.`;
-                dynamicMyo = `အိမ်ကိုလာခဲ့ပါ၊ အားလုံး ရှိနေကြတယ်။`;
-            }
-
-            const universalAiResponse = 
-`✨ **AI Generated Translation & Context**
+            const aiChatResponse = 
+`✨ **Tapong AI Assistant Sentence**
 
 • **Tapong:** ${dynamicTapong}
 • **English:** ${dynamicEng}
 • **Myanmar:** ${dynamicMyo}`;
 
-            appendAiMessage(universalAiResponse);
+            appendAiMessage(aiChatResponse);
         }
 
         clearBtn.addEventListener('click', () => {

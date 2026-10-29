@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.6 (Google Search Style)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v7.7 (Google Search Style)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -99,7 +99,7 @@
                 <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
                     <span>Dictionary</span>
-                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">285</span>
+                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">290</span>
                 </button>
                 <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-robot text-indigo-400"></i>
@@ -272,7 +272,7 @@
     <!-- JavaScript Engine -->
     <script>
         const dictionaryData = [
-            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", exTapong: "Tapong uan in ai in.", exEng: "Speak in the Tapong language.", exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ" },
+            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်", exTapong: "Tapong uan ai in.", exEng: "Speak in the Tapong language.", exMyo: "တပေါင်ဘာသာစကားနဲ့ပြောပါ" },
             { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ", exTapong: "Ang ki thair ka nei.", exEng: "I have a new shirt.", exMyo: "ငါ့မှာ အင်္ကျီသစ် ရှိတယ်။" },
             { id: 3, tapong: "Ar", english: "Chicken", myanmar: "ကြက်", exTapong: "Ar sa ka ei.", exEng: "I eat chicken meat.", exMyo: "ငါ ကြက်သား စားတယ်။" },
             { id: 4, tapong: "Ar sa", english: "Chicken curry", myanmar: "ကြက်သား", exTapong: "Ar sa hmeh suang in.", exEng: "Cook chicken curry.", exMyo: "ကြက်သားဟင်း ချက်ပါ။" },
@@ -531,7 +531,7 @@
             { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။", exTapong: "Fapa fanu pazei ka nei.", exEng: "I have one son and three daughters.", exMyo: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက် ရှိပါတယ်။" },
             { id: 258, tapong: "Kuai na haw?, kuai tah na hawh?", english: "Where are you going?", myanmar: "မင်းဘယ်သွားတာလည္း, သွားနေလည္း?", exTapong: "Kuai tah na hawh?", exEng: "Where are you going?", exMyo: "မင်း ဘယ်သွားနေလဲ။" },
             { id: 259, tapong: "Kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း", exTapong: "Kuai tah na om?", exEng: "Where are you?", exMyo: "မင်း ဘယ်နားမှာလဲ။" },
-            { id: 260, tapong: "Tair, thair", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
+            { id: 260, tapong: "Tiar, thiar", english: "New", myanmar: "အသစ်, သစ်လွင်သော", exTapong: "Ang ki thair ka lei.", exEng: "I bought a new shirt.", exMyo: "အင်္ကျီသစ် ဝယ်တယ်။" },
             { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲ့, မလုပ်ကြပါနဲ့", exTapong: "Ti mah in.", exEng: "Don't do that.", exMyo: "မလုပ်ပါနဲ့။" },
             { id: 262, tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်", exTapong: "Dongkham kham in.", exEng: "Close the door.", exMyo: "တံခါး ပိတ်ပါ။" },
             { id: 263, tapong: "Un", english: "Means is plural noun", myanmar: "အများကိန်းပြ စကားလုံး", exTapong: "Ra un", exEng: "Come (plural)", exMyo: "လာကြပါ။" },
@@ -556,7 +556,12 @@
             { id: 282, tapong: "Si tawh, si ngua si, ai", english: "No, don't, nope", myanmar: "မဟုတ်ပါ, မဟုတ်ဘူး", exTapong: "Si ngua si.", exEng: "No, it's not.", exMyo: "မဟုတ်ပါဘူး။" },
             { id: 283, tapong: "Thu ruat", english: "Thinking", myanmar: "စဉ်းစားသည်", exTapong: "Thu ka ruat.", exEng: "I am thinking.", exMyo: "ငါ စဉ်းစားနေတယ်။" },
             { id: 284, tapong: "Ram sa", english: "Animal", myanmar: "တိရစ္ဆာန်", exTapong: "Ram sa an om.", exEng: "There are animals.", exMyo: "တိရစ္ဆာန်တွေ ရှိတယ်။" },
-            { id: 285, tapong: "Moi, moi ngai", english: "Beautiful, pretty", myanmar: "လှပသော၊ ချောမွေ့သော", exTapong: "A moi ngai.", exEng: "Very beautiful.", exMyo: "အရမ်း လှတယ်။" }
+            { id: 285, tapong: "Moi, moi ngai", english: "Beautiful, pretty", myanmar: "လှပသော၊ ချောမွေ့သော", exTapong: "A moi ngai.", exEng: "Very beautiful.", exMyo: "အရမ်း လှတယ်။" },
+            { id: 286, tapong: "Zir", english: "Learn", myanmar: "သင်ယူသည်, လေ့လာသည်", exTapong: "Tapong uan ai ka zir.", exEng: "I am learning the Tapong language.", exMyo: "တပေါင်ဘာသာစကားကို လေ့လာသင်ယူနေပါတယ်။" },
+            { id: 287, tapong: "Zirh", english: "Teach", myanmar: "သင်ကြားပေးသည်", exTapong: "Tapong uan ka zirh.", exEng: "I teach the Tapong language.", exMyo: "တပေါင်ဘာသာစကားကို သင်ကြားပေးပါတယ်။" },
+            { id: 288, tapong: "Thei thiam cim", english: "Do you understand", myanmar: "နားလည်ရဲ့လား, သဘောပေါက်ရဲ့လား", exTapong: "Thei thiam cim?", exEng: "Do you understand?", exMyo: "နားလည်ရဲ့လား။" },
+            { id: 289, tapong: "Thei cim", english: "Do you know", myanmar: "သိရဲ့လား", exTapong: "Thei cim?", exEng: "Do you know?", exMyo: "သိရဲ့လား။" },
+            { id: 290, tapong: "Ni sa ngai", english: "It's hot and sunny", myanmar: "နေပူတယ်", exTapong: "Hni a sa ngai.", exEng: "It is very hot and sunny today.", exMyo: "ဒီနေ့ နေအရမ်းပူတယ်။" }
         ];
 
         let selectedWord = null;
@@ -694,7 +699,6 @@
             });
         }
 
-        // ASK AI BREAKDOWN: Modal ခလုတ်နှိပ်သည့်အခါ Example Sentence ကို သာ တိုက်ရိုက်ပြပေးမည်[span_0](start_span)[span_0](end_span)
         function askAiAboutCurrentWord() {
             if (!selectedWord) return;
             const item = selectedWord;
@@ -713,9 +717,9 @@
                 resp += `• **Myanmar:** ${item.exMyo}`;
             } else {
                 resp += `\n💬 **Example:**\n`;
-                resp += `• **Tapong:** ${item.tapong} a pha ngai.\n`;
-                resp += `• **English:** ${item.english} is very good.\n`;
-                resp += `• **Myanmar:** ${item.myanmar} သည် အရမ်းကောင်းပါသည်။`;
+                resp += `• **Tapong:** Tapong uan ai ka zir.\n`;
+                resp += `• **English:** I am learning the Tapong language.\n`;
+                resp += `• **Myanmar:** တပေါင်ဘာသာစကားကို ကျွန်တော်/ငါ လေ့လာသင်ယူနေပါတယ်။`;
             }
             
             appendUserMessage(`${item.tapong}`);
@@ -793,12 +797,10 @@
             `;
         }
 
-        // CHAT BOX / AI Q&A ASSISTANT: တပေါင်ဘာသာစကားစစ်စစ် (Pure Tapong Native Structure Only) ဖြင့်သာ ဖွဲ့ပေးမည်
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
 
-            // 1. What is Tapong?
             const isQ1 = (
                 lower.includes('what is tapong') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
@@ -821,7 +823,6 @@ Tapong is a traditional ethnic language spoken by the Tapong community in Myanma
                 return;
             }
 
-            // 2. Who created this?
             const isQ2 = lower.includes('created') || lower.includes('creator') || lower.includes('developer') || 
                          lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who') || lower.includes('a tuah tu');
 
@@ -839,52 +840,24 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // 3. Dictionary Match Check (Get Word Info)
             const matchedItem = dictionaryData.find(item => 
                 item.tapong.toLowerCase() === lower ||
                 item.english.toLowerCase() === lower ||
                 item.myanmar.toLowerCase() === lower
             );
 
-            // အကယ်၍ ဇယားထဲမှာ ရှိတဲ့ စကားလုံးဆိုရင် တပေါင်စကားကို ယူမည်၊ မရှိရင် ရိုက်ထည့်လိုက်တဲ့ စာသားကို ယူမည်
-            let tapongWord = matchedItem ? matchedItem.tapong : rawQuery;
-            let englishWord = matchedItem ? matchedItem.english : rawQuery;
-            let myanmarWord = matchedItem ? matchedItem.myanmar : rawQuery;
-
-            // တပေါင်စကားစစ်စစ် (Pure Tapong Native Words & Grammar Structure) သီးသန့်
             let dynamicTapong = "";
             let dynamicEng = "";
             let dynamicMyo = "";
 
-            if (lower.includes('si zung') || lower.includes('hospital') || lower.includes('ဆေးရုံ')) {
-                dynamicTapong = `Si zung ah ka hawh, sii ka in.`;
-                dynamicEng = `I go to the hospital and take medicine.`;
-                dynamicMyo = `ဆေးရုံ သွားတယ်၊ ဆေး သောက်တယ်။`;
-            } else if (lower.includes('hawh') || lower.includes('go') || lower.includes('သွား')) {
-                dynamicTapong = `Khua ah na hawh, inn ah ka tlung.`;
-                dynamicEng = `You are going to the village, I am going home.`;
-                dynamicMyo = `ရွာကို သွားတယ်၊ အိမ် ပြန်တယ်။`;
-            } else if (lower.includes('to') || lower.includes('sit') || lower.includes('ထိုင်')) {
-                dynamicTapong = `Toh kham ah to in, ca siar in.`;
-                dynamicEng = `Sit on the chair and read a book.`;
-                dynamicMyo = `ထိုင်ခုံမှာ ထိုင်ပြီး စာ ဖတ်တယ်။`;
-            } else if (lower.includes('ei') || lower.includes('eat') || lower.includes('စား')) {
-                dynamicTapong = `Hlai ei in, ar sa ka ei.`;
-                dynamicEng = `Eat food, I eat chicken meat.`;
-                dynamicMyo = `ထမင်း စားပါ၊ ကြက်သား စားတယ်။`;
-            } else if (lower.includes('ra') || lower.includes('come') || lower.includes('လာ')) {
-                dynamicTapong = `Inn ah ra in, hi lai ah om in.`;
-                dynamicEng = `Come home and stay here.`;
-                dynamicMyo = `အိမ်ကို လာပါ၊ ဒီမှာ နေပါ။`;
-            } else if (lower.includes('in') || lower.includes('drink') || lower.includes('သောက်')) {
-                dynamicTapong = `Ti in in, a sa ngai.`;
-                dynamicEng = `Drink water, it is very hot.`;
-                dynamicMyo = `ရေ သောက်ပါ၊ အရမ်း ပူတယ်။`;
+            if (matchedItem) {
+                dynamicTapong = matchedItem.exTapong || `Tapong uan ai ka zir, ${matchedItem.tapong} hi a pha ngai.`;
+                dynamicEng = matchedItem.exEng || `I am learning Tapong language, ${matchedItem.english} is very good.`;
+                dynamicMyo = matchedItem.exMyo || `တပေါင်ဘာသာစကားကို လေ့လာနေတယ်၊ ${matchedItem.myanmar} သည် အရမ်းကောင်းပါသည်။`;
             } else {
-                // အင်္ဂလိပ်စာလုံးအစား တပေါင်ဘာသာစကား (tapongWord) ကို သဒ္ဒါစစ်စစ်ဖြင့် အစားထိုးထုတ်ပေးမည်
-                dynamicTapong = `Hei tah ${tapongWord} a om, a pha ngai.`;
-                dynamicEng = `Here is "${englishWord}", it is very good.`;
-                dynamicMyo = `ဒီမှာ "${myanmarWord}" ရှိတယ်၊ အရမ်း ကောင်းတယ်။`;
+                dynamicTapong = `Tapong uan ai ka zir, "${rawQuery}" hi a pha ngai.`;
+                dynamicEng = `I am learning the Tapong language, "${rawQuery}" is very good.`;
+                dynamicMyo = `တပေါင်ဘာသာစကားကို လေ့လာနေပါတယ်၊ "${rawQuery}" က အရမ်းကောင်းပါတယ်။`;
             }
 
             const aiChatResponse = 

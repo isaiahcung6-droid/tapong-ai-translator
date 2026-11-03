@@ -89,7 +89,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.8 (Full 300 & 3-Lang AI)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.9 (Strict 3-Lang Sentence Builder)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -195,7 +195,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Smart 3-Language Grammar engine is active! Type any word or sentence.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Strict 3-Language Grammar Sentence Builder is active! Type any word or sentence.</p>
                     </div>
                 </div>
             </div>
@@ -616,7 +616,7 @@
             const filteredData = dictionaryData.filter(item => 
                 item.tapong.toLowerCase().includes(query) ||
                 item.english.toLowerCase().includes(query) ||
-                item.myanmar.toLowerCase().includes(query)
+                item.myanmar.includes(query)
             );
 
             renderTable(filteredData);
@@ -796,13 +796,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Smart 3-Language Grammar engine is active! Type any word or sentence.</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong AI Assistant. Strict 3-Language Grammar Sentence Builder is active! Type any word or sentence.</p>
                     </div>
                 </div>
             `;
         }
 
-        // ၃ ဘာသာ (Tapong, English, Myanmar) သီးသန့်နှင့် Falam, Hakha, Mizo လုံးဝမရောဘဲ တပေါင်သဒ္ဒါစစ်စစ်ဖြင့် ဝါကျတည်ဆောက်မည့် AI Engine
+        // Tapong Grammar Sentence Builder Engine (၃ ဘာသာတွဲ ဝါကျအရှည် တည်ဆောက်ပေးမည့် AI Logic)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -867,17 +867,20 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Smart Sentence Builder (Strict 3-Language & Tapong Grammar Rules)
-            const words = lower.split(/\s+/);
+            // Sentence Builder Engine (ဝါကျအရှည်များအတွက် ၃ ဘာသာတိကျစွာ ဖွဲ့စည်းခြင်း)
+            const words = rawQuery.split(/[\s,]+/);
             let tapongWords = [];
             let englishWords = [];
             let myanmarWords = [];
 
             words.forEach(w => {
+                const cleanW = w.toLowerCase().trim();
+                if (!cleanW) return;
+
                 const match = dictionaryData.find(item => 
-                    item.tapong.toLowerCase().split(/[\s,]+/).includes(w) ||
-                    item.english.toLowerCase().split(/[\s,]+/).includes(w) ||
-                    item.myanmar.includes(w)
+                    item.tapong.toLowerCase() === cleanW ||
+                    item.english.toLowerCase() === cleanW ||
+                    item.myanmar.includes(cleanW)
                 );
 
                 if (match) {
@@ -885,26 +888,26 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                     englishWords.push(match.english);
                     myanmarWords.push(match.myanmar);
                 } else {
-                    tapongWords.push(w);
-                    englishWords.push(w);
-                    myanmarWords.push(w);
+                    tapongWords.push(cleanW);
+                    englishWords.push(cleanW);
+                    myanmarWords.push(cleanW);
                 }
             });
 
             let constructedTapong = tapongWords.join(' ');
-            if (lower.includes('သွား') || lower.includes('စား') || lower.includes('လုပ်') || lower.includes('go') || lower.includes('eat')) {
+            if (rawQuery.includes('သွား') || rawQuery.includes('စား') || rawQuery.includes('လုပ်') || lower.includes('go') || lower.includes('eat')) {
                 if (!constructedTapong.endsWith('in') && !constructedTapong.endsWith('un')) {
                     constructedTapong += ' in';
                 }
             }
 
-            let smartResponse = `🧩 **Tapong Grammar Sentence Builder (Strict 3-Language)**\n\n`;
-            smartResponse += `[Tapong]\n\`${constructedTapong}\`\n\n`;
-            smartResponse += `[English]\n${englishWords.join(' ')}\n\n`;
-            smartResponse += `[Myanmar]\n${myanmarWords.join(' ')}\n\n`;
-            smartResponse += `⚠️ *(Note: Falam, Hakha နှင့် Mizo ဘာသာစကားများ လုံးဝမပါဝင်ဘဲ Tapong၊ English နှင့် Myanmar ၃ ဘာသာ သဒ္ဒါစနစ်ဖြင့်သာ တည်ဆောက်ထားပါသည်။)*`;
+            let sentenceResponse = `🧩 **Tapong Grammar Sentence Builder**\n\n`;
+            sentenceResponse += `[Tapong Sentence]\n\`${constructedTapong}\`\n\n`;
+            sentenceResponse += `[English Translation]\n${englishWords.join(' ')}\n\n`;
+            sentenceResponse += `[Myanmar Translation]\n${myanmarWords.join(' ')}\n\n`;
+            sentenceResponse += `⚠️ *(Note: Falam, Hakha နှင့် Mizo ဘာသာစကားများ လုံးဝမပါဝင်ဘဲ Tapong၊ English နှင့် Myanmar ၃ ဘာသာ သဒ္ဒါစနစ်ဖြင့် ဝါကျအရှည်များကို တည်ဆောက်ပေးထားပါသည်။)*`;
 
-            appendAiMessage(smartResponse);
+            appendAiMessage(sentenceResponse);
         }
 
         clearBtn.addEventListener('click', () => {

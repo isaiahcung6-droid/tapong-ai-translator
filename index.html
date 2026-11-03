@@ -715,16 +715,16 @@
             closeModal();
             switchTab('ai');
             
-            let resp = `📚 **Dictionary Breakdown**\n\n`;
-            resp += `• **Tapong:** ${item.tapong}\n`;
-            resp += `• **English:** ${item.english}\n`;
-            resp += `• **Myanmar:** ${item.myanmar}\n`;
+            let resp = `📚 **Tapong Dictionary Breakdown (Strict 3-Language)**\n\n`;
+            resp += `[Tapong]\n• ${item.tapong}\n\n`;
+            resp += `[English]\n• ${item.english}\n\n`;
+            resp += `[Myanmar]\n• ${item.myanmar}\n`;
             
             if (item.exTapong) {
-                resp += `\n💬 **Example Sentences:**\n`;
-                resp += `• **Tapong:** ${item.exTapong}\n`;
-                resp += `• **English:** ${item.exEng}\n`;
-                resp += `• **Myanmar:** ${item.exMyo}`;
+                resp += `\n💬 **Example Sentences (3-Language):**\n`;
+                resp += `[Tapong Sentence]\n\`${item.exTapong}\`\n\n`;
+                resp += `[English Translation]\n${item.exEng}\n\n`;
+                resp += `[Myanmar Translation]\n${item.exMyo}`;
             }
             
             appendUserMessage(`${item.tapong}`);

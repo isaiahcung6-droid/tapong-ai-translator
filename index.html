@@ -752,10 +752,13 @@
             if (relatedExamples.length > 0) {
                 resp += `💬 **Example Sentences / Related Usage:**\n`;
                 relatedExamples.slice(0, 3).forEach(ex => {
-                    resp += `• ${ex.tapong} ➔ ${ex.english} (${ex.myanmar})\n`;
+                    resp += `• **Tapong:** ${ex.tapong}\n  **English:** ${ex.english}\n  **Myanmar:** ${ex.myanmar}\n\n`;
                 });
             } else {
-                resp += `💬 **Example Usage:**\n• Type "${item.tapong}" in a sentence to test with Smart Grammar Engine.`;
+                resp += `💬 **Example Usage (3 Languages):**\n`;
+                resp += `• **Tapong:** ${item.tapong} kha pha ngai.\n`;
+                resp += `• **English:** The ${item.english.toLowerCase()} is very good.\n`;
+                resp += `• **Myanmar:** ဤ ${item.myanmar} သည် အရမ်းကောင်းသည်။\n`;
             }
             
             appendUserMessage(`${item.tapong}`);

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tapong Ai Translator Dictionary</title>
     <meta name="description" content="Tapong AI Translator created by Isaiah Cung. Free online translation and AI Q&A assistant for Tapong, English, and Myanmar languages.">
-    <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English, Tapong ethnic">
+    <meta name="keywords" content="Tapong, Tapong AI Translator, Tapong Language, Isaiah Cung, Tapong Myanmar, Tapong English, Tapong ethnic, Hawh">
     <meta name="author" content="Isaiah Cung">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://tapong-ai-translator.vercel.app/">
@@ -18,7 +18,7 @@
     <!-- Social Media & Google Preview Meta Tags -->
     <meta property="og:title" content="Tapong Ai Translator Dictionary">
     <meta property="og:description" content="Tapong AI Translator created by Isaiah Cung. Free online translation and AI Q&A assistant for Tapong, English, and Myanmar languages.">
-    <meta property="og:image" href="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
+    <meta property="og:image" content="https://tapong-ai-translator.vercel.app/IMG_6152.jpeg">
     <meta property="og:url" content="https://tapong-ai-translator.vercel.app/">
     <meta property="og:type" content="website">
     
@@ -31,7 +31,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Google AI Knowledge Schema -->
+    <!-- Google AI Knowledge Schema & Dictionary Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,7 +39,24 @@
       "name": "Tapong Language Dictionary & AI Assistant",
       "description": "Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.",
       "image": "https://tapong-ai-translator.vercel.app/IMG_6152.jpeg",
-      "inLanguage": ["en", "my"]
+      "inLanguage": ["en", "my"],
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "name": "Hawh",
+          "description": "Go (သွားသည်)"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Ai",
+          "description": "Speak (စကားပြောသည်)"
+        },
+        {
+          "@type": "DefinedTerm",
+          "name": "Buam",
+          "description": "Help (ကူညီသည်, ဖေးမသည်)"
+        }
+      ]
     }
     </script>
 
@@ -407,7 +424,7 @@
             { id: 133, tapong: "Peng", english: "Township, mile", myanmar: "မြို့နယ်, မိုင်တိုင်" },
             { id: 134, tapong: "Pi, pi pi", english: "Auntie, Grandmother", myanmar: "အဒေါ်, အဘွား" },
             { id: 135, tapong: "Poisa kiltu", english: "Treasurer", myanmar: "ဘဏ္ဍာရေးမှူး" },
-            { id: 136, tapong: "Pu, pu pu", english: "Uncle, Grandfather", myanmar: "ဦးလေး, အဖိုး" },
+            { id: 136, tapong: "Pu, pu pi", english: "Uncle, Grandfather", myanmar: "ဦးလေး, အဖိုး" },
             { id: 137, tapong: "Ra", english: "Come", myanmar: "လာသည်" },
             { id: 138, tapong: "Ra leh", english: "Come back", myanmar: "ပြန်လာသည်" },
             { id: 139, tapong: "Ral", english: "Enemy", myanmar: "ရန်သူ" },
@@ -795,7 +812,6 @@
             `;
         }
 
-        // Smart Grammar AI Engine (ဝါကျအရှည်များနှင့် သဒ္ဒါစည်းမျဉ်းများအတွက် နောက်ကွယ်မှ တွက်ချက်ပေးမည့် AI Logic)
         function generateAiResponse(query) {
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
@@ -837,7 +853,6 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Exact Match (Dictionary ထဲတွင် အတိအကျရှိမရှိ စစ်ဆေးခြင်း)
             const matchedItem = dictionaryData.find(item => {
                 const t = item.tapong.toLowerCase();
                 const e = item.english.toLowerCase();
@@ -857,7 +872,6 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Smart Sentence Parsing & Grammar Analysis (ဝါကျအရှည်များကို ခွဲခြမ်းစိတ်ဖြာခြင်း)
             const words = lower.split(/\s+/);
             let parsedResults = [];
             let translatedWords = [];
@@ -887,7 +901,6 @@ This app was created by Isaiah Cung (Lati / Bualthang) @Rising Star Music Studio
                 return;
             }
 
-            // Fallback Response
             const fallbackResponse = 
 `✨ **Tapong AI Assistant**
 

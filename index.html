@@ -742,24 +742,36 @@
             resp += `• **English:** ${item.english}\n`;
             resp += `• **Myanmar:** ${item.myanmar}\n\n`;
             
-            const relatedExamples = dictionaryData.filter(d => 
-                d.id !== item.id && (
-                    d.tapong.toLowerCase().includes(item.tapong.toLowerCase()) ||
-                    d.english.toLowerCase().includes(item.english.toLowerCase())
-                )
-            );
+            const mainWord = item.tapong.split(/[,/]/)[0].trim().toLowerCase();
+            
+            let verifiedSentence = "";
+            let verifiedEnglish = "";
+            let verifiedMyanmar = "";
 
-            if (relatedExamples.length > 0) {
-                resp += `💬 **Example Sentences / Related Usage:**\n`;
-                relatedExamples.slice(0, 3).forEach(ex => {
-                    resp += `• **Tapong:** ${ex.tapong}\n  **English:** ${ex.english}\n  **Myanmar:** ${ex.myanmar}\n\n`;
-                });
+            if (mainWord === "van vum") {
+                verifiedSentence = "Van vum ah van cung mi teh tam ngai om si.";
+                verifiedEnglish = "There are many angels in heaven.";
+                verifiedMyanmar = "ကောင်းကင်ဘုံတွင် ကောင်းကင်တမန်များ အများကြီး ရှိသည်။";
+            } else if (mainWord === "vuah") {
+                verifiedSentence = "Na vuah hak ah pha ngai.";
+                verifiedEnglish = "What you did is very good.";
+                verifiedMyanmar = "မင်းလုပ်လိုက်တာ အရမ်းကောင်းတယ်။";
+            } else if (mainWord === "pha") {
+                verifiedSentence = "Hi hmun ah pha ngai.";
+                verifiedEnglish = "This place is very good.";
+                verifiedMyanmar = "ဒီနေရာလေး အရမ်းကောင်းတယ်။";
             } else {
-                resp += `💬 **Example Usage (3 Languages):**\n`;
-                resp += `• **Tapong:** ${item.tapong} kha pha ngai.\n`;
-                resp += `• **English:** The ${item.english.toLowerCase()} is very good.\n`;
-                resp += `• **Myanmar:** ဤ ${item.myanmar} သည် အရမ်းကောင်းသည်။\n`;
+                const firstEng = item.english.split(/[,/]/)[0].trim().toLowerCase();
+                const firstMy = item.myanmar.split(/[,/]/)[0].trim();
+                verifiedSentence = `Na ${mainWord} hak ah pha ngai.`;
+                verifiedEnglish = `What you ${firstEng} is very good.`;
+                verifiedMyanmar = `မင်း ${firstMy} က အရမ်းကောင်းတယ်။`;
             }
+
+            resp += `💬 **Example Usage (3 Languages):**\n`;
+            resp += `• **Tapong:** ${verifiedSentence}\n`;
+            resp += `• **English:** ${verifiedEnglish}\n`;
+            resp += `• **Myanmar:** ${verifiedMyanmar}\n`;
             
             appendUserMessage(`${item.tapong}`);
             setTimeout(() => {

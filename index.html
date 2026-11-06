@@ -607,6 +607,7 @@
         function renderTable(data) {
             tbody.innerHTML = '';
             if (data.length === 0) {
+                noResults.classList.add('hidden'); // keep fallback logic
                 noResults.classList.remove('hidden');
             } else {
                 noResults.classList.add('hidden');
@@ -743,12 +744,27 @@
             resp += `• **Myanmar:** ${item.myanmar}\n\n`;
             
             const mainWord = item.tapong.split(/[,/]/)[0].trim().toLowerCase();
+            const firstEng = item.english.split(/[,/]/)[0].trim().toLowerCase();
+            const firstMy = item.myanmar.split(/[,/]/)[0].trim();
             
             let verifiedSentence = "";
             let verifiedEnglish = "";
             let verifiedMyanmar = "";
 
-            if (mainWord === "van vum") {
+            // လူပုဂ္ဂိုလ်/သက်ရှိများနှင့် သဒ္ဒါမှန်ကန်သော ဥပမာဝါကျများ
+            if (mainWord === "ai") {
+                verifiedSentence = "Tapong uan in ai zir in.";
+                verifiedEnglish = "Learn to speak in Tapong language.";
+                verifiedMyanmar = "တပေါင်ဘာသာစကားဖြင့် စကားပြောရန် သင်ယူပါ။";
+            } else if (mainWord === "buai") {
+                verifiedSentence = "Na buai mi ah pha ngai.";
+                verifiedEnglish = "Your captain is very good.";
+                verifiedMyanmar = "မင်းရဲ့ဗိုလ်က အရမ်းကောင်းတယ်။";
+            } else if (mainWord.includes("pa") || mainWord.includes("nu") || mainWord.includes("mipa") || mainWord.includes("nupang") || mainWord.includes("buai") || mainWord.includes("mi")) {
+                verifiedSentence = `Na ${mainWord} mi ah pha ngai.`;
+                verifiedEnglish = `Your ${firstEng} is very good.`;
+                verifiedMyanmar = `မင်းရဲ့ ${firstMy} က အရမ်းကောင်းတယ်။`;
+            } else if (mainWord === "van vum") {
                 verifiedSentence = "Van vum ah van cung mi teh tam ngai om si.";
                 verifiedEnglish = "There are many angels in heaven.";
                 verifiedMyanmar = "ကောင်းကင်ဘုံတွင် ကောင်းကင်တမန်များ အများကြီး ရှိသည်။";
@@ -761,8 +777,6 @@
                 verifiedEnglish = "This place is very good.";
                 verifiedMyanmar = "ဒီနေရာလေး အရမ်းကောင်းတယ်။";
             } else {
-                const firstEng = item.english.split(/[,/]/)[0].trim().toLowerCase();
-                const firstMy = item.myanmar.split(/[,/]/)[0].trim();
                 verifiedSentence = `Na ${mainWord} hak ah pha ngai.`;
                 verifiedEnglish = `What you ${firstEng} is very good.`;
                 verifiedMyanmar = `မင်း ${firstMy} က အရမ်းကောင်းတယ်။`;

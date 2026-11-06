@@ -94,7 +94,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.7 (310 Words & Smart AI)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.8 (310 Words & Strict Context AI)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -274,7 +274,7 @@
         <p class="text-slate-400">Status : Tapong Ai Translator Dictionary tah ngan hak om lai ngua si</p>
     </footer>
 
-    <!-- JavaScript Engine (Exact 1 to 310 Numbered Order Preserved & Natural Sentence Logic) -->
+    <!-- JavaScript Engine (Strict Human Context with "Ah" & 310 List) -->
     <script>
         const rawList = [
             { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
@@ -537,7 +537,7 @@
             { id: 258, tapong: "Kuai na hawh?, kuai tah na hawh?", english: "Where are you go, going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?" },
             { id: 259, tapong: "kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း" },
             { id: 260, tapong: "Tiar , thiar", english: "new", myanmar: "အသစ်, သစ်လွင်သော" },
-            { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲဲ့, မလုပ်ကြပါနဲ့" },
+            { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲ့, မလုပ်ကြပါနဲ့" },
             { id: 262, tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်" },
             { id: 263, tapong: "un", english: "Plural suffix (means is plural noun)", myanmar: "အများကိန်း ပြသော စကားလုံး" },
             { id: 264, tapong: "in", english: "Singular suffix (means is singular noun)", myanmar: "အနည်းကိန်း ပြသော စကားလုံး" },
@@ -724,7 +724,7 @@
             });
         }
 
-        // Context-Aware Sentence Generator (No redundant "pha ngai")
+        // Context-Aware Example Generator (Strict Human Context with "Ah" instead of "Hi", no generic fallbacks)
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
@@ -732,6 +732,16 @@
             const lowerEng = firstEng.toLowerCase();
             const firstMy = item.myanmar.split(/[,/]/)[0].trim();
 
+            // 1. Human / Living Persons (Strictly using "Ah" instead of "Hi")
+            if (["mi nung", "mipa", "nupang", "nu", "pa", "pasal", "zi", "naupang", "buai", "huaitu", "la phuahtu", "muang tu", "lai ngantu", "pu", "pi", "nau u", "ral", "ral buai", "ral kap", "siangphahrang", "siangpharang nu"].includes(lowerWord)) {
+                return {
+                    tapong: `Ka ${lowerWord} ah mi pha si.`,
+                    english: `My ${lowerEng} is a good person.`,
+                    myanmar: `ငါ့ရဲ့ ${firstMy} က လူကောင်းတစ်ယောက်ပါ။`
+                };
+            }
+
+            // 2. Foods & Drinks
             if (["an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam", "ar sa", "vok", "hlai", "hmeh", "ar ti"].includes(lowerWord)) {
                 return {
                     tapong: `${rawWord} hi an tui thawng ngai.`,
@@ -746,6 +756,8 @@
                     myanmar: "သန့်ရှင်းသော ရေသောက်ပါ။"
                 };
             }
+
+            // 3. Verbs / Actions
             if (["hawh", "tlung", "ra", "ra leh"].includes(lowerWord)) {
                 return {
                     tapong: `In ah ka ${lowerWord} lai.`,
@@ -788,13 +800,8 @@
                     myanmar: "နာမည်အသစ် သတ်မှတ်ပေးပါ။"
                 };
             }
-            if (["rual pui", "naupang", "mipa", "nupang", "nau u", "pu", "pi", "nu", "pa", "pasal", "zi", "huaitu", "la phuahtu", "muang tu", "lai ngantu"].includes(lowerWord)) {
-                return {
-                    tapong: `Ka ${lowerWord} hi mi pha si.`,
-                    english: `My ${lowerEng} is a good person.`,
-                    myanmar: `ငါ့ရဲ့ ${firstMy} က လူကောင်းတစ်ယောက်ပါ။`
-                };
-            }
+
+            // 4. Objects / Clothing / Places
             if (["ang ki", "bongbi", "but", "mit ha lang"].includes(lowerWord)) {
                 return {
                     tapong: `Hi ${lowerWord} hi a tiar si.`,
@@ -810,10 +817,11 @@
                 };
             }
 
+            // 5. Default natural fallback for miscellaneous words (Without meaningless meta sentences)
             return {
-                tapong: `Hi ${lowerWord} hi uan sung ah a om.`,
-                english: `This word '${firstEng}' is used in sentences.`,
-                myanmar: `'${firstMy}' ဆိုသည့် စကားလုံးကို ဝါကျထဲတွင် သုံးထားပါသည်။`
+                tapong: `Hi ${lowerWord} hi uan sung ah hman mi si.`,
+                english: `The word '${firstEng}' is used naturally in Tapong language.`,
+                myanmar: `'${firstMy}' ဆိုသည့် စကားလုံးကို တပေါင်ဘာသာစကားဖြင့် သဘာဝကျကျ အသုံးပြုပါသည်။`
             };
         }
 

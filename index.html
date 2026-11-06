@@ -31,37 +31,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Google AI Knowledge Schema & Pure Tapong Language Distinction -->
+    <!-- Google AI Knowledge Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "DefinedTermSet",
       "name": "Pure Tapong Language Dictionary & AI Assistant",
-      "description": "Exclusive Tapong ethnic language dictionary. Distinct and separate from Falam, Hakha, or Mizo languages. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.",
+      "description": "Exclusive Tapong ethnic language dictionary. Distinct and separate from Falam, Hakha, or Mizo languages. Created by Isaiah Cung.",
       "image": "https://tapong-ai-translator.vercel.app/IMG_6152.jpeg",
       "inLanguage": "tap",
       "about": {
         "@type": "Language",
         "name": "Tapong",
-        "alternateName": "Tapong Ethnic Language (Not Falam, Hakha, or Mizo)"
-      },
-      "hasDefinedTerm": [
-        {
-          "@type": "DefinedTerm",
-          "name": "Hawh",
-          "description": "Go (သွားသည်)"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Ai",
-          "description": "Speak (စကားပြောသည်)"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Buam",
-          "description": "Help (ကူညီသည်, ဖေးမသည်)"
-        }
-      ]
+        "alternateName": "Tapong Ethnic Language"
+      }
     }
     </script>
 
@@ -111,7 +94,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.7 (Full Dictionary & Smart AI)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.7 (310 Words & Smart AI)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -121,7 +104,7 @@
                 <button id="navDictBtn" onclick="switchTab('dictionary')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 bg-blue-600 text-white shadow-md flex items-center justify-center gap-2">
                     <i class="fa-solid fa-book"></i>
                     <span>Dictionary</span>
-                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">0</span>
+                    <span class="ml-1 px-1.5 py-0.2 text-[10px] bg-black/20 rounded-full font-mono" id="entryCount">310</span>
                 </button>
                 <button id="navAiBtn" onclick="switchTab('ai')" class="flex-1 md:flex-initial px-4 py-2 rounded-lg font-medium transition-all duration-200 text-slate-400 hover:text-slate-200 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-robot text-indigo-400"></i>
@@ -193,7 +176,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Smart Dictionary & Grammar Translation Assistant</p>
+                        <p class="text-xs text-slate-400">Smart Dictionary & Exact Match Assistant</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -216,7 +199,7 @@
                         <i class="fa-solid fa-robot"></i>
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
-                        <p class="font-medium text-xs text-indigo-400">Tapong AI Assistant</p>
+                        <p class="font-medium text-xs text-indigo-400">Tapong Al Assistant</p>
                         <p class="text-xs md:text-sm">Hello! I am your Tapong Al Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
@@ -291,314 +274,320 @@
         <p class="text-slate-400">Status : Tapong Ai Translator Dictionary tah ngan hak om lai ngua si</p>
     </footer>
 
-    <!-- JavaScript Engine (A-Z Sorted Dictionary & Smart Dynamic AI Generator) -->
+    <!-- JavaScript Engine (Exact 1 to 310 Numbered Order Preserved & Natural Sentence Logic) -->
     <script>
-        let dictionaryData = [
-            { tapong: "A mah, a mah teh", english: "He, She, they, they're", myanmar: "သူ, သူတို့" },
-            { tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
-            { tapong: "An cang kha", english: "Bitter gourd", myanmar: "ကြက်ဟင်းခါးသီး" },
-            { tapong: "An taw", english: "Hog plum", myanmar: "ဂွေးသီး" },
-            { tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ" },
-            { tapong: "Ar", english: "Chicken", myanmar: "ကြက်" },
-            { tapong: "Ar sa", english: "Chicken curry", myanmar: "ကြက်သား" },
-            { tapong: "Ar si", english: "Star", myanmar: "ကြယ်" },
-            { tapong: "Ar ti", english: "Egg", myanmar: "ကြက်ဥ" },
-            { tapong: "A tuap nak in", english: "Finally", myanmar: "နောက်ဆုံးတော့" },
-            { tapong: "Ben hla", english: "Banana", myanmar: "ငှက်ပျောသီး" },
-            { tapong: "Biak in", english: "Church", myanmar: "ဘုရားကျောင်း" },
-            { tapong: "Biak, Vong", english: "Hold", myanmar: "ကိုင်သည်" },
-            { tapong: "Bongbi", english: "Trousers", myanmar: "ဘောင်းဘီ" },
-            { tapong: "Buai", english: "Captain", myanmar: "ဗိုလ်" },
-            { tapong: "Buam", english: "Help", myanmar: "ကူညီသည်, ဖေးမသည်" },
-            { tapong: "Buang pha hak thaw in", english: "Luckily", myanmar: "ကံကောင်းစွာနဲ့" },
-            { tapong: "But", english: "Shoe", myanmar: "ဖိနပ်" },
-            { tapong: "Ca ha", english: "Enough", myanmar: "တော်ပြီ" },
-            { tapong: "Ca ni ni, Ni ruk ni", english: "Saturday", myanmar: "စနေနေ့" },
-            { tapong: "Ca uk", english: "Book", myanmar: "စာအုပ်" },
-            { tapong: "Caan", english: "Time, period", myanmar: "အချိန်" },
-            { tapong: "Cabuai", english: "Table", myanmar: "စားပွဲ" },
-            { tapong: "Cam khat no", english: "Just a moment", myanmar: "ခဏစောင့်ပါ" },
-            { tapong: "Cam khat no zal i nap, i awt (or) cam khat no cual i awt, i nap", english: "I want to lie down for a bit", myanmar: "ငါခဏလောက် လှဲချင်တယ်" },
-            { tapong: "Ceh bing", english: "Bicycle", myanmar: "စက်ဘီး" },
-            { tapong: "Celh ha", english: "Finish, done", myanmar: "ပြီးပြီ" },
-            { tapong: "Cop, cawp", english: "Cold", myanmar: "အေးသည်" },
-            { tapong: "Cozah, thu nei tu", english: "Government", myanmar: "အစိုးရ" },
-            { tapong: "Dang rum", english: "Thirsty", myanmar: "ရေဆာသော" },
-            { tapong: "Ding", english: "Stand Up", myanmar: "မတ်တတ်ရပ်သည်" },
-            { tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်" },
-            { tapong: "Duk", english: "Pull", myanmar: "ဆွဲသည်" },
-            { tapong: "Ei", english: "Eat", myanmar: "စားသည်" },
-            { tapong: "El dun", english: "Arguing", myanmar: "ငြင်းခုန်းခြင်း" },
-            { tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
-            { tapong: "Fa nei ha cim?", english: "Do you have children?", myanmar: "သင့်မှာ သားသမီး ရှိပါသလား။" },
-            { tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
-            { tapong: "Ha", english: "Teeth", myanmar: "သွားများ" },
-            { tapong: "Ha lang", english: "Glass", myanmar: "ဖန်ခွက်" },
-            { tapong: "Har sa", english: "Difficulty", myanmar: "အခက်အခဲ" },
-            { tapong: "Hau dun, tuang dun", english: "Fight", myanmar: "ရန်ဖြစ်" },
-            { tapong: "Hawh", english: "Go", myanmar: "သွားသည်" },
-            { tapong: "Hello, na hming zei si khaw, na hming zei tin ko khaw?", english: "Hello, what is your name?", myanmar: "မင်္ဂလာပါ၊ သင့်နာမည် ဘယ်လိုခေါ်ပါသလဲ။" },
-            { tapong: "Hla", english: "Month", myanmar: "လ" },
-            { tapong: "Hla pui", english: "Moon", myanmar: "လမင်းကြီး" },
-            { tapong: "Hlai", english: "Food", myanmar: "ထမင်း" },
-            { tapong: "Hlai suang, hmeh suang", english: "Cook", myanmar: "ထမင်းချက်, ဟင်းချက်" },
-            { tapong: "Hli vua", english: "Air", myanmar: "လေ" },
-            { tapong: "Hmai", english: "Face", myanmar: "မျက်နှာ" },
-            { tapong: "Hmai zarh", english: "Next week", myanmar: "လာမည့်အပတ်" },
-            { tapong: "Hmeh", english: "Curry, Dish", myanmar: "ဟင်း" },
-            { tapong: "Hming", english: "Name", myanmar: "နာမည်" },
-            { tapong: "Hmu", english: "See", myanmar: "မြင်တွေ့သည်" },
-            { tapong: "Hmu sel", english: "Play", myanmar: "ကစားသည်" },
-            { tapong: "Hmu sel hak", english: "Toy", myanmar: "ကစားစရာအရုပ်" },
-            { tapong: "Hmun", english: "Place", myanmar: "တည်နေရာ" },
-            { tapong: "Hna per, par", english: "Work", myanmar: "လုပ်သည်, အလုပ်" },
-            { tapong: "Hnai hnawk tu", english: "Interfere", myanmar: "ဝင်ရောက်စွက်ဖက်သည်" },
-            { tapong: "Hnar", english: "Nose", myanmar: "နှာခေါင်း" },
-            { tapong: "Hngak", english: "Wait", myanmar: "စောင့်သည်" },
-            { tapong: "Hni", english: "Laugh", myanmar: "ရယ်မျောသည်" },
-            { tapong: "Hong", english: "Open", myanmar: "ဖွင့်သည်" },
-            { tapong: "Huaitu", english: "Chairman, Leadership", myanmar: "ဥက္ကဋ္ဌ, ခေါင်းဆောင်" },
-            { tapong: "Hmur hmul", english: "Moustache", myanmar: "နှုတ်ခမ်းမွှေး" },
-            { tapong: "I hngak hrih in, i hngak hrih law", english: "Just wait", myanmar: "စောင့်နေလိုက်ပါ" },
-            { tapong: "I hngak in", english: "Wait for me", myanmar: "ငါ့ကိုစောင့်" },
-            { tapong: "Ik sik", english: "Jealous", myanmar: "မနာလိုသော" },
-            { tapong: "In", english: "Drink", myanmar: "သောက်သည်" },
-            { tapong: "In ah ka tlung", english: "i am go home", myanmar: "အိမ်ပြန်သည်" },
-            { tapong: "In, inn", english: "House, home", myanmar: "အိမ်" },
-            { tapong: "In sang nei ha cim?", english: "Do you have a family?", myanmar: "သင် အိမ်ထောင် ရှိပါသလား။" },
-            { tapong: "I pial in", english: "Move aside", myanmar: "ဖယ်ပေးပါ" },
-            { tapong: "It", english: "Sleep", myanmar: "အိပ်သည်" },
-            { tapong: "It hnak", english: "Love, Kindness, Mercy", myanmar: "ချစ်ခြင်း, မေတ္တာ" },
-            { tapong: "Ka Hming ah van uk si. Van uk ti in ko si", english: "My name is Van Uk. I am called Van Uk", myanmar: "ငါ့နာမည်က Van Uk ပါ။ Van Uk လို့ ခေါ်ပါတယ်။" },
-            { tapong: "Ka kum ah 27 kim ha si. 1999 kum ka suah", english: "I am 27 years old, I was born in 1999", myanmar: "ငါ့အသက် ၂၇ နှစ် ရှိပါပြီ, ၁၉၉၉ ခုနှစ်မှာ မွေးဖွားတာပါ။" },
-            { tapong: "Kaa", english: "Mouth", myanmar: "ပါးစပ်" },
-            { tapong: "Kang", english: "Burn", myanmar: "မီးလောင်သည်" },
-            { tapong: "Kan ting zarh", english: "Last week", myanmar: "ပြီးခဲ့သောအပတ်က" },
-            { tapong: "Kap", english: "Cry", myanmar: "ငိုသည်" },
-            { tapong: "Kap", english: "Shoot", myanmar: "ပစ်သည်" },
-            { tapong: "Ke", english: "Foot", myanmar: "ခြေထောက်" },
-            { tapong: "Ke zep", english: "Slipper", myanmar: "ခြေညပ်ဖိနပ်" },
-            { tapong: "Kei ma", english: "mine", myanmar: "ငါ့ဟာ, ငါ့ဥစ္စာ" },
-            { tapong: "Kei, kei mah", english: "Me, I am, I", myanmar: "ငါ, ကျွန်တော်" },
-            { tapong: "Kham", english: "Close", myanmar: "ဖိတ်သည်" },
-            { tapong: "Khen dun, nupa khen dun", english: "Divorce", myanmar: "ကွာရှင်းခြင်း" },
-            { tapong: "Khua", english: "Village", myanmar: "ရွာ" },
-            { tapong: "Khual Tluang", english: "Travel", myanmar: "ခရီးသွားသည်" },
-            { tapong: "Khuapui", english: "City", myanmar: "မြို့" },
-            { tapong: "Kian", english: "Peek", myanmar: "ခိုးကြည့်သည်, ချောင်းကြည့်သည်" },
-            { tapong: "Ko, sam", english: "Call", myanmar: "ခေါ်သည်" },
-            { tapong: "Kual hai", english: "Mango", myanmar: "သရက်သီး" },
-            { tapong: "Kualpaw", english: "Cow", myanmar: "နွား" },
-            { tapong: "Kuai na hawh?, kuai tah na hawh?", english: "Where are you go, going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း" },
-            { tapong: "Kuai na om?", english: "Where do you live?", myanmar: "သင် ဘယ်မှာ နေထိုင်ပါသလဲ။" },
-            { tapong: "Kuai pen na ra?", english: "Where do you come from?", myanmar: "သင် ဘယ်က လာပါသလဲ။" },
-            { tapong: "kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း" },
-            { tapong: "Kul", english: "Twenty", myanmar: "နှစ်ဆယ်" },
-            { tapong: "Kum", english: "Year", myanmar: "ခုနှစ်" },
-            { tapong: "Kut", english: "Hand", myanmar: "လက်" },
-            { tapong: "La", english: "Song", myanmar: "တေးသီချင်း" },
-            { tapong: "La phuahtu", english: "Song writer, composer", myanmar: "သီချင်းစပ်သူ, တေးရေး" },
-            { tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်" },
-            { tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်" },
-            { tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး" },
-            { tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်" },
-            { tapong: "Lai tlang pen ka ra", english: "I come from Chin State", myanmar: "ချင်းတောင်က လာတာပါ။" },
-            { tapong: "Lau", english: "Scare, afraid", myanmar: "လန့်သည်, ကြောက်ရွံ့ခြင်း" },
-            { tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်" },
-            { tapong: "Lei", english: "Tongue", myanmar: "လျှာ" },
-            { tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး" },
-            { tapong: "Liang", english: "Visit", myanmar: "လာလည်သည်" },
-            { tapong: "Lian", english: "Big", myanmar: "ကြီးသော" },
-            { tapong: "Lo", english: "Frame", myanmar: "လယ်ယာ" },
-            { tapong: "Lu", english: "Head", myanmar: "ဦးခေါင်း" },
-            { tapong: "Lu na", english: "Headache", myanmar: "ခေါင်းကိုက်ခြင်း" },
-            { tapong: "Lum", english: "Warm", myanmar: "နွေးသည်" },
-            { tapong: "Lung sir", english: "Repent", myanmar: "နောင်တ" },
-            { tapong: "Lung uai", english: "Joyful", myanmar: "ဝမ်းမြောက်ဝမ်းသာ" },
-            { tapong: "Lut hmun", english: "Entrance", myanmar: "ဝင်ပေါက်" },
-            { tapong: "Ma kiang", english: "Tamarind fruit", myanmar: "မန်ကျည်းသီး" },
-            { tapong: "Mang pha", english: "Have a Sweet Dreams", myanmar: "အိပ်မက်လှလှမက်ပါစေ" },
-            { tapong: "Maw taw", english: "Car", myanmar: "ကား" },
-            { tapong: "Mei", english: "Fire", myanmar: "မီး" },
-            { tapong: "Mei thel", english: "Gun", myanmar: "သေနတ်" },
-            { tapong: "Men", english: "Price", myanmar: "ဈေးနှုန်း, တန်ဖိုး" },
-            { tapong: "Mi har sa", english: "Refugee", myanmar: "ဒုက္ခသည်" },
-            { tapong: "Mi hnai hnawk tu", english: "Pester", myanmar: "နှောင့်ယှက်သူ" },
-            { tapong: "Mi hming thang", english: "Famous", myanmar: "နာမည်ကြီး, ကျော်ကြား" },
-            { tapong: "Mi nung", english: "People", myanmar: "လူ" },
-            { tapong: "Minit", english: "Minute", myanmar: "မိနစ်" },
-            { tapong: "Mipa", english: "Boy", myanmar: "ယောကျ်ားလေး" },
-            { tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။" },
-            { tapong: "Mit", english: "Eye", myanmar: "မျက်စိ" },
-            { tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်" },
-            { tapong: "Mit hmul", english: "Eyebrow", myanmar: "မျက်ခုံးမွှေး" },
-            { tapong: "Moi, moi ngai", english: "Beautiful, prety", myanmar: "လှပသော, ချောမွေ့သော" },
-            { tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်" },
-            { tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ" },
-            { tapong: "Na", english: "Hurt", myanmar: "နာကျင်သည်" },
-            { tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်" },
-            { tapong: "Na biam seh in", english: "You'll get used to it", myanmar: "နေသားကျလာမှာပါ" },
-            { tapong: "Na hming ngan in", english: "Write your name", myanmar: "မင်းနာမည်ရေးပါ" },
-            { tapong: "Na kum zei zah kim ha khaw? Zei kum ha na suak?", english: "How old are you? Which year were you born?", myanmar: "သင့်အသက် ဘယ်လောက်ရှိပြီလဲ။ ဘယ်နှစ်ခုနှစ်မှာ မွေးဖွားတာလဲ။" },
-            { tapong: "Na suak hmun khua", english: "Native Land", myanmar: "မွေးရပ်မြေ" },
-            { tapong: "Nang, nang mah", english: "You, you are, you're", myanmar: "မင်း" },
-            { tapong: "Nap tawh, nap tuang, awt tawh, awt tuang, deih tawh, deih tuang", english: "Don't want to, don't like", myanmar: "မလိုချင်, မလိုအပ်, မတောင့်တ" },
-            { tapong: "Nap, awt, deih", english: "Want to, want, like", myanmar: "လိုချင်သည်, လိုအပ်သည်, တောင့်တသည်" },
-            { tapong: "Nau u", english: "Brother, Sister", myanmar: "ညီအစ်ကို, ညီအစ်မ" },
-            { tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ" },
-            { tapong: "Naupang", english: "Children", myanmar: "ကလေး" },
-            { tapong: "Nazi", english: "Clock, Time", myanmar: "နာရီ" },
-            { tapong: "Nei celh ha", english: "Already have / Already married", myanmar: "ရှိပါပြီ၊ ပြပြီးပါပြီ။" },
-            { tapong: "Nei lai tuang", english: "Not yet", myanmar: "မရှိသေးပါ၊ မပြုရသေးပါ။" },
-            { tapong: "Nei lau tiar", english: "You scared me", myanmar: "ငါ့ကိုလန့်အောင်လုပ်တာပဲ" },
-            { tapong: "Ngai", english: "Listen, Miss", myanmar: "နားထောင်သည်, လွမ်းသည်" },
-            { tapong: "Ngan", english: "Write", myanmar: "ရေးသည်" },
-            { tapong: "Ni", english: "Sun", myanmar: "နေ" },
-            { tapong: "Ni", english: "Day", myanmar: "နေ့ရက်" },
-            { tapong: "Ni hla", english: "Calendar", myanmar: "ပြက္ခဒိန်" },
-            { tapong: "Ni hnih ni", english: "Tuesday", myanmar: "အင်္ဂါနေ့" },
-            { tapong: "Ni hni", english: "Yesterday", myanmar: "မနေ့က" },
-            { tapong: "Ni khat ni", english: "Monday", myanmar: "တနင်္လာနေ့" },
-            { tapong: "Ni khua", english: "Weather", myanmar: "ရာသီဥတု" },
-            { tapong: "Ni li ni", english: "Thursday", myanmar: "ကြာသပတေးနေ့" },
-            { tapong: "Ni nga ni", english: "Friday", myanmar: "သောကြာနေ့" },
-            { tapong: "Ni ruk ni, ca ni ni", english: "Saturday", myanmar: "စနေနေ့" },
-            { tapong: "Ni sa ngai", english: "It's hot and sunny", myanmar: "နေပူတယ်" },
-            { tapong: "Ni sarih ni, ni pui ni", english: "Sunday", myanmar: "တနင်္ဂနွေနေ့" },
-            { tapong: "Ni thum ni", english: "Wednesday", myanmar: "ဗုဒ္ဓဟူးနေ့" },
-            { tapong: "Ni, ni ni", english: "Auntie", myanmar: "အဒေါ်" },
-            { tapong: "Nu, nu nu", english: "Mother, Mommy", myanmar: "အမေ, မိခင်" },
-            { tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" },
-            { tapong: "Nupa", english: "Partner, Husband and Wife", myanmar: "လင်မယား" },
-            { tapong: "Nupang", english: "Girl", myanmar: "မိန်းကလေး" },
-            { tapong: "Om hrih in, om hrih law", english: "Hold on", myanmar: "နေပါဦး" },
-            { tapong: "Om, um", english: "Live, Stay, Have, There is", myanmar: "နေထိုင်သည်, ရှိသည်" },
-            { tapong: "Pa", english: "Men", myanmar: "အမျိုးသား" },
-            { tapong: "Pa Hra", english: "Ten", myanmar: "တစ်ဆယ်" },
-            { tapong: "Pa Khat", english: "One", myanmar: "တစ်" },
-            { tapong: "Pa Khat ta, rang", english: "Uncle", myanmar: "ဦးလေး" },
-            { tapong: "Pa Kua", english: "Nine", myanmar: "ကိုး" },
-            { tapong: "Pa Li", english: "Four", myanmar: "လေး" },
-            { tapong: "Pa Nga", english: "Five", myanmar: "ငါး" },
-            { tapong: "Pa Nih", english: "Two", myanmar: "နှစ်" },
-            { tapong: "Pa Riat", english: "Eight", myanmar: "ရှစ်" },
-            { tapong: "Pa Ruk", english: "Six", myanmar: "ခြောက်" },
-            { tapong: "Pa Sarih", english: "Seven", myanmar: "ခုနှစ်ခု" },
-            { tapong: "Pa Thum", english: "Three", myanmar: "သုံး" },
-            { tapong: "Pa, pa pa", english: "Father, Daddy", myanmar: "အဖေ, ဖခင်" },
-            { tapong: "Pan", english: "Look at", myanmar: "ကြည့်သည်" },
-            { tapong: "Pasal", english: "Husband", myanmar: "ယောကျ်ား" },
-            { tapong: "Pathian", english: "God", myanmar: "ဘုရား" },
-            { tapong: "Peng", english: "Township, mile", myanmar: "မြို့နယ်, မိုင်တိုင်" },
-            { tapong: "Pha tak no in", english: "Properly, well", myanmar: "စနစ်တကျ, ကောင်းမွန်စွာ" },
-            { tapong: "Pha, pha ngai", english: "Good, well, very good, very well", myanmar: "ကောင်းတယ်, အရမ်းကောင်းတယ်" },
-            { tapong: "Phiat", english: "Clean, wash", myanmar: "ဆေးကြောသည်, သစ်သည်" },
-            { tapong: "Pi, pi pi", english: "Auntie, Grandmother", myanmar: "အဒေါ်, အဘွား" },
-            { tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး" },
-            { tapong: "Poisa kiltu", english: "Treasurer", myanmar: "ဘဏ္ဍာရေးမှူး" },
-            { tapong: "Phu", english: "Deserve, worthy", myanmar: "ထိုက်တန်သည်" },
-            { tapong: "Pu, pu pu", english: "Uncle, Grandfather", myanmar: "ဦးလေး, အဖိုး" },
-            { tapong: "Ra", english: "Come", myanmar: "လာသည်" },
-            { tapong: "Ra leh", english: "Come back", myanmar: "ပြန်လာသည်" },
-            { tapong: "Ral", english: "Enemy", myanmar: "ရန်သူ" },
-            { tapong: "Ral buai", english: "Captain", myanmar: "စစ်ဗိုလ်" },
-            { tapong: "Ral kap", english: "Army", myanmar: "စစ်သား" },
-            { tapong: "Ral tlan", english: "War-displaced", myanmar: "စစ်ဘေးဒုက္ခသည်များ" },
-            { tapong: "Ram", english: "Country", myanmar: "နိုင်ငံ" },
-            { tapong: "Ram sa", english: "Animal", myanmar: "တိရစ္ဆာန်" },
-            { tapong: "Ram uk tu", english: "President", myanmar: "သမ္မတ" },
-            { tapong: "Rem", english: "Repair", myanmar: "ပြုပြင်သည်" },
-            { tapong: "Rem dun", english: "Peaceful", myanmar: "ငြိမ်းချမ်းသော" },
-            { tapong: "Riah sia", english: "Sad", myanmar: "ဝမ်းနည်းသည်" },
-            { tapong: "Rin ngua pui in", english: "Suddenly", myanmar: "ရုတ်တရက်" },
-            { tapong: "Ruah, ruah zu", english: "Rain", myanmar: "မိုး, မိုးရွာသည်" },
-            { tapong: "Rual pui", english: "Friend", myanmar: "သူငယ်ချင်း" },
-            { tapong: "Rual sia", english: "Stingy", myanmar: "ကပ်စေးနည်းသော" },
-            { tapong: "Sa", english: "Sing", myanmar: "သီချင်းဆိုသည်" },
-            { tapong: "Sa", english: "Hot", myanmar: "ပူသည်" },
-            { tapong: "Sa", english: "Meat dish", myanmar: "အသားဟင်း" },
-            { tapong: "Sah nung", english: "Happy", myanmar: "ပျော်သည်" },
-            { tapong: "Sam", english: "Hair", myanmar: "ဆံပင်" },
-            { tapong: "Saw ngian", english: "Pray", myanmar: "ဆုတောင်းသည်" },
-            { tapong: "Sekan", english: "Second", myanmar: "စက္ကန့်" },
-            { tapong: "Si zung", english: "Hospital", myanmar: "ဆေးရုံ" },
-            { tapong: "Si, awle", english: "Yes", myanmar: "ဟုတ်ကဲ့" },
-            { tapong: "Si rori", english: "Definitely, Absolutely", myanmar: "သေချာပေါက်" },
-            { tapong: "Si tawh, aih", english: "No", myanmar: "ဟုတ်ဘူး, မဟုတ်ပါ" },
-            { tapong: "Siangphahrang", english: "King", myanmar: "ဘုရင်" },
-            { tapong: "Siangpharang nu", english: "Queen", myanmar: "ဘုရင်မ" },
-            { tapong: "Sian", english: "Small", myanmar: "သေးငယ်သော" },
-            { tapong: "Sii", english: "Medicine", myanmar: "ဆေးဝါး" },
-            { tapong: "Sia, pha ngua, hnuan", english: "Bad, no good, broken", myanmar: "မကောင်းသော, ပျက်စီးသော" },
-            { tapong: "Suak", english: "To leave, To go out, To emerge", myanmar: "ထွက်သည်" },
-            { tapong: "Suak hmun", english: "Exit", myanmar: "ထွက်ပေါက်" },
-            { tapong: "Suam thum", english: "Thirty", myanmar: "သုံးဆယ်" },
-            { tapong: "Sung ah", english: "Inside, in", myanmar: "အထဲမှာ" },
-            { tapong: "Thaizing", english: "Tomorrow", myanmar: "မနက်ဖြန်" },
-            { tapong: "Thei cim", english: "Do you know", myanmar: "သိရဲ့လား" },
-            { tapong: "Thei thiam cim", english: "Do you understand", myanmar: "နားလည်ရဲ့လား , သဘောပေါက်ရဲ့လား" },
-            { tapong: "Thim", english: "Dark", myanmar: "မှောင်သော" },
-            { tapong: "Thin raw", english: "Angry", myanmar: "ဒေါသထွက်သော" },
-            { tapong: "Thin thip", english: "Worry", myanmar: "ပူဆွေးသောက" },
-            { tapong: "Thing", english: "Wood", myanmar: "သစ်သား" },
-            { tapong: "Thing kung", english: "Tree", myanmar: "သစ်ပင်" },
-            { tapong: "Thu", english: "Subject", myanmar: "အကြောင်းအရာ" },
-            { tapong: "Thu khen, thu khen sak", english: "Decision, makes a decision", myanmar: "ဆုံးဖြတ်ချက်, ဆုံးဖြတ်ချက်ချသည်" },
-            { tapong: "Thu ngai ang ih sin", english: "Actually", myanmar: "တကယ်တော့" },
-            { tapong: "Thu rial", english: "Sermon", myanmar: "တရားဟော်သည်" },
-            { tapong: "Thu ruat", english: "Thinking", myanmar: "စဥ်းစားသည်" },
-            { tapong: "Thuang khat", english: "One thousand", myanmar: "တစ်ထောင်" },
-            { tapong: "Thun", english: "Add to, plug in", myanmar: "ထည့်သွင်းသည်" },
-            { tapong: "Ti", english: "Water", myanmar: "ရေ" },
-            { tapong: "Ti in", english: "Drink water", myanmar: "ရေသောက်" },
-            { tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲဲ့, မလုပ်ကြပါနဲ့" },
-            { tapong: "Tiar , thiar", english: "new", myanmar: "အသစ်, သစ်လွင်သော" },
-            { tapong: "Tlan", english: "Run", myanmar: "ပြေးသည်" },
-            { tapong: "Tlei ngua", english: "Sick", myanmar: "ဖျားနာသည်" },
-            { tapong: "Tlung", english: "Go back", myanmar: "ပြန်သွားသည်" },
-            { tapong: "To", english: "Sit Down", myanmar: "ထိုင်သည်" },
-            { tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ" },
-            { tapong: "Tu ni", english: "Today", myanmar: "ဒီကနေ့" },
-            { tapong: "Tu rori in", english: "Immediately", myanmar: "ခုချက်ချင်း" },
-            { tapong: "Tu zarh", english: "This week", myanmar: "ဒီတစ်ပတ်" },
-            { tapong: "Tuang in", english: "School", myanmar: "စာသင်ကျောင်း" },
-            { tapong: "Tum", english: "Play", myanmar: "တီးသည်" },
-            { tapong: "U ham", english: "Adult", myanmar: "အရွယ်ရောက်, ဆယ်ကျော်သက်" },
-            { tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား" },
-            { tapong: "Ui co", english: "Dog", myanmar: "ခွေး" },
-            { tapong: "Um hmun", english: "Camp, place", myanmar: "စခန်း, နေရာဒေသ" },
-            { tapong: "Upa", english: "Older", myanmar: "ကြီးသော, အိုသော" },
-            { tapong: "Vak", english: "Walk", myanmar: "လမ်းလျှောက်သည်" },
-            { tapong: "Van", english: "Sky", myanmar: "ကောင်းကင်" },
-            { tapong: "Van Cung Mi", english: "Angel", myanmar: "ကောင်းကင်တမန်" },
-            { tapong: "Van vum", english: "Heaven", myanmar: "ကောင်းကင်ဘုံ" },
-            { tapong: "Van zuang", english: "Airplane, Flight", myanmar: "လေယာဉ်ပျံ" },
-            { tapong: "Var", english: "Light", myanmar: "အလင်း ( hla pui var ngai - hla var ngai - moon light-လေရာင်ထိန်လသ်းသည်)" },
-            { tapong: "Vaw no", english: "Bird", myanmar: "ငှက်" },
-            { tapong: "Vel", english: "Peel", myanmar: "အခွံခွာသည်" },
-            { tapong: "Vok", english: "Pig", myanmar: "ဝက်" },
-            { tapong: "Vuah", english: "Do, make", myanmar: "လုပ်သည်" },
-            { tapong: "Za", english: "One hundred", myanmar: "တစ်ရာ" },
-            { tapong: "Zak nung", english: "Shameful", myanmar: "ရှက်စရာကောင်းသော" },
-            { tapong: "Zak tiar", english: "Humiliate", myanmar: "အရှက်ရစေသည်" },
-            { tapong: "Zan", english: "Night", myanmar: "ည" },
-            { tapong: "Zan pha", english: "Good night", myanmar: "ကောင်းသောည" },
-            { tapong: "Zei fang, zei fang maw, zei hnun, zei hnun maw", english: "When", myanmar: "ဘယ်တော့လဲ, ဘယ်ချိန်လဲ" },
-            { tapong: "Zei si khaw, zei ha, zei maw", english: "What", myanmar: "ဘာလဲ" },
-            { tapong: "Zei na per viang?", english: "What work do you do?", myanmar: "သင် ဘာအလုပ် လုပ်ပါသလဲ။" },
-            { tapong: "Zi", english: "Wife", myanmar: "မိန်းမ" },
-            { tapong: "Zi nei, pasel nei ha cim?", english: "Are you married?", myanmar: "သင် အိမ်ထောင်ပြုပြီးပြီလား။" },
-            { tapong: "Zing pha", english: "Good morning", myanmar: "မင်္ဂလာမနက်ခင်းပါ" },
-            { tapong: "Zir", english: "Learn", myanmar: "သင်ယူသည်, လေ့လာသည်" },
-            { tapong: "Zirh", english: "Teach", myanmar: "သင်ကြားပေးသည်" },
-            { tapong: "Zu", english: "Alcohol", myanmar: "အရက်" },
-            { tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်" },
-            { tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" },
-            { tapong: "Zuat, i zuat in, nei zuat ngua", english: "Ask, ask me, you didn't ask me", myanmar: "မေးသည်, ငါ့ကိုမေးပါ, ငါ့ကိုမေးပါလား" }
+        const rawList = [
+            { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
+            { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ" },
+            { id: 3, tapong: "Ar", english: "Chicken", myanmar: "ကြက်" },
+            { id: 4, tapong: "Ar sa", english: "Chicken curry", myanmar: "ကြက်သား" },
+            { id: 5, tapong: "Ar si", english: "Star", myanmar: "ကြယ်" },
+            { id: 6, tapong: "Biak in", english: "Church", myanmar: "ဘုရားကျောင်း" },
+            { id: 7, tapong: "Biak, Vong", english: "Hold", myanmar: "ကိုင်သည်" },
+            { id: 8, tapong: "Bongbi", english: "Trousers", myanmar: "ဘောင်းဘီ" },
+            { id: 9, tapong: "Buai", english: "Captain", myanmar: "ဗိုလ်" },
+            { id: 10, tapong: "Buam", english: "Help", myanmar: "ကူညီသည်, ဖေးမသည်" },
+            { id: 11, tapong: "But", english: "Shoe", myanmar: "ဖိနပ်" },
+            { id: 12, tapong: "Ca ha", english: "Enough", myanmar: "တော်ပြီ" },
+            { id: 13, tapong: "Ca ni ni, Ni ruk ni", english: "Saturday", myanmar: "စနေနေ့" },
+            { id: 14, tapong: "Ca uk", english: "Book", myanmar: "စာအုပ်" },
+            { id: 15, tapong: "Caan", english: "Time, period", myanmar: "အချိန်" },
+            { id: 16, tapong: "Cabuai", english: "Table", myanmar: "စားပွဲ" },
+            { id: 17, tapong: "Ceh bing", english: "Bicycle", myanmar: "စက်ဘီး" },
+            { id: 18, tapong: "Celh ha", english: "Finish, done", myanmar: "ပြီးပြီ" },
+            { id: 19, tapong: "Cop, cawp", english: "Cold", myanmar: "အေးသည်" },
+            { id: 20, tapong: "Cozah, thu nei tu", english: "Government", myanmar: "အစိုးရ" },
+            { id: 21, tapong: "Ding", english: "Stand Up", myanmar: "မတ်တတ်ရပ်သည်" },
+            { id: 22, tapong: "Duk", english: "Pull", myanmar: "ဆွဲသည်" },
+            { id: 23, tapong: "Ei", english: "Eat", myanmar: "စားသည်" },
+            { id: 24, tapong: "El dun", english: "Arguing", myanmar: "ငြင်းခုန်းခြင်း" },
+            { id: 25, tapong: "Ha", english: "Teeth", myanmar: "သွားများ" },
+            { id: 26, tapong: "Ha lang", english: "Glass", myanmar: "ဖန်ခွက်" },
+            { id: 27, tapong: "Har sa", english: "Difficulty", myanmar: "အခက်အခဲ" },
+            { id: 28, tapong: "Hau dun, tuang dun", english: "Fight", myanmar: "ရန်ဖြစ်" },
+            { id: 29, tapong: "Hawh", english: "Go", myanmar: "သွားသည်" },
+            { id: 30, tapong: "Hla", english: "Month", myanmar: "လ" },
+            { id: 31, tapong: "Hla pui", english: "Moon", myanmar: "လမင်းကြီး" },
+            { id: 32, tapong: "Hlai", english: "Food", myanmar: "ထမင်း" },
+            { id: 33, tapong: "Hlai suang, hmeh suang", english: "Cook", myanmar: "ထမင်းချက်, ဟင်းချက်" },
+            { id: 34, tapong: "Hli vua", english: "Air", myanmar: "လေ" },
+            { id: 35, tapong: "Hmai", english: "Face", myanmar: "မျက်နှာ" },
+            { id: 36, tapong: "Hmeh", english: "Curry, Dish", myanmar: "ဟင်း" },
+            { id: 37, tapong: "Hming", english: "Name", myanmar: "နာမည်" },
+            { id: 38, tapong: "Hmu", english: "See", myanmar: "မြင်တွေ့သည်" },
+            { id: 39, tapong: "Hmu sel", english: "Play", myanmar: "ကစားသည်" },
+            { id: 40, tapong: "Hmu sel hak", english: "Toy", myanmar: "ကစားစရာအရုပ်" },
+            { id: 41, tapong: "Hmun", english: "Place", myanmar: "တည်နေရာ" },
+            { id: 42, tapong: "Hna per, par", english: "Work", myanmar: "လုပ်သည်, အလုပ်" },
+            { id: 43, tapong: "Hnai hnawk tu", english: "Interfere", myanmar: "ဝင်ရောက်စွက်ဖက်သည်" },
+            { id: 44, tapong: "Hnar", english: "Nose", myanmar: "နှာခေါင်း" },
+            { id: 45, tapong: "Hni", english: "Laugh", myanmar: "ရယ်မျောသည်" },
+            { id: 46, tapong: "Hong", english: "Open", myanmar: "ဖွင့်သည်" },
+            { id: 47, tapong: "Huaitu", english: "Chairman, Leadership", myanmar: "ဥက္ကဋ္ဌ, ခေါင်းဆောင်" },
+            { id: 48, tapong: "Ik sik", english: "Jealous", myanmar: "မနာလိုသော" },
+            { id: 49, tapong: "In", english: "Drink", myanmar: "သောက်သည်" },
+            { id: 50, tapong: "In, inn", english: "House, home", myanmar: "အိမ်" },
+            { id: 51, tapong: "It", english: "Sleep", myanmar: "အိပ်သည်" },
+            { id: 52, tapong: "It hnak", english: "Love, Kindness, Mercy", myanmar: "ချစ်ခြင်း, မေတ္တာ" },
+            { id: 53, tapong: "Kap", english: "Cry", myanmar: "ငိုသည်" },
+            { id: 54, tapong: "Kap", english: "Shoot", myanmar: "ပစ်သည်" },
+            { id: 55, tapong: "Ke", english: "Foot", myanmar: "ခြေထောက်" },
+            { id: 56, tapong: "Ke zep", english: "Slipper", myanmar: "ခြေညပ်ဖိနပ်" },
+            { id: 57, tapong: "Kham", english: "Close", myanmar: "ဖိတ်သည်" },
+            { id: 58, tapong: "Khen dun, nupa khen dun", english: "Divorce", myanmar: "ကွာရှင်းခြင်း" },
+            { id: 59, tapong: "Khua", english: "Village", myanmar: "ရွာ" },
+            { id: 60, tapong: "Khual Tluang", english: "Travel", myanmar: "ခရီးသွားသည်" },
+            { id: 61, tapong: "Khuapui", english: "City", myanmar: "မြို့" },
+            { id: 62, tapong: "Ko, sam", english: "Call", myanmar: "ခေါ်သည်" },
+            { id: 63, tapong: "Kualpaw", english: "Cow", myanmar: "နွား" },
+            { id: 64, tapong: "Kul", english: "Twenty", myanmar: "နှစ်ဆယ်" },
+            { id: 65, tapong: "Kum", english: "Year", myanmar: "ခုနှစ်" },
+            { id: 66, tapong: "Kut", english: "Hand", myanmar: "လက်" },
+            { id: 67, tapong: "La sa", english: "Sing a Song", myanmar: "သီချင်းဆိုသည်" },
+            { id: 68, tapong: "Lai ngan", english: "Write Letter", myanmar: "ရေးသည်, စာရေးသည်" },
+            { id: 69, tapong: "Lai ngantu", english: "Secretary", myanmar: "အတွင်းရေးမှူး" },
+            { id: 70, tapong: "Lai siar, siar", english: "Read", myanmar: "ဖတ်သည်" },
+            { id: 71, tapong: "Lei", english: "Buy", myanmar: "ဝယ်ယူသည်" },
+            { id: 72, tapong: "Lei", english: "Tongue", myanmar: "လျှာ" },
+            { id: 73, tapong: "Lei, Lei Lung", english: "Land", myanmar: "မြေ, မြေကြီး" },
+            { id: 74, tapong: "Liang", english: "Visit", myanmar: "လာလည်သည်" },
+            { id: 75, tapong: "Lian", english: "Big", myanmar: "ကြီးသော" },
+            { id: 76, tapong: "Lo", english: "Frame", myanmar: "လယ်ယာ" },
+            { id: 77, tapong: "Lu", english: "Head", myanmar: "ဦးခေါင်း" },
+            { id: 78, tapong: "Lum", english: "Warm", myanmar: "နွေးသည်" },
+            { id: 79, tapong: "Lung sir", english: "Repent", myanmar: "နောင်တ" },
+            { id: 80, tapong: "Lung uai", english: "Joyful", myanmar: "ဝမ်းမြောက်ဝမ်းသာ" },
+            { id: 81, tapong: "Lut hmun", english: "Entrance", myanmar: "ဝင်ပေါက်" },
+            { id: 82, tapong: "Mang pha", english: "Have a Sweet Dreams", myanmar: "အိပ်မက်လှလှမက်ပါစေ" },
+            { id: 83, tapong: "Maw taw", english: "Car", myanmar: "ကား" },
+            { id: 84, tapong: "Mei", english: "Fire", myanmar: "မီး" },
+            { id: 85, tapong: "Men", english: "Price", myanmar: "ဈေးနှုန်း, တန်ဖိုး" },
+            { id: 86, tapong: "Mi har sa", english: "Refugee", myanmar: "ဒုက္ခသည်" },
+            { id: 87, tapong: "Mi hnai hnawk tu", english: "Pester", myanmar: "နှောင့်ယှက်သူ" },
+            { id: 88, tapong: "Mi hming thang", english: "Famous", myanmar: "နာမည်ကြီး, ကျော်ကြား" },
+            { id: 89, tapong: "Mi nung", english: "People", myanmar: "လူ" },
+            { id: 90, tapong: "Minit", english: "Minute", myanmar: "မိနစ်" },
+            { id: 91, tapong: "Mipa", english: "Boy", myanmar: "ယောကျ်ားလေး" },
+            { id: 92, tapong: "Mit", english: "Eye", myanmar: "မျက်စိ" },
+            { id: 93, tapong: "Mit ha lang", english: "Glasses", myanmar: "မျက်မှန်" },
+            { id: 94, tapong: "Muang", english: "Drive", myanmar: "မောင်းသည်" },
+            { id: 95, tapong: "Muang tu", english: "Driver", myanmar: "မောင်းသူ" },
+            { id: 96, tapong: "Na ann ing", english: "Appropriate, Thank You", myanmar: "ကျေးဇူးတင်ပါသည်" },
+            { id: 97, tapong: "Nau u", english: "Sibling", myanmar: "မောင်နှမ" },
+            { id: 98, tapong: "Nau u", english: "Brother, Sister", myanmar: "ညီအစ်ကို, ညီအစ်မ" },
+            { id: 99, tapong: "Naupang", english: "Children", myanmar: "ကလေး" },
+            { id: 100, tapong: "Nazi", english: "Clock, Time", myanmar: "နာရီ" },
+            { id: 101, tapong: "Ngai", english: "Listen, Miss", myanmar: "နားထောင်သည်, လွမ်းသည်" },
+            { id: 102, tapong: "Ngan", english: "Write", myanmar: "ရေးသည်" },
+            { id: 103, tapong: "Ni", english: "Day", myanmar: "နေ့ရက်" },
+            { id: 104, tapong: "Ni", english: "Sun", myanmar: "နေ" },
+            { id: 105, tapong: "Ni hla", english: "Calendar", myanmar: "ပြက္ခဒိန်" },
+            { id: 106, tapong: "Ni hnih ni", english: "Tuesday", myanmar: "အင်္ဂါနေ့" },
+            { id: 107, tapong: "Ni khat ni", english: "Monday", myanmar: "တနင်္လာနေ့" },
+            { id: 108, tapong: "Ni li ni", english: "Thursday", myanmar: "ကြာသပတေးနေ့" },
+            { id: 109, tapong: "Ni nga ni", english: "Friday", myanmar: "သောကြာနေ့" },
+            { id: 110, tapong: "Ni ruk ni, ca ni ni", english: "Saturday", myanmar: "စနေနေ့" },
+            { id: 111, tapong: "Ni sarih ni, ni pui ni", english: "Sunday", myanmar: "တနင်္ဂနွေနေ့" },
+            { id: 112, tapong: "Ni thum ni", english: "Wednesday", myanmar: "ဗုဒ္ဓဟူးနေ့" },
+            { id: 113, tapong: "Ni, ni ni", english: "Auntie", myanmar: "အဒေါ်" },
+            { id: 114, tapong: "Nu, nu nu", english: "Mother, Mommy", myanmar: "အမေ, မိခင်" },
+            { id: 115, tapong: "Nupa", english: "Partner, Husband and Wife", myanmar: "လင်မယား" },
+            { id: 116, tapong: "Nupang", english: "Girl", myanmar: "မိန်းကလေး" },
+            { id: 117, tapong: "Om, um", english: "Live, Stay, Have, There is", myanmar: "နေထိုင်သည်, ရှိသည်" },
+            { id: 118, tapong: "Pa Hra", english: "Ten", myanmar: "တစ်ဆယ်" },
+            { id: 119, tapong: "Pa Khat", english: "One", myanmar: "တစ်" },
+            { id: 120, tapong: "Pa Khat ta, rang", english: "Uncle", myanmar: "ဦးလေး" },
+            { id: 121, tapong: "Pa Kua", english: "Nine", myanmar: "ကိုး" },
+            { id: 122, tapong: "Pa Li", english: "Four", myanmar: "လေး" },
+            { id: 123, tapong: "Pa Nga", english: "Five", myanmar: "ငါး" },
+            { id: 124, tapong: "Pa Nih", english: "Two", myanmar: "နှစ်" },
+            { id: 125, tapong: "Pa Riat", english: "Eight", myanmar: "ရှစ်" },
+            { id: 126, tapong: "Pa Ruk", english: "Six", myanmar: "ခြောက်" },
+            { id: 127, tapong: "Pa Sarih", english: "Seven", myanmar: "ခုနှစ်ခု" },
+            { id: 128, tapong: "Pa Thum", english: "Three", myanmar: "သုံး" },
+            { id: 129, tapong: "Pa, pa pa", english: "Father, Daddy", myanmar: "အဖေ, ဖခင်" },
+            { id: 130, tapong: "Pan", english: "Look at", myanmar: "ကြည့်သည်" },
+            { id: 131, tapong: "Pasal", english: "Husband", myanmar: "ယောကျ်ား" },
+            { id: 132, tapong: "Pathian", english: "God", myanmar: "ဘုရား" },
+            { id: 133, tapong: "Peng", english: "Township, mile", myanmar: "မြို့နယ်, မိုင်တိုင်" },
+            { id: 134, tapong: "Pi, pi pi", english: "Auntie, Grandmother", myanmar: "အဒေါ်, အဘွား" },
+            { id: 135, tapong: "Poisa kiltu", english: "Treasurer", myanmar: "ဘဏ္ဍာရေးမှူး" },
+            { id: 136, tapong: "Pu, pu pu", english: "Uncle, Grandfather", myanmar: "ဦးလေး, အဖိုး" },
+            { id: 137, tapong: "Ra", english: "Come", myanmar: "လာသည်" },
+            { id: 138, tapong: "Ra leh", english: "Come back", myanmar: "ပြန်လာသည်" },
+            { id: 139, tapong: "Ral", english: "Enemy", myanmar: "ရန်သူ" },
+            { id: 140, tapong: "Ral buai", english: "Captain", myanmar: "စစ်ဗိုလ်" },
+            { id: 141, tapong: "Ral kap", english: "Army", myanmar: "စစ်သား" },
+            { id: 142, tapong: "Ral tlan", english: "War-displaced", myanmar: "စစ်ဘေးဒုက္ခသည်များ" },
+            { id: 143, tapong: "Ram", english: "Country", myanmar: "နိုင်ငံ" },
+            { id: 144, tapong: "Ram uk tu", english: "President", myanmar: "သမ္မတ" },
+            { id: 145, tapong: "Rem", english: "Repair", myanmar: "ပြုပြင်သည်" },
+            { id: 146, tapong: "Rem dun", english: "Peaceful", myanmar: "ငြိမ်းချမ်းသော" },
+            { id: 147, tapong: "Riah sia", english: "Sad", myanmar: "ဝမ်းနည်းသည်" },
+            { id: 148, tapong: "Ruah, ruah zu", english: "Rain", myanmar: "မိုး, မိုးရွာသည်" },
+            { id: 149, tapong: "Rual pui", english: "Friend", myanmar: "သူငယ်ချင်း" },
+            { id: 150, tapong: "Rual sia", english: "Stingy", myanmar: "ကပ်စေးနည်းသော" },
+            { id: 151, tapong: "Sa", english: "Hot", myanmar: "ပူသည်" },
+            { id: 152, tapong: "Sa", english: "Meat dish", myanmar: "အသားဟင်း" },
+            { id: 153, tapong: "Sah nung", english: "Happy", myanmar: "ပျော်သည်" },
+            { id: 154, tapong: "Sam", english: "Hair", myanmar: "ဆံပင်" },
+            { id: 155, tapong: "Saw ngian", english: "Pray", myanmar: "ဆုတောင်းသည်" },
+            { id: 156, tapong: "Sekan", english: "Second", myanmar: "စက္ကန့်" },
+            { id: 157, tapong: "Si zung", english: "Hospital", myanmar: "ဆေးရုံ" },
+            { id: 158, tapong: "Si, awle", english: "Yes", myanmar: "ဟုတ်ကဲ့" },
+            { id: 159, tapong: "Si rori", english: "Definitely, Absolutely", myanmar: "သေချာပေါက်" },
+            { id: 160, tapong: "Si tawh, aih", english: "No", myanmar: "မဟုတ်ဘူး, မဟုတ်ပါ" },
+            { id: 161, tapong: "Siangphahrang", english: "King", myanmar: "ဘုရင်" },
+            { id: 162, tapong: "Siangpharang nu", english: "Queen", myanmar: "ဘုရင်မ" },
+            { id: 163, tapong: "Sian", english: "Small", myanmar: "သေးငယ်သော" },
+            { id: 164, tapong: "Sii", english: "Medicine", myanmar: "ဆေးဝါး" },
+            { id: 165, tapong: "Suak", english: "To leave, To go out, To emerge", myanmar: "ထွက်သည်" },
+            { id: 166, tapong: "Suak hmun", english: "Exit", myanmar: "ထွက်ပေါက်" },
+            { id: 167, tapong: "Suam thum", english: "Thirty", myanmar: "သုံးဆယ်" },
+            { id: 168, tapong: "Thim", english: "Dark", myanmar: "မှောင်သော" },
+            { id: 169, tapong: "Thin thip", english: "Worry", myanmar: "ပူဆွေးသောက" },
+            { id: 170, tapong: "Thing", english: "Wood", myanmar: "သစ်သား" },
+            { id: 171, tapong: "Thing kung", english: "Tree", myanmar: "သစ်ပင်" },
+            { id: 172, tapong: "Thuang khat", english: "One thousand", myanmar: "တစ်ထောင်" },
+            { id: 173, tapong: "Thun", english: "Add to, plug in", myanmar: "ထည့်သွင်းသည်" },
+            { id: 174, tapong: "Ti", english: "Water", myanmar: "ရေ" },
+            { id: 175, tapong: "Ti in", english: "Drink water", myanmar: "ရေသောက်" },
+            { id: 176, tapong: "Tlan", english: "Run", myanmar: "ပြေးသည်" },
+            { id: 177, tapong: "Tuang in", english: "School", myanmar: "စာသင်ကျောင်း" },
+            { id: 178, tapong: "Tlung", english: "Go back", myanmar: "ပြန်သွားသည်" },
+            { id: 179, tapong: "To", english: "Sit Down", myanmar: "ထိုင်သည်" },
+            { id: 180, tapong: "Toh khiang, toh kham", english: "Chair", myanmar: "ထိုင်ခုံ" },
+            { id: 181, tapong: "Tum", english: "Play", myanmar: "တီးသည်" },
+            { id: 182, tapong: "U ham", english: "Adult", myanmar: "အရွယ်ရောက်, ဆယ်ကျော်သက်" },
+            { id: 183, tapong: "Uan", english: "Language", myanmar: "ဘာသာစကား" },
+            { id: 184, tapong: "Ui co", english: "Dog", myanmar: "ခွေး" },
+            { id: 185, tapong: "Um hmun", english: "Camp, place", myanmar: "စခန်း, နေရာဒေသ" },
+            { id: 186, tapong: "Upa", english: "Older", myanmar: "ကြီးသော, အိုသော" },
+            { id: 187, tapong: "Vak", english: "Walk", myanmar: "လမ်းလျှောက်သည်" },
+            { id: 188, tapong: "Van zuang", english: "Airplane, Flight", myanmar: "လေယာဉ်ပျံ" },
+            { id: 189, tapong: "Vel", english: "Peel", myanmar: "အခွံခွာသည်" },
+            { id: 190, tapong: "Vok", english: "Pig", myanmar: "ဝက်" },
+            { id: 191, tapong: "Vuah", english: "To name, To call by a name, To title", myanmar: "နာမည်ပေးသည်, အမည်မှည့်သည်, ခေါ်ဝေါ်သတ်မှတ်သည်" },
+            { id: 192, tapong: "Za", english: "One hundred", myanmar: "တစ်ရာ" },
+            { id: 193, tapong: "Zak nung", english: "Shameful", myanmar: "ရှက်စရာကောင်းသော" },
+            { id: 194, tapong: "Zak tiar", english: "Humiliate", myanmar: "အရှက်ရစေသည်" },
+            { id: 195, tapong: "Zan", english: "Night", myanmar: "ည" },
+            { id: 196, tapong: "Zan pha", english: "Good night", myanmar: "ကောင်းသောည" },
+            { id: 197, tapong: "Zei si khaw, zei ha, zei maw", english: "What", myanmar: "ဘာလဲ" },
+            { id: 198, tapong: "Zi", english: "Wife", myanmar: "မိန်းမ" },
+            { id: 199, tapong: "Zing pha", english: "Good morning", myanmar: "မင်္ဂလာမနက်ခင်းပါ" },
+            { id: 200, tapong: "Zu", english: "Alcohol", myanmar: "အရက်" },
+            { id: 201, tapong: "Zuar", english: "Sell", myanmar: "ရောင်းသည်" },
+            { id: 202, tapong: "Zung", english: "Office", myanmar: "ရုံးခန်း" },
+            { id: 203, tapong: "Na biam seh in", english: "You'll get used to it", myanmar: "နေသားကျလာမှာပါ" },
+            { id: 204, tapong: "Zal", english: "Lie down, recline", myanmar: "လှဲလျောင်းခြင်း" },
+            { id: 205, tapong: "Cam khat no zal i nap, i awt (or) cam khat no cual i awt, i nap", english: "I want to lie down for a bit", myanmar: "ငါခဏလောက် လှဲချင်တယ်" },
+            { id: 206, tapong: "Nap, awt, deih", english: "Want to, want, like", myanmar: "လိုချင်သည်, လိုအပ်သည်, တောင့်တသည်" },
+            { id: 207, tapong: "Nap tawh, nap tuang, awt tawh, awt tuang, deih tawh, deih tuang", english: "Don't want to, don't like", myanmar: "မလိုချင်, မလိုအပ်, မတောင့်တ" },
+            { id: 208, tapong: "Phu", english: "Deserve, worthy", myanmar: "ထိုက်တန်သည်" },
+            { id: 209, tapong: "Na phu si, ka phu si", english: "You deserve it, I deserve it", myanmar: "မင်းနဲ့ထိုက်တန်သည်, ငါနဲ့ထိုက်တန်သည်" },
+            { id: 210, tapong: "Kei ma", english: "mine", myanmar: "ငါ့ဟာ, ငါ့ဥစ္စာ" },
+            { id: 211, tapong: "Kaa", english: "Mouth", myanmar: "ပါးစပ်" },
+            { id: 212, tapong: "Kei, kei mah", english: "Me, I am, I", myanmar: "ငါ, ကျွန်တော်" },
+            { id: 213, tapong: "Nang, nang mah", english: "You, you are, you're", myanmar: "မင်း" },
+            { id: 214, tapong: "A mah, a mah teh", english: "He, She, they, they're", myanmar: "သူ, သူတို့" },
+            { id: 215, tapong: "Mei thel", english: "Gun", myanmar: "သေနတ်" },
+            { id: 216, tapong: "Kang", english: "Burn", myanmar: "မီးလောင်သည်" },
+            { id: 217, tapong: "Zuat, i zuat in, nei zuat ngua", english: "Ask, ask me, you didn't ask me", myanmar: "မေးသည်, ငါ့ကိုမေးပါ, ငါ့ကိုမေးပါလား" },
+            { id: 218, tapong: "La", english: "Song", myanmar: "တေးသီချင်း" },
+            { id: 219, tapong: "Sa", english: "Sing", myanmar: "သီချင်းဆိုသည်" },
+            { id: 220, tapong: "La phuahtu", english: "Song writer, composer", myanmar: "သီချင်းစပ်သူ, တေးရေး" },
+            { id: 221, tapong: "Na hming ngan in", english: "Write your name", myanmar: "မင်းနာမည်ရေးပါ" },
+            { id: 222, tapong: "Pha tak no in", english: "Properly, well", myanmar: "စနစ်တကျ, ကောင်းမွန်စွာ" },
+            { id: 223, tapong: "Nei lau tiar", english: "You scared me", myanmar: "ငါ့ကိုလန့်အောင်လုပ်တာပဲ" },
+            { id: 224, tapong: "Lau", english: "Scare, afraid", myanmar: "လန့်သည်, ကြောက်ရွံ့ခြင်း" },
+            { id: 225, tapong: "Lu na", english: "Headache", myanmar: "ခေါင်းကိုက်ခြင်း" },
+            { id: 226, tapong: "Na", english: "Hurt", myanmar: "နာကျင်သည်" },
+            { id: 227, tapong: "Tlei ngua", english: "Sick", myanmar: "ဖျားနာသည်" },
+            { id: 228, tapong: "Thin raw", english: "Angry", myanmar: "ဒေါသထွက်သော" },
+            { id: 229, tapong: "Ar ti", english: "Egg", myanmar: "ကြက်ဥ" },
+            { id: 230, tapong: "Tuak dun tlang", english: "Meet", myanmar: "တွေ့ဆုံသည်" },
+            { id: 231, tapong: "Zei fang, zei fang maw, zei hnun, zei hnun maw", english: "When", myanmar: "ဘယ်တော့လဲ, ဘယ်ချိန်လဲ" },
+            { id: 232, tapong: "Thu", english: "Subject", myanmar: "အကြောင်းအရာ" },
+            { id: 233, tapong: "Thu rial", english: "Sermon", myanmar: "တရားဟော်သည်" },
+            { id: 234, tapong: "Thu khen, thu khen sak", english: "Decision, makes a decision", myanmar: "ဆုံးဖြတ်ချက်, ဆုံးဖြတ်ချက်ချသည်" },
+            { id: 235, tapong: "Hngak", english: "Wait", myanmar: "စောင့်သည်" },
+            { id: 236, tapong: "I hngak in", english: "Wait for me", myanmar: "ငါ့ကိုစောင့်" },
+            { id: 237, tapong: "I hngak hrih in, i hngak hrih law", english: "Just wait", myanmar: "စောင့်နေလိုက်ပါ" },
+            { id: 238, tapong: "Cam khat no", english: "Just a moment", myanmar: "ခဏစောင့်ပါ" },
+            { id: 239, tapong: "Om hrih in, om hrih law", english: "Hold on", myanmar: "နေပါဦး" },
+            { id: 240, tapong: "Hello, na hming zei si khaw, na hming zei tin ko khaw?", english: "Hello, what is your name?", myanmar: "မင်္ဂလာပါ၊ သင့်နာမည် ဘယ်လိုခေါ်ပါသလဲ။" },
+            { id: 241, tapong: "Ka Hming ah van uk si. Van uk ti in ko si", english: "My name is Van Uk. I am called Van Uk", myanmar: "ငါ့နာမည်က Van Uk ပါ။ Van Uk လို့ ခေါ်ပါတယ်။" },
+            { id: 242, tapong: "Kuai pen na ra?", english: "Where do you come from?", myanmar: "သင် ဘယ်က လာပါသလဲ။" },
+            { id: 243, tapong: "Lai tlang pen ka ra", english: "I come from Chin State", myanmar: "ချင်းတောင်က လာတာပါ။" },
+            { id: 244, tapong: "Kuai na om?", english: "Where do you live?", myanmar: "သင် ဘယ်မှာ နေထိုင်ပါသလဲ။" },
+            { id: 245, tapong: "USA ah ka om", english: "I live in the USA", myanmar: "အမေရိကန်မှာ နေထိုင်ပါတယ်။" },
+            { id: 246, tapong: "Na kum zei zah kim ha khaw? Zei kum ha na suak?", english: "How old are you? Which year were you born?", myanmar: "သင့်အသက် ဘယ်လောက်ရှိပြီလဲ။ ဘယ်နှစ်ခုနှစ်မှာ မွေးဖွားတာလဲ။" },
+            { id: 247, tapong: "Ka kum ah 27 kim ha si. 1999 kum ka suah", english: "I am 27 years old, I was born in 1999", myanmar: "ငါ့အသက် ၂၇ နှစ် ရှိပါပြီ, ၁၉၉၉ ခုနှစ်မှာ မွေးဖွားတာပါ။" },
+            { id: 248, tapong: "Zei na per viang?", english: "What work do you do?", myanmar: "သင် ဘာအလုပ် လုပ်ပါသလဲ။" },
+            { id: 249, tapong: "Company ah ka per", english: "I work at a company", myanmar: "ကုမ္ပဏီမှာ အလုပ်လုပ်ပါတယ်။" },
+            { id: 250, tapong: "In sang nei ha cim?", english: "Do you have a family?", myanmar: "သင် အိမ်ထောင် ရှိပါသလား။" },
+            { id: 251, tapong: "Nei lai tuang", english: "Not yet", myanmar: "မရှိသေးပါ၊ မပြုရသေးပါ။" },
+            { id: 252, tapong: "Nei celh ha", english: "Already have / Already married", myanmar: "ရှိပါပြီ၊ ပြုပြီးပါပြီ။" },
+            { id: 253, tapong: "Zi nei, pasel nei ha cim?", english: "Are you married?", myanmar: "သင် အိမ်ထောင်ပြုပြီးပြီလား။" },
+            { id: 254, tapong: "Fa nei ha cim?", english: "Do you have children?", myanmar: "သင့်မှာ သားသမီး ရှိပါသလား။" },
+            { id: 255, tapong: "Fa pali ka nei", english: "I have four children", myanmar: "သားသမီး ၄ ယောက် ရှိပါတယ်။" },
+            { id: 256, tapong: "Fapa fanu pazei na nei?", english: "How many sons and daughters do you have?", myanmar: "သင့်မှာ သားနဲ့ သမီး ဘယ်နှစ်ယောက် ရှိပါသလဲ။" },
+            { id: 257, tapong: "Mipa pa khat le nupang pathum, Fapa pa khat le Fanu pathum", english: "One boy and three girls, One son and three daughters", myanmar: "သား ၁ ယောက်နဲ့ သမီး ၃ ယောက်ပါ။" },
+            { id: 258, tapong: "Kuai na hawh?, kuai tah na hawh?", english: "Where are you go, going?", myanmar: "မင်းဘယ်သွားတာလည်း, သွားနေလည်း?" },
+            { id: 259, tapong: "kuai tah, kuai tah maw?", english: "Where, where are", myanmar: "ဘယ်မှာ, ဘယ်နားမှာ, ဘယ်မှာလည်း, ဘယ်နားမှာလည်း" },
+            { id: 260, tapong: "Tiar , thiar", english: "new", myanmar: "အသစ်, သစ်လွင်သော" },
+            { id: 261, tapong: "Ti mah in, mah in, ti mah un, mah un", english: "Don't, don't do that", myanmar: "မလုပ်နဲဲ့, မလုပ်ကြပါနဲ့" },
+            { id: 262, tapong: "Dongkham", english: "Door, window", myanmar: "တံခါး, ပြတင်းပေါက်" },
+            { id: 263, tapong: "un", english: "Plural suffix (means is plural noun)", myanmar: "အများကိန်း ပြသော စကားလုံး" },
+            { id: 264, tapong: "in", english: "Singular suffix (means is singular noun)", myanmar: "အနည်းကိန်း ပြသော စကားလုံး" },
+            { id: 265, tapong: "Sung ah", english: "Inside, in", myanmar: "အထဲမှာ" },
+            { id: 266, tapong: "Var", english: "Light", myanmar: "အလင်း (hla pui var ngai - လရောင်ထိန်လင်းသည်)" },
+            { id: 267, tapong: "Phiat", english: "Clean, wash", myanmar: "ဆေးကြောသည်, သစ်သည် (na hmai phiat in - မျက်နှာသစ်ပါ)" },
+            { id: 268, tapong: "Hei tah", english: "here, here is", myanmar: "ဒီမှာ" },
+            { id: 269, tapong: "na suak hmun khua", english: "Native Land", myanmar: "မွေးရပ်မြေ" },
+            { id: 270, tapong: "in ah ka tlung", english: "I am going home", myanmar: "အိမ်ပြန်သည်" },
+            { id: 271, tapong: "Kual hai", english: "Mango", myanmar: "သရက်သီး" },
+            { id: 272, tapong: "Ben hla", english: "Banana", myanmar: "ငှက်ပျောသီး" },
+            { id: 273, tapong: "Ma kiang", english: "Tamarind fruit", myanmar: "မန်ကျည်းသီး" },
+            { id: 274, tapong: "An taw", english: "Hog plum", myanmar: "ဂွေးသီး" },
+            { id: 275, tapong: "Vaw no", english: "Bird", myanmar: "ငှက်" },
+            { id: 276, tapong: "Van", english: "Sky", myanmar: "ကောင်းကင်" },
+            { id: 277, tapong: "Van Cung Mi", english: "Angel", myanmar: "ကောင်းကင်တမန်" },
+            { id: 278, tapong: "Van vum", english: "Heaven", myanmar: "ကောင်းကင်ဘုံ" },
+            { id: 279, tapong: "An cang kha", english: "Bitter gourd", myanmar: "ကြက်ဟင်းခါးသီး" },
+            { id: 280, tapong: "Pihuam", english: "Chayote", myanmar: "ဂေါ်ရခါးသီး" },
+            { id: 281, tapong: "Pha, pha ngai", english: "Good, well, very good, very well", myanmar: "ကောင်းတယ်, အရမ်းကောင်းတယ်" },
+            { id: 282, tapong: "Si tawh, si ngua si, ai", english: "No, don't, nope", myanmar: "မဟုတ်ပါ, မဟုတ်ဘူး" },
+            { id: 283, tapong: "Thu ruat", english: "Thinking", myanmar: "စဉ်းစားသည်" },
+            { id: 284, tapong: "Ram sa", english: "Animal", myanmar: "တိရစ္ဆာန်" },
+            { id: 285, tapong: "Moi, moi ngai", english: "Beautiful, pretty", myanmar: "လှပသော, ချောမွေ့သော" },
+            { id: 286, tapong: "Zir", english: "Learn", myanmar: "သင်ယူသည်, လေ့လာသည်" },
+            { id: 287, tapong: "Zirh", english: "Teach", myanmar: "သင်ကြားပေးသည်" },
+            { id: 288, tapong: "Thei thiam cim", english: "Do you understand", myanmar: "နားလည်ရဲ့လား, သဘောပေါက်ရဲ့လား" },
+            { id: 289, tapong: "Thei cim", english: "Do you know", myanmar: "သိရဲ့လား" },
+            { id: 290, tapong: "Ni sa ngai", english: "It's hot and sunny", myanmar: "နေပူတယ်" },
+            { id: 291, tapong: "Tu ni", english: "Today", myanmar: "ဒီကနေ့" },
+            { id: 292, tapong: "Ni hni", english: "Yesterday", myanmar: "မနေ့က" },
+            { id: 293, tapong: "Thaizing", english: "Tomorrow", myanmar: "မနက်ဖြန်" },
+            { id: 294, tapong: "Hmai zarh", english: "Next week", myanmar: "လာမည့်အပတ်" },
+            { id: 295, tapong: "Kan ting zarh", english: "Last week", myanmar: "ပြီးခဲ့သောအပတ်က" },
+            { id: 296, tapong: "Tu zarh", english: "This week", myanmar: "ဒီတစ်ပတ်" },
+            { id: 297, tapong: "Mit hmul", english: "Eyebrow", myanmar: "မျက်ခုံးမွှေး" },
+            { id: 298, tapong: "Hmur hmul", english: "Moustache", myanmar: "နှုတ်ခမ်းမွှေး" },
+            { id: 299, tapong: "Kian", english: "Peek", myanmar: "ခိုးကြည့်သည်, ချောင်းကြည့်သည်" },
+            { id: 300, tapong: "I pial in", english: "Move aside", myanmar: "ဖယ်ပေးပါ" },
+            { id: 301, tapong: "Dang rum", english: "Thirsty", myanmar: "ရေဆာသော" },
+            { id: 302, tapong: "Tu rori in", english: "Immediately", myanmar: "ခုချက်ချင်း" },
+            { id: 303, tapong: "Rin ngua pui in", english: "Suddenly", myanmar: "ရုတ်တရက်" },
+            { id: 304, tapong: "Thu ngai ang ih sin", english: "Actually", myanmar: "တကယ်တော့" },
+            { id: 305, tapong: "A tuap nak in", english: "Finally", myanmar: "နောက်ဆုံးတော့" },
+            { id: 306, tapong: "Buang pha hak thaw in", english: "Luckily", myanmar: "ကံကောင်းစွာနဲ့" },
+            { id: 307, tapong: "Ni khua", english: "Weather", myanmar: "ရာသီဥတု" },
+            { id: 308, tapong: "Sia, pha ngua, hnuan", english: "Bad, no good, broken", myanmar: "မကောင်းသော, ပျက်စီးသော" },
+            { id: 309, tapong: "Pa", english: "Men", myanmar: "အမျိုးသား" },
+            { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
-
-        // Sort dictionary alphabetically by 'tapong'
-        dictionaryData.sort((a, b) => a.tapong.localeCompare(b.tapong));
 
         let selectedWord = null;
         const tbody = document.getElementById('dictionaryBody');
@@ -613,12 +602,12 @@
                 noResults.classList.remove('hidden');
             } else {
                 noResults.classList.add('hidden');
-                data.forEach((item, index) => {
+                data.forEach((item) => {
                     const row = document.createElement('tr');
                     row.className = 'table-row-hover transition-colors duration-150';
-                    row.onclick = () => openModal(item, index + 1);
+                    row.onclick = () => openModal(item, item.id);
                     row.innerHTML = `
-                        <td class="py-3.5 px-4 text-center text-slate-500 font-mono text-xs">${index + 1}</td>
+                        <td class="py-3.5 px-4 text-center text-slate-500 font-mono text-xs">${item.id}</td>
                         <td class="py-3.5 px-4 font-semibold text-blue-300">${escapeHtml(item.tapong)}</td>
                         <td class="py-3.5 px-4 text-slate-200">${escapeHtml(item.english)}</td>
                         <td class="py-3.5 px-4 text-emerald-300 font-medium">${escapeHtml(item.myanmar)}</td>
@@ -638,10 +627,11 @@
                 clearBtn.classList.add('hidden');
             }
 
-            const filteredData = dictionaryData.filter(item => 
+            const filteredData = rawList.filter(item => 
                 item.tapong.toLowerCase().includes(query) ||
                 item.english.toLowerCase().includes(query) ||
-                item.myanmar.toLowerCase().includes(query)
+                item.myanmar.toLowerCase().includes(query) ||
+                item.id.toString() === query
             );
 
             renderTable(filteredData);
@@ -734,7 +724,7 @@
             });
         }
 
-        // Smart Dynamic Example Sentence Generator
+        // Context-Aware Sentence Generator (No redundant "pha ngai")
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
@@ -742,7 +732,6 @@
             const lowerEng = firstEng.toLowerCase();
             const firstMy = item.myanmar.split(/[,/]/)[0].trim();
 
-            // Foods & Drinks
             if (["an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam", "ar sa", "vok", "hlai", "hmeh", "ar ti"].includes(lowerWord)) {
                 return {
                     tapong: `${rawWord} hi an tui thawng ngai.`,
@@ -757,8 +746,6 @@
                     myanmar: "သန့်ရှင်းသော ရေသောက်ပါ။"
                 };
             }
-
-            // Verbs / Actions
             if (["hawh", "tlung", "ra", "ra leh"].includes(lowerWord)) {
                 return {
                     tapong: `In ah ka ${lowerWord} lai.`,
@@ -794,22 +781,13 @@
                     myanmar: "တပေါင်ဘာသာစကားဖြင့် စကားပြောရန် သင်ယူပါ။"
                 };
             }
-            if (["tum", "sa", "la sa"].includes(lowerWord)) {
+            if (lowerWord === "vuah") {
                 return {
-                    tapong: "La pha tak in sa in.",
-                    english: "Sing the song beautifully.",
-                    myanmar: "သီချင်းကို သာယာစွာ ဆိုပါ။"
+                    tapong: "A hming thiar in hming vuah in.",
+                    english: "Give it a new name.",
+                    myanmar: "နာမည်အသစ် သတ်မှတ်ပေးပါ။"
                 };
             }
-            if (["muang", "vak", "tlan"].includes(lowerWord)) {
-                return {
-                    tapong: `Maw taw pha tak in ${lowerWord} in.`,
-                    english: `${firstEng} safely.`,
-                    myanmar: `ဘေးကင်းစွာ ${firstMy}ပါ။`
-                };
-            }
-
-            // People / Relations / Occupations
             if (["rual pui", "naupang", "mipa", "nupang", "nau u", "pu", "pi", "nu", "pa", "pasal", "zi", "huaitu", "la phuahtu", "muang tu", "lai ngantu"].includes(lowerWord)) {
                 return {
                     tapong: `Ka ${lowerWord} hi mi pha si.`,
@@ -817,8 +795,6 @@
                     myanmar: `ငါ့ရဲ့ ${firstMy} က လူကောင်းတစ်ယောက်ပါ။`
                 };
             }
-
-            // Objects / Clothing / Places
             if (["ang ki", "bongbi", "but", "mit ha lang"].includes(lowerWord)) {
                 return {
                     tapong: `Hi ${lowerWord} hi a tiar si.`,
@@ -833,47 +809,7 @@
                     myanmar: `ငါ ဒီ ${firstMy} မှာ ရှိတယ်။`
                 };
             }
-            if (["cabuai", "toh khiang", "toh kham", "ca uk"].includes(lowerWord)) {
-                return {
-                    tapong: `Hi ${lowerWord} hi ca uk cung ah om.`,
-                    english: `This ${lowerEng} is placed here.`,
-                    myanmar: `ဒီ ${firstMy} က ဒီမှာ ရှိတယ်။`
-                };
-            }
 
-            // Animals & Nature
-            if (["ui co", "ar", "vaw no", "kualpaw", "ram sa"].includes(lowerWord)) {
-                return {
-                    tapong: `Hi ${lowerWord} hi lian ngai si.`,
-                    english: `This ${lowerEng} is very big.`,
-                    myanmar: `ဒီ ${firstMy} က အရမ်းကြီးတယ်။`
-                };
-            }
-            if (["ruah", "ruah zu"].includes(lowerWord)) {
-                return {
-                    tapong: "Tu ni ruah a zu ngai.",
-                    english: "It is raining heavily today.",
-                    myanmar: "ဒီနေ့ မိုးအရမ်းရွာနေတယ်။"
-                };
-            }
-            if (["ni", "hla pui", "ar si", "van"].includes(lowerWord)) {
-                return {
-                    tapong: "Van cung ah hla pui var ngai.",
-                    english: "The moon shines brightly in the sky.",
-                    myanmar: "ကောင်းကင်မှာ လရောင်ထိန်ထိန်လင်းနေတယ်။"
-                };
-            }
-
-            // Time / Days / Numbers
-            if (["tu ni", "thaizing", "ni hni", "tu zarh", "hmai zarh", "kan ting zarh"].includes(lowerWord)) {
-                return {
-                    tapong: `${rawWord} ah hna per ka nei.`,
-                    english: `I have work ${lowerEng}.`,
-                    myanmar: `${firstMy} မှာ ငါ အလုပ်ရှိတယ်။`
-                };
-            }
-
-            // Fallback for any other words
             return {
                 tapong: `Hi ${lowerWord} hi uan sung ah a om.`,
                 english: `This word '${firstEng}' is used in sentences.`,
@@ -1009,7 +945,7 @@
                 return;
             }
 
-            const matchedItem = dictionaryData.find(item => {
+            const matchedItem = rawList.find(item => {
                 const t = item.tapong.toLowerCase();
                 const e = item.english.toLowerCase();
                 const m = item.myanmar.toLowerCase();
@@ -1034,35 +970,6 @@
                 return;
             }
 
-            const words = lower.split(/\s+/);
-            let parsedResults = [];
-            let translatedWords = [];
-
-            words.forEach(w => {
-                const match = dictionaryData.find(item => 
-                    item.tapong.toLowerCase().split(/[\s,]+/).includes(w) ||
-                    item.english.toLowerCase().split(/[\s,]+/).includes(w) ||
-                    item.myanmar.includes(w)
-                );
-
-                if (match) {
-                    parsedResults.push(`• **${w}** ➔ ${match.tapong} (${match.english} / ${match.myanmar})`);
-                    translatedWords.push(match.tapong);
-                } else {
-                    translatedWords.push(`[${w}]`);
-                }
-            });
-
-            if (parsedResults.length > 0) {
-                let smartResponse = `🧩 **Smart Grammar Engine Breakdown**\n\n`;
-                smartResponse += `📝 **Combined Tapong Pattern:**\n\`${translatedWords.join(' ')}\`\n\n`;
-                smartResponse += `📚 **Word Analysis:**\n${parsedResults.join('\n')}\n\n`;
-                smartResponse += `💡 *Tip: Tapong သဒ္ဒါစနစ်အရ အမိန့်ပေးဝါကျများတွင် အနည်းအတွက် 'in'၊ အများအတွက် 'un' ကို အသုံးပြုနိုင်ပါသည်။*`;
-
-                appendAiMessage(smartResponse);
-                return;
-            }
-
             const fallbackResponse = 
 `✨ **Tapong Al Assistant**
 
@@ -1075,11 +982,11 @@
         clearBtn.addEventListener('click', () => {
             searchInput.value = '';
             clearBtn.classList.add('hidden');
-            renderTable(dictionaryData);
+            renderTable(rawList);
             searchInput.focus();
         });
 
-        renderTable(dictionaryData);
+        renderTable(rawList);
     </script>
 </body>
 </html>

@@ -724,7 +724,7 @@
             });
         }
 
-        // Context-Aware Example Generator with Dynamic AI Assistant Fallback
+        // Context-Aware Example Generator with Proper Natural Tapong Sentences
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
@@ -817,15 +817,11 @@
                 };
             }
 
-            // 5. Default AI Assistant Smart Logic Fallback (Fixed Variable Name)
-            const dynamicTapong = `${lowerWord} uan in ai assist zung in ngan thism lai ngua si.`;
-            const dynamicEng = `The word '${firstEng}' is analyzed by the AI assistant to form a natural contextual sentence.`;
-            const dynamicMy = `"${firstMy}" ဆိုသော စကားလုံးအတွက် AI ဉာဏ်ရည်စွမ်းရည်ကို အသုံးပြု၍ သဘာဝကျသော ဝါကျအသစ်ကို တည်ဆောက်ပေးထားပါသည်။`;
-
+            // 5. Proper Natural Tapong Fallback Sentence for Any Other Words
             return {
-                tapong: dynamicTapong,
-                english: dynamicEng,
-                myanmar: dynamicMy
+                tapong: `Hi ${rawWord} hi tapong uan in a pha tak ngua si.`,
+                english: `This '${firstEng}' is very good and useful in Tapong language.`,
+                myanmar: `ဒီ "${firstMy}" က တပေါင်ဘာသာစကားမှာ အလွန်ကောင်းမွန်ပြီး အသုံးဝင်ပါတယ်။`
             };
         }
 

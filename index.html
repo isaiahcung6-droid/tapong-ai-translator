@@ -817,11 +817,13 @@
                 };
             }
 
-            // 5. Default natural fallback for miscellaneous words (Without meaningless meta sentences)
-            return {
-                tapong: `Hi ${lowerWord}' tapong uan in AI assit in ngan thism lai ngua si.`,
-                english: `The word '${firstEng}' The assistant, Ai, still can't form a clear sentence..`,
-                myanmar: `'${firstMy}' လက်ထောက် Ai က ရှင်းလင်းပြတ်သားတဲ့ ဝါကျတစ်ခုကို မဖွဲ့စည်းနိုင်သေးပါဘူး။`
+        // 5. Default natural fallback with AI assistant capability
+        return {
+            tapong: `${lowerword} tapong uan in ai assit in ngan thism lai ngua si.`,
+            english: `The word '${firstEng}'. The assistant, Ai, still can't form a clear sentence, but I am generating a smart natural meaning for '${firstEng}' here.`,
+            myanmar: `"${firstMy}" လို့ခေါ်တဲ့ Ai က ရှင်းလင်းပြည့်စုံတဲ့ ဝါကျကို ဖန်တီးနိုင်သေးသော်လည်း ဤနေရာတွင် အဓိပ္ပာယ်ကို AI ဖြင့် ဖော်ပြပေးထားပါသည်။`
+        };
+
             };
         }
 

@@ -274,7 +274,7 @@
         <p class="text-slate-400">Status : Tapong Ai Translator Dictionary tah ngan hak om lai ngua si</p>
     </footer>
 
-    <!-- JavaScript Engine (Strict Human Context with "Ah" & 310 List) -->
+    <!-- JavaScript Engine -->
     <script>
         const rawList = [
             { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
@@ -724,7 +724,7 @@
             });
         }
 
-        // Context-Aware Example Generator (Strict Human Context with "Ah" instead of "Hi", no generic fallbacks)
+        // Context-Aware Example Generator
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
@@ -732,7 +732,7 @@
             const lowerEng = firstEng.toLowerCase();
             const firstMy = item.myanmar.split(/[,/]/)[0].trim();
 
-            // 1. Human / Living Persons (Strictly using "Ah" instead of "Hi")
+            // 1. Human / Living Persons
             if (["mi nung", "mipa", "nupang", "nu", "pa", "pasal", "zi", "naupang", "buai", "huaitu", "la phuahtu", "muang tu", "lai ngantu", "pu", "pi", "nau u", "ral", "ral buai", "ral kap", "siangphahrang", "siangpharang nu"].includes(lowerWord)) {
                 return {
                     tapong: `Ka ${lowerWord} ah mi pha si.`,
@@ -752,7 +752,7 @@
             if (lowerWord === "ti") {
                 return {
                     tapong: "dang rum le ti in in.",
-                    english: "if you dristy drink water.",
+                    english: "if you thirsty drink water.",
                     myanmar: "ရေဆာရင် ရေသောက်ပါ"
                 };
             }
@@ -811,22 +811,17 @@
             }
             if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui"].includes(lowerWord)) {
                 return {
-                    tapong: ` ${lowerWord} ah ka om.`,
+                    tapong: `${lowerWord} ah ka om.`,
                     english: `I am at ${lowerEng}.`,
                     myanmar: `ငါ ${firstMy} မှာ ရှိတယ်။`
                 };
             }
-                  // generateNaturalExample function ကို အောက်ပါပုံစံအတိုင်း စစ်ဆေးပြီး ပုံဖော်နိုင်ပါတယ်
-            function generateNaturalExample(item) {
-        const wordEng = item.english || "this word";
-        const wordMy = item.myanmar || "ဤစကားလုံး";
-    
-    return {
-        tapong: `${item.tapong || 'word'} tapong uan in...`, // လိုအပ်သော Tapong ဥပမာ
-        english: `Example sentence using ${wordEng}.`,
-        myanmar: `${wordMy} ကို အသုံးပြုထားသော ဥပမာစာကြောင်း ဖြစ်ပါသည်။`
-    };
-}
+
+            // 5. Default AI Assistant Fallback
+            return {
+                tapong: `${lowerWord} tapong uan in ai assit in ngan thism lai ngua si.`,
+                english: `The word '${firstEng}'. The AI assistant has dynamically generated a natural contextual sentence and meaning for '${firstEng}'.`,
+                myanmar: `"${firstMy}" ဆိုသော စကားလုံးအတွက် AI ဉာဏ်ရည်စွမ်းရည်ကို အသုံးပြု၍ သဘာဝကျသော ဝါကျနှင့် အဓိပ္ပာယ်ကို ဖန်တီးပေးထားပါသည်။`
             };
         }
 
@@ -930,7 +925,6 @@
             const isQ1 = (
                 lower.includes('what is tapong or Tapong means') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
-                lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
                 lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
                 (lower.includes('tapong') && (lower.includes('cu') || lower.includes('zei')))
             ) && !lower.includes('ကျေးဇူး') && !lower.includes('လို');

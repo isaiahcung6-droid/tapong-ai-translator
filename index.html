@@ -744,16 +744,16 @@
             // 2. Foods & Drinks
             if (["an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam", "ar sa", "vok", "hlai", "hmeh", "ar ti"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} hi an tui thawng ngai.`,
+                    tapong: `${rawWord} hi miah ah ur ngai si.`,
                     english: `${firstEng} is very delicious in curry.`,
                     myanmar: `${firstMy} ဟင်းက အရမ်းအရသာရှိတယ်။`
                 };
             }
             if (lowerWord === "ti") {
                 return {
-                    tapong: "Ti thianghlim in in in.",
-                    english: "Drink clean water.",
-                    myanmar: "သန့်ရှင်းသော ရေသောက်ပါ။"
+                    tapong: "dang rum le ti in in.",
+                    english: "if you dristy drink water.",
+                    myanmar: "ရေဆာရင် ရေသောက်ပါ"
                 };
             }
 
@@ -783,7 +783,7 @@
                 return {
                     tapong: `Ca uk ah pha tak in ${lowerWord} in.`,
                     english: `${firstEng} properly in the book.`,
-                    myanmar: `စာအုပ်ထဲမှာ စနစ်တကျ ${firstMy}ပါ။`
+                    myanmar: `စာအုပ်ကို စနစ်တကျ ${firstMy}ပါ။`
                 };
             }
             if (lowerWord === "ai") {
@@ -795,9 +795,9 @@
             }
             if (lowerWord === "vuah") {
                 return {
-                    tapong: "A hming thiar in hming vuah in.",
-                    english: "Give it a new name.",
-                    myanmar: "နာမည်အသစ် သတ်မှတ်ပေးပါ။"
+                    tapong: "thil pha ngua vuah mah in.",
+                    english: "Don't do bad things.",
+                    myanmar: "မကောင်းမှုတွေ မလုပ်ပါနဲ့။"
                 };
             }
 
@@ -819,9 +819,9 @@
 
             // 5. Default natural fallback for miscellaneous words (Without meaningless meta sentences)
             return {
-                tapong: `Hi ${lowerWord} hi uan sung ah hman mi si.`,
-                english: `The word '${firstEng}' is used naturally in Tapong language.`,
-                myanmar: `'${firstMy}' ဆိုသည့် စကားလုံးကို တပေါင်ဘာသာစကားဖြင့် သဘာဝကျကျ အသုံးပြုပါသည်။`
+                tapong: `Hi ${lowerWord}' tapong uan in AI assit in ngan thism lai ngua si.`,
+                english: `The word '${firstEng}' The assistant, Ai, still can't form a clear sentence..`,
+                myanmar: `'${firstMy}' လက်ထောက် Ai က ရှင်းလင်းပြတ်သားတဲ့ ဝါကျတစ်ခုကို မဖွဲ့စည်းနိုင်သေးပါဘူး။`
             };
         }
 

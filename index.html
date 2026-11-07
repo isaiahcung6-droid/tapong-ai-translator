@@ -923,16 +923,16 @@
             const lower = rawQuery.toLowerCase();
 
             const isQ1 = (
-                lower.includes('what is tapong') || 
+                lower.includes('what is tapong or Tapong means') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
                 lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
-                lower.includes('တာပေါင်ဆိုတာဘာလဲ') || 
+                lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
                 (lower.includes('tapong') && (lower.includes('cu') || lower.includes('zei')))
             ) && !lower.includes('ကျေးဇူး') && !lower.includes('လို');
 
             if (isQ1) {
                 const q1Response = 
-`📖 **What is Tapong or Tapong means**
+`📖 **What is Tapong**
 
 • **English:** Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
 
@@ -946,7 +946,7 @@
 
             if (isQ2) {
                 const q2Response = 
-`🧑‍💻 **Who created this?or who make this?**
+`🧑‍💻 **Who created this?**
 
 • **English:** Created by Isaiah Cung (Lati / Bualthang).
 • **Myanmar:** Isaiah Cung (Lati / Bualthang) မှ ဖန်တီးပြုလုပ်ထားခြင်းဖြစ်သည်။`;

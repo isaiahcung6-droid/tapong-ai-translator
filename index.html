@@ -817,11 +817,17 @@
                 };
             }
 
-        // 5. Default natural fallback with AI assistant dynamic sentence generation
-        return {
-            tapong: `${lowerword} tapong uan in ai assit in ngan thism lai ngua si.`,
-            english: `The word '${firstEng}'. The AI assistant has dynamically generated a natural contextual sentence and meaning for '${firstEng}'.`,
-            myanmar: `"${firstMy}" ဆိုသော စကားလုံးအတွက် AI ဉာဏ်ရည်စွမ်းရည်ကို အသုံးပြု၍ သဘာဝကျသော ဝါကျနှင့် အဓိပ္ပာယ်ကို ဖန်တီးပေးထားပါသည်။`
+// generateNaturalExample function ကို အောက်ပါပုံစံအတိုင်း စစ်ဆေးပြီး ပုံဖော်နိုင်ပါတယ်
+function generateNaturalExample(item) {
+    const wordEng = item.english || "this word";
+    const wordMy = item.myanmar || "ဤစကားလုံး";
+    
+    return {
+        tapong: `${item.tapong || 'word'} tapong uan in...`, // လိုအပ်သော Tapong ဥပမာ
+        english: `Example sentence using ${wordEng}.`,
+        myanmar: `${wordMy} ကို အသုံးပြုထားသော ဥပမာစာကြောင်း ဖြစ်ပါသည်။`
+    };
+}
 
             };
         }

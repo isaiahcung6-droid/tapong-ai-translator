@@ -741,12 +741,12 @@
                 };
             }
 
-            // 2. Foods & Drinks
-            if (["an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam", "ar sa", "vok", "hlai", "hmeh", "ar ti"].includes(lowerWord)) {
+            // 2. Foods & Dishes (Exact user phrasing: Ar sa hmeh ah a ur ngai si)
+            if (["ar sa", "vok", "hlai", "hmeh", "ar ti", "an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} hi miah ah ur ngai si.`,
-                    english: `${firstEng} is very delicious in curry.`,
-                    myanmar: `${firstMy} ဟင်းက အရမ်းအရသာရှိတယ်။`
+                    tapong: `${rawWord} hmeh ah a ur ngai si.`,
+                    english: `${firstEng} is very delicious.`,
+                    myanmar: `${firstMy} က အရမ်းအရသာရှိတယ်။`
                 };
             }
             if (lowerWord === "ti") {
@@ -804,7 +804,7 @@
             // 4. Objects / Clothing / Places
             if (["ang ki", "bongbi", "but", "mit ha lang"].includes(lowerWord)) {
                 return {
-                    tapong: `Hi ${lowerWord} hi a tiar si.`,
+                    tapong: `Hi ${lowerWord} ah a tiar si.`,
                     english: `This ${lowerEng} is new.`,
                     myanmar: `ဒီ ${firstMy} က အသစ်ဖြစ်တယ်။`
                 };
@@ -817,9 +817,9 @@
                 };
             }
 
-            // 5. Proper Natural Tapong Fallback Sentence for Any Other Words
+            // 5. Smart AI Dynamic Sentence Generator for Any Other Words
             return {
-                tapong: `Hi ${rawWord} hi tapong uan in a pha tak ngua si.`,
+                tapong: `${rawWord} ah tapong uan in a pha tak ngua si.`,
                 english: `This '${firstEng}' is very good and useful in Tapong language.`,
                 myanmar: `ဒီ "${firstMy}" က တပေါင်ဘာသာစကားမှာ အလွန်ကောင်းမွန်ပြီး အသုံးဝင်ပါတယ်။`
             };

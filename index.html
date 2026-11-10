@@ -588,6 +588,23 @@
             { id: 309, tapong: "Pa", english: "Men", myanmar: "အမျိုးသား" },
             { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
+    
+    const TAPONG_GRAMMAR_RULES = [
+        { id: 1, rule: "Base verb unchanged", desc: "ကြိယာ ပုံစံပြောင်းလဲခြင်းမရှိပါ" },
+        { id: 2, rule: "Aspect particle celh ha", desc: "ပြီးစီးမှုကိုပြသော celh ha အသုံး" },
+        { id: 3, rule: "Connector ah", desc: "စကားဆက်အနေဖြင့် ah ကိုသာ သုံးရမည် (hi လုံးဝမသုံးရ)" },
+        { id: 4, rule: "Forbidden words", desc: "tha, iang, mawi များကို တင်းကြပ်စွာ တားမြစ်သည်" },
+        { id: 5, rule: "SOV order", desc: "SOV ဝါကျတည်ဆောက်ပုံ" },
+        { id: 6, rule: "Pronoun alignment", desc: "နာမ်စားများသုံးစွဲခြင်း" },
+        { id: 7, rule: "Plural un", desc: "အများကိန်းပြ un နောက်ဆက်" },
+        { id: 8, rule: "Singular in", desc: "အနည်းကိန်းပြ in နောက်ဆက်" },
+        { id: 9, rule: "Question cim", desc: "မေးခွန်းပုံစံ cim အသုံး" },
+        { id: 10, rule: "No hi connector", desc: "hi ကို စကားဆက်အဖြစ် လုံးဝမသုံးရ" },
+        { id: 11, rule: "Pure vocabulary", desc: "သီးသန့်စစ်မှန်သော တပေါင်ဝေါဟာရများ" },
+        { id: 12, rule: "Negation ai si tawh", desc: "ငြင်းဆိုချက် ai si tawh" },
+        { id: 13, rule: "Negation ai si ngua", desc: "ငြင်းဆိုချက် ai si ngua" },
+        { id: 14, rule: "Direct refusal ai", desc: "တိုက်ရိုက်ငြင်းပယ်ချက် ai" }
+    ];
 
         let selectedWord = null;
         const tbody = document.getElementById('dictionaryBody');

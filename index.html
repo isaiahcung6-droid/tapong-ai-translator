@@ -738,12 +738,12 @@
                 };
             }
 
-            // 7. Time & Days (အချိန်နှင့် နေ့ရက်များ)
-            if (["tu ni", "ni hni", "thaizing", "zan", "zing pha", "caan", "nazi", "minit", "sekan", "kum", "hla"].includes(lowerWord)) {
+            // 7. Days, Time & Schedule (နေ့ရက်များ၊ အချိန်နှင့် အလုပ်ချိန်များ)
+            if (lowerWord.includes("ni") || lowerWord.includes("zarh") || lowerWord.includes("hla") || lowerWord.includes("kum") || ["tu ni", "ni hni", "thaizing", "zan", "zing pha", "caan", "nazi", "minit", "sekan"].some(w => lowerWord.includes(w))) {
                 return {
-                    tapong: `${rawWord} ah caan pha ngai si.`,
-                    english: `This ${lowerEng} is a very good time.`,
-                    myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တဲ့ အချိန်ဖြစ်ပါတယ်။`
+                    tapong: `${rawWord} ah hna per tur ah ka hawh lai.`,
+                    english: `On ${firstEng} I will go to work.`,
+                    myanmar: ` "${firstMy}" မှာ အလုပ်သွားလုပ်မယ်။`
                 };
             }
 
@@ -756,11 +756,11 @@
                 };
             }
 
-            // 9. General Smart Fallback for All Other 310 Words
+            // 9. Natural Meaningful Fallback for Any Other Words
             return {
-                tapong: `${rawWord} ah tapong uan in a pha tak ngua si.`,
-                english: `This '${firstEng}' is very good and useful in Tapong language.`,
-                myanmar: `ဒီ "${firstMy}" ဟာ တပေါင်ဘာသာစကားမှာ အလွန်ကောင်းမွန်ပြီး အသုံးဝင်ပါတယ်။`
+                tapong: `Hi ${rawWord} ah a pha tak ngua si, in ah kan om.`,
+                english: `This '${firstEng}' is very good, we have it at home.`,
+                myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တယ်၊ ငါတို့အိမ်မှာ ရှိပါတယ်။`
             };
         }
 

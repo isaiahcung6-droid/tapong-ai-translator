@@ -588,6 +588,54 @@
             { id: 309, tapong: "Pa", english: "Men", myanmar: "အမျိုးသား" },
             { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
+import java.util.Arrays;
+import java.util.List;
+
+public class TapongGrammarValidator {
+
+    // 11. တင်းကြပ်စွာ တားမြစ်ထားသော ဝေါဟာရများ
+    private static final List<String> FORBIDDEN_WORDS = Arrays.asList("tha", "iang", "mawi");
+
+    public static void validateSentence(String sentence) {
+        String lowerSentence = sentence.toLowerCase();
+        System.out.println("--- Validating Sentence: \"" + sentence + "\" ---");
+
+        // 1. Prohibited Vocabulary Check (Rule 4 & 11)
+        for (String forbidden : FORBIDDEN_WORDS) {
+            if (lowerSentence.contains(forbidden)) {
+                System.out.println("[Error] Prohibited word detected: \"" + forbidden + "\" is strictly banned!");
+            }
+        }
+
+        // 2. Connector Check (`hi` is forbidden as a connector, Rule 3 & 10)
+        if (lowerSentence.contains(" hi ")) {
+            System.out.println("[Warning] Rule violation: 'hi' should not be used as a sentence connector (Use 'ah' instead).");
+        }
+
+        // 3. Aspect Particles Check (Rule 2)
+        boolean hasPast = lowerSentence.contains("celh ha");
+        boolean hasJustCompleted = lowerSentence.contains("celh tiah");
+        boolean hasProgressive = lowerSentence.contains("celh lai tuang") || lowerSentence.contains("celh lai ngua");
+        
+        if (hasPast || hasJustCompleted || hasProgressive) {
+            System.out.println("[Info] Valid Aspect/Tense particle detected.");
+        }
+
+        // 4. Negation Check (Rule 12, 13, 14)
+        if (lowerSentence.contains("ai si tawh") || lowerSentence.contains("ai si ngua") || lowerSentence.equals("ai")) {
+            System.out.println("[Info] Valid Tapong negation structure detected.");
+        }
+
+        System.out.println("Validation complete.\n");
+    }
+
+    public static void main(String[] args) {
+        // စမ်းသပ်မည့် Tapong ဝါကျများ
+        validateSentence("Zing ah hlai ei celh ha");
+        validateSentence("Ai si tawh");
+        validateSentence("Ka hawi hi tha mawi a om"); // တားမြစ်ထားတာတွေ စမ်းသပ်ရန်
+    }
+}
 
         let selectedWord = null;
         const tbody = document.getElementById('dictionaryBody');

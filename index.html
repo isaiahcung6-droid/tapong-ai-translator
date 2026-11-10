@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tapong Ai Translator</title>
+    <title>Tapong Ai Translator </title>
     <meta name="description" content="Official Tapong AI Translator and Dictionary. Pure Tapong ethnic language vocabulary, independent of Falam, Hakha, or Mizo. Created by Isaiah Cung.">
     <meta name="keywords" content="Tapong language, Tapong dictionary, pure Tapong vocabulary, not Falam, not Hakha, not Mizo, Isaiah Cung, Tapong AI, Hawh">
     <meta name="author" content="Isaiah Cung">
@@ -94,7 +94,7 @@
                 <div>
                     <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
                         TAPONG AI TRANSLATOR
-                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v9.0 (Smart Brain AI)</span>
+                        <span class="text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-full font-mono">v8.8 (310 Words & Strict Context AI)</span>
                     </h1>
                     <p class="text-xs text-slate-400 mt-0.5">Creator: <span class="text-slate-200 font-medium">Isaiah Cung (Lati / Bualthang)</span></p>
                 </div>
@@ -176,7 +176,7 @@
                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
                         </h3>
-                        <p class="text-xs text-slate-400">Smart Exact-Matching & Contextual AI Brain</p>
+                        <p class="text-xs text-slate-400">Smart Dictionary & Exact Match Assistant</p>
                     </div>
                 </div>
                 <button onclick="clearChat()" class="text-xs text-slate-400 hover:text-slate-200 px-2.5 py-1.5 rounded-lg border border-slate-800 hover:bg-slate-800 transition">
@@ -191,9 +191,6 @@
                 <button onclick="sendQuickPrompt('Who created this?')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
                     👨‍💻 Who created this?
                 </button>
-                <button onclick="sendQuickPrompt('Show Grammar Rules')" class="text-xs bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 px-3 py-1.5 rounded-full transition">
-                    📐 Grammar Rules (1-14)
-                </button>
             </div>
 
             <div id="chatMessages" class="flex-grow overflow-y-auto space-y-4 pr-2 mb-4 text-sm">
@@ -203,13 +200,13 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong Al Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! My brain has been upgraded with natural contextual sentence generation. Pure Tapong only!</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong Al Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
             </div>
 
             <div class="relative">
-                <input type="text" id="chatInput" placeholder="Ask Tapong AI or test sentence..." onkeydown="if(event.key==='Enter') sendMessage()"
+                <input type="text" id="chatInput" placeholder="Ask Tapong AI anything..." onkeydown="if(event.key==='Enter') sendMessage()"
                        class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl py-3 pl-4 pr-12 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500">
                 <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white flex items-center justify-center transition shadow-md">
                     <i class="fa-solid fa-paper-plane text-xs"></i>
@@ -279,7 +276,6 @@
 
     <!-- JavaScript Engine -->
     <script>
-        // 1. Dictionary ဇယား (သန့်စင်ပြီး စစ်မှန်သော 310 ဝေါဟာရများ)
         const rawList = [
             { id: 1, tapong: "Ai", english: "Speak", myanmar: "စကားပြောသည်" },
             { id: 2, tapong: "Ang ki", english: "Shirt", myanmar: "ရှပ်အင်္ကျီ" },
@@ -593,26 +589,6 @@
             { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
 
-        // 2. Tapong Grammar 1-14 စည်းမျဉ်းများနှင့် တားမြစ်ဝေါဟာရများ စစ်ဆေးသည့် AI Logic
-        const TAPONG_GRAMMAR_RULES = [
-            { id: 1, rule: "Base verb unchanged", desc: "ကြိယာ ပုံစံပြောင်းလဲခြင်းမရှိပါ" },
-            { id: 2, rule: "Aspect particle celh ha", desc: "ပြီးစီးမှုကိုပြသော celh ha အသုံး" },
-            { id: 3, rule: "Connector ah", desc: "စကားဆက်အနေဖြင့် ah ကိုသာ သုံးရမည် (hi လုံးဝမသုံးရ)" },
-            { id: 4, rule: "Forbidden words", desc: "tha, iang, mawi များကို တင်းကြပ်စွာ တားမြစ်သည်" },
-            { id: 5, rule: "SOV order", desc: "SOV ဝါကျတည်ဆောက်ပုံ" },
-            { id: 6, rule: "Pronoun alignment", desc: "နာမ်စားများသုံးစွဲခြင်း" },
-            { id: 7, rule: "Plural un", desc: "အများကိန်းပြ un နောက်ဆက်" },
-            { id: 8, rule: "Singular in", desc: "အနည်းကိန်းပြ in နောက်ဆက်" },
-            { id: 9, rule: "Question cim", desc: "မေးခွန်းပုံစံ cim အသုံး" },
-            { id: 10, rule: "No hi connector", desc: "hi ကို စကားဆက်အဖြစ် လုံးဝမသုံးရ" },
-            { id: 11, rule: "Pure vocabulary", desc: "သီးသန့်စစ်မှန်သော တပေါင်ဝေါဟာရများ" },
-            { id: 12, rule: "Negation ai si tawh", desc: "ငြင်းဆိုချက် ai si tawh" },
-            { id: 13, rule: "Negation ai si ngua", desc: "ငြင်းဆိုချက် ai si ngua" },
-            { id: 14, rule: "Direct refusal ai", desc: "တိုက်ရိုက်ငြင်းပယ်ချက် ai" }
-        ];
-
-        const FORBIDDEN_WORDS = ["tha", "iang", "mawi"];
-
         let selectedWord = null;
         const tbody = document.getElementById('dictionaryBody');
         const searchInput = document.getElementById('searchInput');
@@ -748,45 +724,104 @@
             });
         }
 
-        // 🧠 Upgraded Smart Brain: ပြီးပြည့်စုံပြီး သဘာဝကျသော အဓိပ္ပာယ်ရှိသော ဥပမာဝါကျများထုတ်ပေးသည့် Engine
+        // Context-Aware Example Generator with Proper Natural Tapong Sentences
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
             const firstEng = item.english.split(/[,/]/)[0].trim();
+            const lowerEng = firstEng.toLowerCase();
             const firstMy = item.myanmar.split(/[,/]/)[0].trim();
 
-            // အစားအသောက်/အသီးအနှံများအတွက် စစ်မှန်သောဝါကျ
-            if (["ben hla", "kual hai", "ma kiang", "an taw", "ar sa", "hlai", "ti"].includes(lowerWord)) {
+            // 1. Human / Living Persons
+            if (["mi nung", "mipa", "nupang", "nu", "pa", "pasal", "zi", "naupang", "buai", "huaitu", "la phuahtu", "muang tu", "lai ngantu", "pu", "pi", "nau u", "ral", "ral buai", "ral kap", "siangphahrang", "siangpharang nu"].includes(lowerWord)) {
                 return {
-                    tapong: `Ka lei ah ${rawWord} ah a hmur ngua si, ei celh ha.`,
-                    english: `I bought this ${firstEng}, it is delicious and already eaten/finished.`,
-                    myanmar: `ငါဒီ "${firstMy}" ကိုဝယ်တယ်၊ အရမ်းကောင်းပြီး စားလို့ပြီးသွားပြီ။`
+                    tapong: `Ka ${lowerWord} ah mi pha si.`,
+                    english: `My ${lowerEng} is a good person.`,
+                    myanmar: `ငါ့ရဲ့ ${firstMy} က လူကောင်းတစ်ယောက်ပါ။`
                 };
             }
 
-            // လူပုဂ္ဂိုလ်/မိသားစုအတွက် စစ်မှန်သောဝါကျ
-            if (["nu", "pa", "pasal", "zi", "mipa", "nupang", "naupang", "mi nung"].includes(lowerWord)) {
+            // 2. Foods & Dishes (Exact user phrasing: Ar sa hmeh ah a ur ngai si)
+            if (["ar sa", "vok", "hlai", "hmeh", "ar ti", "an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam"].includes(lowerWord)) {
                 return {
-                    tapong: `Ka ${lowerWord} ah in ah a om, pha tak no in per.`,
-                    english: `My ${firstEng} is at home, working properly and well.`,
-                    myanmar: `ငါ့ရဲ့ "${firstMy}" က အိမ်မှာရှိတယ်၊ အလုပ်ကိုစနစ်တကျလုပ်တယ်။`
+                    tapong: `${rawWord} hmeh ah a ur ngai si.`,
+                    english: `${firstEng} is very delicious.`,
+                    myanmar: `${firstMy} က အရမ်းအရသာရှိတယ်။`
+                };
+            }
+            if (lowerWord === "ti") {
+                return {
+                    tapong: "dang rum le ti in in.",
+                    english: "if you thirsty drink water.",
+                    myanmar: "ရေဆာရင် ရေသောက်ပါ"
                 };
             }
 
-            // အချိန်/နေ့ရက်အတွက် စစ်မှန်သောဝါကျ
-            if (["tu ni", "ni hni", "thaizing", "zan", "zing pha"].includes(lowerWord)) {
+            // 3. Verbs / Actions
+            if (["hawh", "tlung", "ra", "ra leh"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} ah hna per tur ah ka hawh lai.`,
-                    english: `On ${firstEng} I will go to work.`,
-                    myanmar: `ဒီ "${firstMy}" မှာ အလုပ်သွားလုပ်မယ်။`
+                    tapong: `In ah ka ${lowerWord} lai.`,
+                    english: `I will ${lowerEng} home.`,
+                    myanmar: `ငါ အိမ်ကို ${firstMy} မယ်။`
+                };
+            }
+            if (["ei", "in"].includes(lowerWord)) {
+                return {
+                    tapong: `Hlai pha tak in ${lowerWord} in.`,
+                    english: `${firstEng} food properly.`,
+                    myanmar: `ကောင်းမွန်စွာ ${firstMy}ပါ။`
+                };
+            }
+            if (["it", "zal"].includes(lowerWord)) {
+                return {
+                    tapong: `Zan ah pha tak in ${lowerWord} in.`,
+                    english: `${firstEng} well at night.`,
+                    myanmar: `ညဘက်မှာ ကောင်းကောင်း ${firstMy}ပါ။`
+                };
+            }
+            if (["ngan", "lai ngan", "lai siar", "siar"].includes(lowerWord)) {
+                return {
+                    tapong: `Ca uk ah pha tak in ${lowerWord} in.`,
+                    english: `${firstEng} properly in the book.`,
+                    myanmar: `စာအုပ်ကို စနစ်တကျ ${firstMy}ပါ။`
+                };
+            }
+            if (lowerWord === "ai") {
+                return {
+                    tapong: "Tapong uan in ai zir in.",
+                    english: "Learn how to speak in Tapong language.",
+                    myanmar: "တပေါင်ဘာသာစကားပြော သင်ယူပါ။"
+                };
+            }
+            if (lowerWord === "vuah") {
+                return {
+                    tapong: "thil pha ngua vuah mah in.",
+                    english: "Don't do bad things.",
+                    myanmar: "မကောင်းမှုတွေ မလုပ်ပါနဲ့။"
                 };
             }
 
-            // အထွေထွေ ဝေါဟာရများအတွက် အဓိပ္ပာယ်ရှိသော တပေါင်ဝါကျ
+            // 4. Objects / Clothing / Places
+            if (["ang ki", "bongbi", "but", "mit ha lang"].includes(lowerWord)) {
+                return {
+                    tapong: `Hi ${lowerWord} ah a tiar si.`,
+                    english: `This ${lowerEng} is new.`,
+                    myanmar: `ဒီ ${firstMy} က အသစ်ဖြစ်တယ်။`
+                };
+            }
+            if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui"].includes(lowerWord)) {
+                return {
+                    tapong: `${lowerWord} ah ka om.`,
+                    english: `I am at ${lowerEng}.`,
+                    myanmar: `ငါ ${firstMy} မှာ ရှိတယ်။`
+                };
+            }
+
+            // 5. Smart AI Dynamic Sentence Generator for Any Other Words
             return {
-                tapong: `${rawWord} ah tapong uan in a tlangpi ngua si, in ah kan nei celh ha.`,
-                english: `This '${firstEng}' is standard in Tapong language, we already have it at home.`,
-                myanmar: `ဒီ "${firstMy}" ဟာ တပေါင်ဘာသာစကားမှာ အသုံးများပြီး ငါတို့အိမ်မှာ ရှိနှင့်ပြီးသားပါ။`
+                tapong: `${rawWord} ah tapong uan in a pha tak ngua si.`,
+                english: `This '${firstEng}' is very good and useful in Tapong language.`,
+                myanmar: `ဒီ "${firstMy}" က တပေါင်ဘာသာစကားမှာ အလွန်ကောင်းမွန်ပြီး အသုံးဝင်ပါတယ်။`
             };
         }
 
@@ -802,7 +837,8 @@
             resp += `• **Myanmar:** ${item.myanmar}\n\n`;
             
             const ex = generateNaturalExample(item);
-            resp += `💬 **Example Usage (Pure Tapong):**\n`;
+
+            resp += `💬 **Example Usage (3 Languages):**\n`;
             resp += `• **Tapong:** ${ex.tapong}\n`;
             resp += `• **English:** ${ex.english}\n`;
             resp += `• **Myanmar:** ${ex.myanmar}\n`;
@@ -876,7 +912,7 @@
                     </div>
                     <div class="bg-slate-900/90 border border-slate-800 rounded-2xl rounded-tl-none p-3.5 max-w-[85%] text-slate-200 space-y-1.5">
                         <p class="font-medium text-xs text-indigo-400">Tapong Al Assistant</p>
-                        <p class="text-xs md:text-sm">Hello! My brain has been upgraded with natural contextual sentence generation. Pure Tapong only!</p>
+                        <p class="text-xs md:text-sm">Hello! I am your Tapong Al Assistant. Smart exact-matching is active! Type any word or sentence in Tapong, English, or Myanmar.</p>
                     </div>
                 </div>
             `;
@@ -886,34 +922,34 @@
             const rawQuery = query.trim();
             const lower = rawQuery.toLowerCase();
 
-            if (lower.includes('grammar') || lower.includes('စည်းမျဉ်း')) {
-                let grammarResp = `📐 **Tapong Grammar Rules (1-14 System)**\n\n`;
-                TAPONG_GRAMMAR_RULES.forEach(g => {
-                    grammarResp += `• **Rule ${g.id}:** ${g.rule} - ${g.desc}\n`;
-                });
-                appendAiMessage(grammarResp);
-                return;
-            }
+            const isQ1 = (
+                lower.includes('what is tapong or Tapong means') || 
+                lower.includes('tapong ဆိုတာဘာလဲ') || 
+                lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
+                (lower.includes('tapong') && (lower.includes('cu') || lower.includes('zei')))
+            ) && !lower.includes('ကျေးဇူး') && !lower.includes('လို');
 
-            let validationNotes = [];
-            FORBIDDEN_WORDS.forEach(fw => {
-                if (lower.includes(fw)) {
-                    validationNotes.push(`❌ **Warning:** Prohibited word "${fw}" detected (Forbidden under Rule 4/11).`);
-                }
-            });
-            if (lower.includes(' hi ')) {
-                validationNotes.push(`❌ **Warning:** 'hi' is used as a connector (Use 'ah' instead under Rule 3/10).`);
-            }
-
-            const isQ1 = (lower.includes('what is tapong') || lower.includes('tapong ဆိုတာဘာလဲ') || lower.includes('တပေါင်ဆိုတာဘာလဲ'));
             if (isQ1) {
-                appendAiMessage(`📖 **What is Tapong**\n\nTapong is a traditional ethnic language spoken by the Tapong community in Myanmar. Created by Isaiah Cung.`);
+                const q1Response = 
+`📖 **What is Tapong**
+
+• **English:** Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
+
+• **Myanmar:** တပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တပေါင်လူမျိုးများသည် Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam ကဲ့သို့သော ရွာများအပြင် မြေပြန့်ဒေသများတွင်လည်း အဓိက နေထိုင်ကြသည်။`;
+                appendAiMessage(q1Response);
                 return;
             }
 
-            const isQ2 = (lower.includes('created') || lower.includes('creator') || lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး'));
+            const isQ2 = lower.includes('created') || lower.includes('creator') || lower.includes('developer') || 
+                         lower.includes('ဘယ်သူ') || lower.includes('ဖန်တီး') || lower.includes('who') || lower.includes('a tuah tu');
+
             if (isQ2) {
-                appendAiMessage(`🧑‍💻 **Creator:** Created by Isaiah Cung (Lati / Bualthang).`);
+                const q2Response = 
+`🧑‍💻 **Who created this?**
+
+• **English:** Created by Isaiah Cung (Lati / Bualthang).
+• **Myanmar:** Isaiah Cung (Lati / Bualthang) မှ ဖန်တီးပြုလုပ်ထားခြင်းဖြစ်သည်။`;
+                appendAiMessage(q2Response);
                 return;
             }
 
@@ -926,22 +962,29 @@
 
             if (matchedItem) {
                 const ex = generateNaturalExample(matchedItem);
-                let matchResp = `📖 **Dictionary Breakdown & Examples**\n\n• **Tapong:** ${matchedItem.tapong}\n• **English:** ${matchedItem.english}\n• **Myanmar:** ${matchedItem.myanmar}\n\n💬 **Natural Example:**\n• **Tapong:** ${ex.tapong}\n• **English:** ${ex.english}\n• **Myanmar:** ${ex.myanmar}`;
+                const exactMatchResponse = 
+`📖 **Dictionary Breakdown & Examples**
+
+• **Tapong:** ${matchedItem.tapong}
+• **English:** ${matchedItem.english}
+• **Myanmar:** ${matchedItem.myanmar}
+
+💬 **Example Usage (3 Languages):**
+• **Tapong:** ${ex.tapong}
+• **English:** ${ex.english}
+• **Myanmar:** ${ex.myanmar}`;
                 
-                if (validationNotes.length > 0) {
-                    matchResp += `\n\n⚠️ **Grammar Validation Notes:**\n` + validationNotes.join('\n');
-                }
-                appendAiMessage(matchResp);
+                appendAiMessage(exactMatchResponse);
                 return;
             }
 
-            let fallbackResp = `✨ **Tapong AI Assistant (Smart Brain)**\n\n• **Query:** ${rawQuery}\n• **Context Analysis:** Processed successfully with pure Tapong rules.`;
-            if (validationNotes.length > 0) {
-                fallbackResp += `\n\n⚠️ **Grammar Validation Notes:**\n` + validationNotes.join('\n');
-            } else {
-                fallbackResp += `\n• **Grammar Check:** No Mizo, Falam, or Hakha mixing. Pure Tapong syntax verified!`;
-            }
-            appendAiMessage(fallbackResp);
+            const fallbackResponse = 
+`✨ **Tapong Al Assistant**
+
+• **Query:** ${rawQuery}
+• **Status:** Dictionary ထဲတွင် တိုက်ရိုက်ကိုက်ညီသော စာလုံး မတွေ့ရှိသေးပါ။ စကားလုံး သို့မဟုတ် အဓိက ဝေါဟာရများကို ပြန်လည်စစ်ဆေးပေးပါ။`;
+
+            appendAiMessage(fallbackResponse);
         }
 
         clearBtn.addEventListener('click', () => {

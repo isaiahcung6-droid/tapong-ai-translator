@@ -588,8 +588,8 @@
             { id: 309, tapong: "Pa", english: "Men", myanmar: "အမျိုးသား" },
             { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
-    
-        // TAPONG GRAMMAR RULES (ပြန်လည်ထည့်သွင်းပြီးပါပြီ)
+
+        // TAPONG GRAMMAR RULES
         const TAPONG_GRAMMAR_RULES = [
             { id: 1, rule: "Base verb unchanged", desc: "ကြိယာ ပုံစံပြောင်းလဲခြင်းမရှိပါ" },
             { id: 2, rule: "Aspect particle celh ha", desc: "ပြီးစီးမှုကိုပြသော celh ha အသုံး" },
@@ -742,6 +742,7 @@
             });
         }
 
+        // Context-Aware Example Generator for All Dictionary Words (9 Categories Rule)
         function generateNaturalExample(item) {
             const rawWord = item.tapong.split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
@@ -749,91 +750,83 @@
             const lowerEng = firstEng.toLowerCase();
             const firstMy = item.myanmar.split(/[,/]/)[0].trim();
 
-            if (["mi nung", "mipa", "nupang", "nu", "pa", "pasal", "zi", "naupang", "buai", "huaitu", "la phuahtu", "muang tu", "lai ngantu", "pu", "pi", "nau u", "ral", "ral buai", "ral kap", "siangphahrang", "siangpharang nu"].includes(lowerWord)) {
+            // 1. Animals & Meats (တိရစ္ဆာန်နှင့် အသားများ)
+            if (["ar", "vok", "kualpaw", "vaw no", "ui co", "ar sa"].includes(lowerWord)) {
                 return {
-                    tapong: `Ka ${lowerWord} ah mi pha si.`,
-                    english: `My ${lowerEng} is a good person.`,
-                    myanmar: `ငါ့ရဲ့ ${firstMy} က လူကောင်းတစ်ယောက်ပါ။`
+                    tapong: `${rawWord} ah ram sa pha tak ngua si.`,
+                    english: `This ${lowerEng} is a very good animal.`,
+                    myanmar: `ဒီ "${firstMy}" ဟာ အလွန်ကောင်းမွန်တဲ့ တိရစ္ဆာန်တစ်ခု ဖြစ်ပါတယ်။`
                 };
             }
 
-            if (["ar sa", "vok", "hlai", "hmeh", "ar ti", "an cang kha", "kual hai", "ben hla", "ma kiang", "an taw", "pihuam"].includes(lowerWord)) {
+            // 2. Fruits & Foods (အသီးအနှံနှင့် အစားအစာများ)
+            if (["ben hla", "kual hai", "ma kiang", "an taw", "ar ti", "an cang kha", "pihuam", "hlai", "hmeh"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} hmeh ah a ur ngai si.`,
-                    english: `${firstEng} is very delicious.`,
-                    myanmar: `${firstMy} က အရမ်းအရသာရှိတယ်။`
-                };
-            }
-            if (lowerWord === "ti") {
-                return {
-                    tapong: "dang rum le ti in in.",
-                    english: "if you thirsty drink water.",
-                    myanmar: "ရေဆာရင် ရေသောက်ပါ"
+                    tapong: `${rawWord} ah a ur ngai si, ei celh ha.`,
+                    english: `This ${lowerEng} is very delicious, already eaten/finished.`,
+                    myanmar: `ဒီ "${firstMy}" က အရမ်းအရသာရှိပြီး စားလို့ပြီးသွားပြီ။`
                 };
             }
 
-            if (["hawh", "tlung", "ra", "ra leh"].includes(lowerWord)) {
+            // 3. Drinks & Water (အရည်နှင့် ရေ)
+            if (["ti", "zu"].includes(lowerWord)) {
                 return {
-                    tapong: `In ah ka ${lowerWord} tuh.`,
-                    english: `I will ${lowerEng} home.`,
-                    myanmar: `ငါ အိမ်ကို ${firstMy} မယ်။`
-                };
-            }
-            if (["ei", "in"].includes(lowerWord)) {
-                return {
-                    tapong: `Hlai pha tak in ${lowerWord} in.`,
-                    english: `${firstEng} food properly.`,
-                    myanmar: `ကောင်းမွန်စွာ ${firstMy}ပါ။`
-                };
-            }
-            if (["it", "zal"].includes(lowerWord)) {
-                return {
-                    tapong: `Zan ah pha tak in ${lowerWord} in.`,
-                    english: `${firstEng} well at night.`,
-                    myanmar: `ညဘက်မှာ ကောင်းကောင်း ${firstMy}ပါ။`
-                };
-            }
-            if (["ngan", "lai ngan", "lai siar", "siar"].includes(lowerWord)) {
-                return {
-                    tapong: `Ca uk ah pha tak in ${lowerWord} in.`,
-                    english: `${firstEng} properly in the book.`,
-                    myanmar: `စာအုပ်ကို စနစ်တကျ ${firstMy}ပါ။`
-                };
-            }
-            if (lowerWord === "ai") {
-                return {
-                    tapong: "Tapong uan in ai zir in.",
-                    english: "Learn how to speak in Tapong language.",
-                    myanmar: "တပေါင်ဘာသာစကားပြော သင်ယူပါ။"
-                };
-            }
-            if (lowerWord === "vuah") {
-                return {
-                    tapong: "thil pha ngua vuah mah in.",
-                    english: "Don't do bad things.",
-                    myanmar: "မကောင်းမှုတွေ မလုပ်ပါနဲ့။"
+                    tapong: `Dang rum le ${rawWord} in in.`,
+                    english: `If you are thirsty, drink ${lowerEng}.`,
+                    myanmar: `ရေဆာရင် "${firstMy}" ကို သောက်ပါ။`
                 };
             }
 
-            if (["ang ki", "bongbi", "but", "mit ha lang"].includes(lowerWord)) {
+            // 4. Family & People (မိသားစုနှင့် လူပုဂ္ဂိုလ်များ)
+            if (["nu", "pa", "pasal", "zi", "mipa", "nupang", "naupang", "mi nung", "buai", "huaitu", "pu", "pi", "nau u", "ral", "siangphahrang", "siangpharang nu"].includes(lowerWord)) {
                 return {
-                    tapong: `Hi ${lowerWord} ah a tiar si.`,
-                    english: `This ${lowerEng} is new.`,
-                    myanmar: `ဒီ ${firstMy} က အသစ်ဖြစ်တယ်။`
-                };
-            }
-            if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui"].includes(lowerWord)) {
-                return {
-                    tapong: `${lowerWord} ah ka om.`,
-                    english: `I am at ${lowerEng}.`,
-                    myanmar: `ငါ ${firstMy} မှာ ရှိတယ်။`
+                    tapong: `Ka ${lowerWord} ah mi pha ngai si.`,
+                    english: `My ${lowerEng} is a very good person.`,
+                    myanmar: `ငါ့ရဲ့ "${firstMy}" က အလွန်လူကောင်းတစ်ယောက် ဖြစ်ပါတယ်။`
                 };
             }
 
+            // 5. Locations & Buildings (နေရာဒေသနှင့် အဆောက်အအုံများ)
+            if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui", "ram"].includes(lowerWord)) {
+                return {
+                    tapong: `Hi ${lowerWord} ah a hmun pha ngai si.`,
+                    english: `This ${lowerEng} is a very good place.`,
+                    myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တဲ့ နေရာဖြစ်ပါတယ်။`
+                };
+            }
+
+            // 6. Clothing & Personal Items (အဝတ်အထည်နှင့် ကိုယ်ပိုင်ပစ္စည်းများ)
+            if (["ang ki", "bongbi", "but", "ke zep", "mit ha lang", "ca uk", "cabuai", "toh khiang", "dongkham"].includes(lowerWord)) {
+                return {
+                    tapong: `Hi ${lowerWord} ah a tiar ngai si.`,
+                    english: `This ${lowerEng} is very new.`,
+                    myanmar: `ဒီ "${firstMy}" က အလွန်အသစ်ဖြစ်ပါတယ်။`
+                };
+            }
+
+            // 7. Days, Time & Schedule (နေ့ရက်များ၊ အချိန်နှင့် အလုပ်ချိန်များ)
+            if (lowerWord.includes("ni") || lowerWord.includes("zarh") || lowerWord.includes("hla") || lowerWord.includes("kum") || ["tu ni", "ni hni", "thaizing", "zan", "zing pha", "caan", "nazi", "minit", "sekan"].some(w => lowerWord.includes(w))) {
+                return {
+                    tapong: `${rawWord} ah hna per tur ah ka hawh lai.`,
+                    english: `On ${firstEng} I will go to work.`,
+                    myanmar: ` "${firstMy}" မှာ အလုပ်သွားလုပ်မယ်။`
+                };
+            }
+
+            // 8. Movement & Actions (သွားလာလှုပ်ရှားမှုနှင့် လုပ်ဆောင်ချက်များ)
+            if (["hawh", "tlung", "ra", "ra leh", "tlan", "vak", "duan", "ding", "to", "zal", "it"].includes(lowerWord)) {
+                return {
+                    tapong: `In ah pha tak in ${lowerWord} in.`,
+                    english: `Do ${lowerEng} properly at home.`,
+                    myanmar: `အိမ်မှာ စနစ်တကျ "${firstMy}" ပါ။`
+                };
+            }
+
+            // 9. Natural Meaningful Fallback for Any Other Words
             return {
-                tapong: `${rawWord} ah tapong uan in a pha tak ngua si.`,
-                english: `This '${firstEng}' is very good and useful in Tapong language.`,
-                myanmar: `ဒီ "${firstMy}" က တပေါင်ဘာသာစကားမှာ အလွန်ကောင်းမွန်ပြီး အသုံးဝင်ပါတယ်။`
+                tapong: `Hi ${rawWord} ah a pha tak ngua si, in ah kan om.`,
+                english: `This '${firstEng}' is very good, we have it at home.`,
+                myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တယ်၊ ငါတို့အိမ်မှာ ရှိပါတယ်။`
             };
         }
 

@@ -763,6 +763,26 @@
                 myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တယ်၊ ငါတို့အိမ်မှာ ရှိပါတယ်။`
             };
         }
+        // Tapong AI Advanced Grammar & Context Rules
+        const TAPONG_GRAMMAR_RULES = {
+            movement: {
+                tlung: "Returning or going back to home/base (e.g., 'In ah ka tlung lai')",
+                liang: "Visiting friends or acquaintances (e.g., 'Ka liang lai')",
+                hawh: "General going/traveling to a place (e.g., 'Ka hawh lai')",
+                khual_tluang: "Long-distance journey/traveling far"
+            },
+            aspectLai: {
+                inProgress: "Verb + 'lai' indicates an action in progress on the way (e.g., 'Ka hawh lai' = going right now; 'Ka tlung lai' = returning right now; 'Ka ra lai' = coming right now)",
+                spatialPosition: "'A lai ah' specifically means in the middle or center"
+            },
+            coreRules: [
+                "SOV Order: Subject + Object + Verb structure.",
+                "Strict Connector: Use 'ah' only as a connector; never use 'hi' as a connector.",
+                "Completed Action: Use 'celh ha' for completed aspect.",
+                "Negations: Use 'ai si tawh' or 'ai si ngua' for negation; use 'ai' for direct refusal.",
+                "Forbidden Words: Pure Tapong vocabulary only (no Falam/Hakha words like 'tha', 'iang', 'mawi')."
+            ]
+        };
 
         function openModal(item, id) {
             selectedWord = item;

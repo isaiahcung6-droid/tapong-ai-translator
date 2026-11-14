@@ -754,9 +754,9 @@
             // 1. Animals & Meats (တိရစ္ဆာန်နှင့် အသားများ)
             if (["ar", "vok", "kualpaw", "vaw no", "ui co", "ar sa"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} ah ram sa pha tak ngua si.`,
+                    tapong: `${rawWord} ah ran nung teh ah inn vul tuh in pha si.`,
                     english: `This ${lowerEng} is a very good animal.`,
-                    myanmar: `ဒီ "${firstMy}" ဟာ အလွန်ကောင်းမွန်တဲ့ တိရစ္ဆာန်တစ်ခု ဖြစ်ပါတယ်။`
+                    myanmar: `ဒီ "${firstMy}" ဟာ ကောင်းမွန်တဲ့ တိရစ္ဆာန်တွေ ဖြစ်ပါတယ်။`
                 };
             }
 
@@ -790,10 +790,9 @@
             // 5. Locations & Buildings (နေရာဒေသနှင့် အဆောက်အအုံများ)
             if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui", "ram"].includes(lowerWord)) {
                 return {
-                    tapong: `Hi ${lowerWord} ah a hmun pha ngai si.`,
-                    english: `This ${lowerEng} is a very good place.`,
-                    myanmar: `ဒီ "${firstMy}" က အလွန်ကောင်းမွန်တဲ့ နေရာဖြစ်ပါတယ်။`
-                };
+                    tapong: `${lowerWord} ah ka om.`,
+                    english: i am at `${lowerEng} .`,
+                    myanmar: ငါ `"${firstMy}" ရှိတယ်။`
             }
 
             // 6. Clothing & Personal Items (အဝတ်အထည်နှင့် ကိုယ်ပိုင်ပစ္စည်းများ)
@@ -808,7 +807,7 @@
             // 7. Days, Time & Schedule (နေ့ရက်များ၊ အချိန်နှင့် အလုပ်ချိန်များ)
             if (lowerWord.includes("ni") || lowerWord.includes("zarh") || lowerWord.includes("hla") || lowerWord.includes("kum") || ["tu ni", "ni hni", "thaizing", "zan", "zing pha", "caan", "nazi", "minit", "sekan"].some(w => lowerWord.includes(w))) {
                 return {
-                    tapong: `${rawWord} ah hna per tur ah ka hawh lai.`,
+                    tapong: `${rawWord} ah hna per hrih ang.`,
                     english: `On ${firstEng} I will go to work.`,
                     myanmar: ` "${firstMy}" မှာ အလုပ်သွားလုပ်မယ်။`
                 };

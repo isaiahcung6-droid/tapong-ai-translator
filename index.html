@@ -754,8 +754,8 @@
             // 1. Animals & Meats (တိရစ္ဆာန်နှင့် အသားများ)
             if (["ar", "vok", "kualpaw", "vaw no", "ui co", "ar sa"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} ah ran nung teh ah inn vul tuh in pha si.`,
-                    english: `This ${lowerEng} is a very good animal.`,
+                    tapong: ` ${rawWord} ah ran nung teh ah inn vul tuh in pha si.`,
+                    english: ` ${lowerEng} is a very good animal.`,
                     myanmar: `ဒီ "${firstMy}" ဟာ ကောင်းမွန်တဲ့ တိရစ္ဆာန်တွေ ဖြစ်ပါတယ်။`
                 };
             }
@@ -763,7 +763,7 @@
             // 2. Fruits & Foods (အသီးအနှံနှင့် အစားအစာများ)
             if (["ben hla", "kual hai", "ma kiang", "an taw", "ar ti", "an cang kha", "pihuam", "hlai", "hmeh"].includes(lowerWord)) {
                 return {
-                    tapong: `${rawWord} ah a ur ngai si, ei celh ha.`,
+                    tapong: `Hi ${rawWord} ah a ur ngai si, ei celh ha.`,
                     english: `This ${lowerEng} is very delicious, already eaten/finished.`,
                     myanmar: `ဒီ "${firstMy}" က အရမ်းအရသာရှိပြီး စားလို့ပြီးသွားပြီ။`
                 };
@@ -790,9 +790,9 @@
             // 5. Locations & Buildings (နေရာဒေသနှင့် အဆောက်အအုံများ)
             if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui", "ram"].includes(lowerWord)) {
                 return {
-                    tapong: `${lowerWord} ah ka om.`,
-                    english: i am at `${lowerEng} .`,
-                    myanmar: ငါ `"${firstMy}" ရှိတယ်။`
+                    tapong: ` ${lowerWord} ah ka om.`,
+                    english: `i am at ${lowerEng} .`,
+                    myanmar: `ငါ "${firstMy}" ရှိတယ်။`
             }
 
             // 6. Clothing & Personal Items (အဝတ်အထည်နှင့် ကိုယ်ပိုင်ပစ္စည်းများ)

@@ -793,6 +793,7 @@
                     tapong: ` ${lowerWord} ah ka om.`,
                     english: `i am at ${lowerEng} .`,
                     myanmar: `ငါ "${firstMy}" ရှိတယ်။`
+                };
             }
 
             // 6. Clothing & Personal Items (အဝတ်အထည်နှင့် ကိုယ်ပိုင်ပစ္စည်းများ)
@@ -824,10 +825,9 @@
 
             // 9. Natural Meaningful Fallback for Any Other Words
             return {
-                tapong: `Hi ${rawWord} mi lai ah Tapong Ai Translator i tah ngan hk om lai ngua si.`,
-                english: `This '${firstEng}'word is not yet written or shown in the Tapong AI Translator .`,
-                myanmar: `ဤ "${firstMy}" စာလုံးသည် Tapong Ai Translator ထဲတွင်ရေးသားဖော်ပြထားခြင်းမရှိသေးပါ
-လို့အဓီပ္ပာယ်ရတရ် `
+                tapong: `Hi mi lai ah Tapong Ai Translator tah ngan hak zei mah om lai ngua si.`,
+                english: `This '${firstEng}' word is not yet written or shown in the Tapong AI Translator.`,
+                myanmar: `ဤ "${firstMy}" စာလုံးသည် Tapong Ai Translator ထဲတွင်ရေးသားဖော်ပြထားခြင်းမရှိသေးပါ`
             };
         }
 

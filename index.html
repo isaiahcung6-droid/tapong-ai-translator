@@ -749,11 +749,11 @@
 
         // Context-Aware Example Generator for All Dictionary Words (9 Categories Rule)
         function generateNaturalExample(item) {
-            const rawWord = item.tapong.split(/[,/]/)[0].trim();
+            const rawWord = (item.tapong || '').split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
-            const firstEng = item.english.split(/[,/]/)[0].trim();
+            const firstEng = (item.english || '').split(/[,/]/)[0].trim();
             const lowerEng = firstEng.toLowerCase();
-            const firstMy = item.myanmar.split(/[,/]/)[0].trim();
+            const firstMy = (item.myanmar || '').split(/[,/]/)[0].trim();
 
             // 1. Animals & Meats (တိရစ္ဆာန်နှင့် အသားများ)
             if (["ar", "vok", "kualpaw", "vaw no", "ui co", "ar sa"].includes(lowerWord)) {
@@ -792,11 +792,11 @@
             }
 
             // 5. Locations & Buildings (နေရာဒေသနှင့် အဆောက်အအုံများ)
-            if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui", "ram"].includes(lowerWord)) {
+            if (["in", "inn", "tuang in", "biak in", "si zung", "zung", "khua", "khuapui", "ram", "hmun", "um hmun", "lut hmun", "suak hmun"].includes(lowerWord)) {
                 return {
-                    tapong: ` ${lowerWord} ah ka om.`,
-                    english: `i am at ${lowerEng} .`,
-                    myanmar: `ငါ "${firstMy}" ရှိတယ်။`
+                    tapong: ` ${rawWord} ah ka om.`,
+                    english: `I am at ${lowerEng}.`,
+                    myanmar: `ငါ "${firstMy}" မှာ ရှိတယ်။`
                 };
             }
 
@@ -827,11 +827,11 @@
                 };
             }
 
-            // 9. Natural Meaningful Fallback for Any Other Words
+            // 9. General Usage for Any Other Dictionary Words
             return {
-                tapong: `Hi mi lai ah Tapong Ai Translator tah ngan hak zei mah om lai ngua si.`,
-                english: `This '${firstEng}' word is not yet written or shown in the Tapong AI Translator.`,
-                myanmar: `ဤ "${firstMy}" စာလုံးသည် Tapong Ai Translator ထဲတွင်ရေးသားဖော်ပြထားခြင်းမရှိသေးပါ`
+                tapong: `Hi "${rawWord}" ah Tapong uan tah "${firstMy}" ti in a si.`,
+                english: `In Tapong, "${rawWord}" means "${firstEng}".`,
+                myanmar: `တပေါင်ဘာသာတွင် "${rawWord}" သည် "${firstMy}" ဟု အဓိပ္ပာယ်ရသည်။`
             };
         }
 
@@ -840,19 +840,14 @@
             const item = selectedWord;
             closeModal();
             switchTab('ai');
-            
-            let resp = `📖 **Dictionary Breakdown & Examples**\n\n`;
-            resp += `• **Tapong:** ${item.tapong}\n`;
-            resp += `• **English:** ${item.english}\n`;
-            resp += `• **Myanmar:** ${item.myanmar}\n\n`;
-            
+
             const ex = generateNaturalExample(item);
 
-            resp += `💬 **Example Usage (3 Languages):**\n`;
+            let resp = `💬 **Example Usage (3 Languages):**\n\n`;
             resp += `• **Tapong:** ${ex.tapong}\n`;
             resp += `• **English:** ${ex.english}\n`;
-            resp += `• **Myanmar:** ${ex.myanmar}\n`;
-            
+            resp += `• **Myanmar:** ${ex.myanmar}`;
+
             appendUserMessage(`${item.tapong}`);
             setTimeout(() => {
                 appendAiMessage(resp);
@@ -966,24 +961,19 @@
                 const t = item.tapong.toLowerCase();
                 const e = item.english.toLowerCase();
                 const m = item.myanmar.toLowerCase();
-                return t === lower || e === lower || m === lower;
+                return t === lower || e === lower || m === lower || item.id.toString() === lower;
             }) || AI_EXTRA_ENTRIES.find(item => {
-                const t = item.tapong.toLowerCase();
-                const e = item.english.toLowerCase();
-                const m = item.myanmar.toLowerCase();
-                return t === lower || e === lower || m === lower || t.includes(lower) || e.includes(lower) || m.includes(lower);
+                const t = (item.tapong || '').toLowerCase();
+                const e = (item.english || '').toLowerCase();
+                const m = (item.myanmar || '').toLowerCase();
+                return (t && (t === lower || t.includes(lower))) || (e && (e === lower || e.includes(lower))) || (m && (m === lower || m.includes(lower))) || item.id.toString() === lower;
             });
 
             if (matchedItem) {
                 const ex = generateNaturalExample(matchedItem);
                 const exactMatchResponse = 
-`📖 **Dictionary Breakdown & Examples**
+`💬 **Example Usage (3 Languages):**
 
-• **Tapong:** ${matchedItem.tapong}
-• **English:** ${matchedItem.english}
-• **Myanmar:** ${matchedItem.myanmar}
-
-💬 **Example Usage (3 Languages):**
 • **Tapong:** ${ex.tapong}
 • **English:** ${ex.english}
 • **Myanmar:** ${ex.myanmar}`;
@@ -992,6 +982,7 @@
                 return;
             }
 
+            const fallbackResponse = `Sorry, I couldn't find an exact match for "${escapeHtml(rawQuery)}" yet. Try another Tapong, English, or Myanmar word.`;
             appendAiMessage(fallbackResponse);
         }
 

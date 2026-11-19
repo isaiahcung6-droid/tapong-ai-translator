@@ -929,7 +929,7 @@
             const lower = rawQuery.toLowerCase();
 
             const isQ1 = (
-                lower.includes('what is tapong or Tapong means') || 
+                lower.includes('what is tapong') || 
                 lower.includes('tapong ဆိုတာဘာလဲ') || 
                 lower.includes('တပေါင်ဆိုတာဘာလဲ') || 
                 (lower.includes('tapong') && (lower.includes('cu') || lower.includes('zei')))
@@ -937,11 +937,10 @@
 
             if (isQ1) {
                 const q1Response = 
-`📖 **What is Tapong**
+`**What is Tapong**
 
-• **English:** Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
-
-• **Myanmar:** တပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တပေါင်လူမျိုးများသည် Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam ကဲ့သို့သော ရွာများအပြင် မြေပြန့်ဒေသများတွင်လည်း အဓိက နေထိုင်ကြသည်။`;
+* **English:** Tapong is a traditional ethnic language spoken by the Tapong community in Myanmar. The Tapong people primarily reside in villages such as Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam, as well as in plains areas.
+* **Myanmar:** တပေါင်ဆိုသည်မှာ မြန်မာနိုင်ငံရှိ တပေါင်လူ့အသိုင်းအဝိုင်း ပြောဆိုကြသော ရိုးရာတိုင်းရင်းသားဘာသာစကား တစ်ခုဖြစ်သည်။ တပေါင်လူမျိုးများသည် Lati, Kulzam, Lungbum, Parte, Simzual, Farkhuam ကဲ့သို့သော ရွာများအပြင် မြေပြန့်ဒေသများတွင်လည်း အဓိက နေထိုင်ကြသည်။`;
                 appendAiMessage(q1Response);
                 return;
             }

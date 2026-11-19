@@ -590,6 +590,28 @@
             { id: 310, tapong: "Nu", english: "Women", myanmar: "အမျိုးသမီး" }
         ];
 
+        // AI ASSISTANT ONLY KNOWLEDGE (520 - 537) — NOT SHOWN IN DICTIONARY TABLE
+        const AI_EXTRA_ENTRIES = [
+            { id: 520, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 521, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 522, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 523, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 524, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 525, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 526, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 527, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 528, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 529, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 530, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 531, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 532, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 533, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 534, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 535, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 536, tapong: "", english: "", myanmar: "", note: "" },
+            { id: 537, tapong: "", english: "", myanmar: "", note: "" }
+        ];
+
         // TAPONG GRAMMAR RULES
         const TAPONG_GRAMMAR_RULES = [
             { id: 1, rule: "Base verb unchanged", desc: "ကြိယာ ပုံစံပြောင်းလဲခြင်းမရှိပါ" },
@@ -745,11 +767,11 @@
 
         // Context-Aware Example Generator for All Dictionary Words (9 Categories Rule)
         function generateNaturalExample(item) {
-            const rawWord = item.tapong.split(/[,/]/)[0].trim();
+            const rawWord = (item.tapong || '').split(/[,/]/)[0].trim();
             const lowerWord = rawWord.toLowerCase();
-            const firstEng = item.english.split(/[,/]/)[0].trim();
+            const firstEng = (item.english || '').split(/[,/]/)[0].trim();
             const lowerEng = firstEng.toLowerCase();
-            const firstMy = item.myanmar.split(/[,/]/)[0].trim();
+            const firstMy = (item.myanmar || '').split(/[,/]/)[0].trim();
 
             // 1. Animals & Meats (တိရစ္ဆာန်နှင့် အသားများ)
             if (["ar", "vok", "kualpaw", "vaw no", "ui co", "ar sa"].includes(lowerWord)) {
@@ -962,18 +984,26 @@
                 const t = item.tapong.toLowerCase();
                 const e = item.english.toLowerCase();
                 const m = item.myanmar.toLowerCase();
-                return t === lower || e === lower || m === lower;
+                return t === lower || e === lower || m === lower || item.id.toString() === lower;
+            }) || AI_EXTRA_ENTRIES.find(item => {
+                const t = (item.tapong || '').toLowerCase();
+                const e = (item.english || '').toLowerCase();
+                const m = (item.myanmar || '').toLowerCase();
+                const n = (item.note || '').toLowerCase();
+                return (t && t === lower) || (e && e === lower) || (m && m === lower) || (n && n.includes(lower)) || item.id.toString() === lower;
             });
 
             if (matchedItem) {
                 const ex = generateNaturalExample(matchedItem);
+                const noteLine = matchedItem.note ? `• **Note:** ${matchedItem.note}\n` : '';
                 const exactMatchResponse = 
 `📖 **Dictionary Breakdown & Examples**
 
-• **Tapong:** ${matchedItem.tapong}
-• **English:** ${matchedItem.english}
-• **Myanmar:** ${matchedItem.myanmar}
-
+• **Entry #:** ${matchedItem.id}
+• **Tapong:** ${matchedItem.tapong || '-'}
+• **English:** ${matchedItem.english || '-'}
+• **Myanmar:** ${matchedItem.myanmar || '-'}
+${noteLine}
 💬 **Example Usage (3 Languages):**
 • **Tapong:** ${ex.tapong}
 • **English:** ${ex.english}
@@ -983,6 +1013,7 @@
                 return;
             }
 
+            const fallbackResponse = `Sorry, I couldn't find an exact match for "${escapeHtml(rawQuery)}" yet. Try another Tapong, English, or Myanmar word.`;
             appendAiMessage(fallbackResponse);
         }
 
